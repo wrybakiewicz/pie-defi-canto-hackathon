@@ -1,9 +1,12 @@
+import { ethers } from "ethers";
 import {
   defaultNextBlockToIndex,
   docClient,
   dynamodbLastSyncedBlockTableName,
   provider,
 } from "./constants";
+
+import { abi as PositionRouter } from "./abis/PositionRouter.json";
 
 import { QueryCommand, PutCommand } from "@aws-sdk/lib-dynamodb";
 
@@ -24,10 +27,40 @@ export async function getNextBlockNumberToIndex(): Promise<number | undefined> {
   }
 }
 
-export async function synchronizeBlock(blockNumber: number): Promise<void> {
-  const block = await provider.getBlock(blockNumber);
-  //TODO: do actual sync
-  setBlockSynced(blockNumber).then((x) => console.log("SYNCED"));
+export async function synchronizeBlocks(blockNumbers: number[]): Promise<void> {
+  const indexableTransactions = (
+    await Promise.all(
+      blockNumbers.map(async (blockNumber) => {
+        const block = await provider.getBlock(blockNumber);
+        return (
+          await Promise.all(
+            block.transactions.map(async (transactionHash) => {
+              const receipt = await provider.getTransactionReceipt(
+                transactionHash
+              );
+              const contractInterface = new ethers.utils.Interface(
+                PositionRouter
+              );
+              const receiptCheckResult = receipt.logs.map((log) => {
+                const event = contractInterface.parseLog(log);
+                console.log("Event Name:", event.name);
+                console.log("Event Values:", event.args);
+                return event.name === "ExecuteIncreasePosition";
+              });
+              if (receiptCheckResult.some((result) => result)) {
+                return receipt;
+              }
+            })
+          )
+        ).filter((receipt) => receipt !== undefined);
+      })
+    )
+  ).flat();
+
+  console.log("Indexable transactions");
+  console.log(indexableTransactions);
+
+  setBlockSynced(blockNumbers[blockNumbers.length - 1]);
 }
 
 async function getLastSyncedBlockFromDb(): Promise<number | undefined> {
