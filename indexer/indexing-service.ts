@@ -10,11 +10,10 @@ import { abi as PositionRouter } from "./abis/PositionRouter.json";
 
 import { QueryCommand, PutCommand } from "@aws-sdk/lib-dynamodb";
 
-export async function getNextBlockNumberToIndex(): Promise<number | undefined> {
-  const currentBlockNumberPromise = provider.getBlockNumber();
-  const lastSyncedBlockFromDbPromise = getLastSyncedBlockFromDb();
-  const currentBlockNumber = await currentBlockNumberPromise;
-  const lastSyncedBlockFromDb = await lastSyncedBlockFromDbPromise;
+export async function getNextBlockNumberToIndex(
+  currentBlockNumber: number
+): Promise<number | undefined> {
+  const lastSyncedBlockFromDb = await getLastSyncedBlockFromDb();
   if (lastSyncedBlockFromDb !== undefined) {
     if (lastSyncedBlockFromDb < currentBlockNumber) {
       return lastSyncedBlockFromDb + 1;

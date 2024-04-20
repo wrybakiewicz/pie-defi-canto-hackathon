@@ -1,16 +1,24 @@
+import { blockBatchSize, provider } from "./constants";
 import {
   getNextBlockNumberToIndex,
   synchronizeBlocks,
 } from "./indexing-service";
+import { createRange } from "./utils";
 
 const run = async () => {
   console.log("Running indexer");
-  let blockNumber = await getNextBlockNumberToIndex();
   while (true) {
-    if (blockNumber !== undefined) {
-      console.log(`New block ${blockNumber}`);
-      await synchronizeBlocks([blockNumber]);
-      blockNumber += 1;
+    const currentBlockNumber = await provider.getBlockNumber();
+    const nextBlockNumber = await getNextBlockNumberToIndex(currentBlockNumber);
+    if (nextBlockNumber !== undefined) {
+      const range = createRange(
+        nextBlockNumber,
+        Math.min(nextBlockNumber + blockBatchSize, currentBlockNumber)
+      );
+      console.log(
+        `Syncing new blocks from ${range[0]} to ${range[range.length - 1]}`
+      );
+      await synchronizeBlocks(range);
     } else {
       console.log("No new block");
       await sleep(1000);
