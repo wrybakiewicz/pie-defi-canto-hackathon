@@ -1,7 +1,9 @@
+import { getNextBlockToIndex } from "./indexing-service";
+
 const run = async () => {
   console.log("Running indexer");
   while (true) {
-    const block = 8448050; // get from db / cadence deployment
+    const block = await getNextBlockToIndex();
     if (block) {
       console.log(`New block ${block}`);
       //synchronize block

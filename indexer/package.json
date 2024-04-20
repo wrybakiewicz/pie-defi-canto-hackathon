@@ -7,6 +7,11 @@
     "start": "ts-node ./index.ts"
   },
   "dependencies": {
+    "@aws-sdk/client-dynamodb": "^3.556.0",
+    "@aws-sdk/lib-dynamodb": "^3.556.0",
+    "@types/node": "^18.19.31",
+    "dotenv": "^16.4.5",
+    "ethers": "^5.7.2",
     "ts-node": "^10.9.2",
     "typescript": "^5.4.5"
   }
