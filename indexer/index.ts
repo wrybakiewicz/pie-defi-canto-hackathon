@@ -1,12 +1,16 @@
-import { getNextBlockToIndex } from "./indexing-service";
+import {
+  getNextBlockNumberToIndex,
+  synchronizeBlock,
+} from "./indexing-service";
 
 const run = async () => {
   console.log("Running indexer");
+  let blockNumber = await getNextBlockNumberToIndex();
   while (true) {
-    const block = await getNextBlockToIndex();
-    if (block) {
-      console.log(`New block ${block}`);
-      //synchronize block
+    if (blockNumber !== undefined) {
+      console.log(`New block ${blockNumber}`);
+      await synchronizeBlock(blockNumber);
+      blockNumber += 1;
     } else {
       console.log("No new block");
       await sleep(1000);
