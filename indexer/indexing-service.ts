@@ -57,8 +57,12 @@ export async function synchronizeBlocks(blockNumbers: number[]): Promise<void> {
     )
   ).flat();
 
-  console.log("Indexable transactions");
-  console.log(indexableTransactions);
+  if (indexableTransactions.length > 0) {
+    console.log("Indexable transactions");
+    console.log(indexableTransactions);
+  }
+
+  //TODO: do actual sync
 
   setBlockSynced(blockNumbers[blockNumbers.length - 1]);
 }

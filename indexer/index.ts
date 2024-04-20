@@ -6,7 +6,6 @@ import {
 const run = async () => {
   console.log("Running indexer");
   let blockNumber = await getNextBlockNumberToIndex();
-  //TODO: process in batch of 10k-100k blocks - but don't save - check if eligable for indexing - if yes (filter) - await on all and have in order and then save
   while (true) {
     if (blockNumber !== undefined) {
       console.log(`New block ${blockNumber}`);
