@@ -1,0 +1,25 @@
+<div class="app-container header d-flex align-items-center">
+  <div class="logo-container d-inline-block" style="max-height: 60px; overflow: hidden;">
+    <img src="/assets/piedefi-logo.png" alt="Piedefi Logo" class="img-fluid d-block">
+  </div>
+  <div class="menu-item" [ngClass]="{'active': isActive('/home')}">
+    <a routerLinkActive="active" routerLink="/home">
+      <span>Home</span>
+    </a>
+  </div>
+  <div class="menu-item" [ngClass]="{'active': isActive('/dashboard-cadence')}">
+    <a routerLinkActive="active" routerLink="/dashboard-cadence">
+      <span>Cadence</span>
+    </a>
+  </div>
+  <div class="menu-item" [ngClass]="{'active': isActive('/dashboard-canto')}">
+    <a routerLinkActive="active" routerLink="/dashboard-canto">
+      <span>Canto</span>
+    </a>
+  </div>
+  <div class="menu-item" [ngClass]="{'active': isActive('/dashboard-fortunafi')}">
+    <a routerLinkActive="active" routerLink="/dashboard-fortunafi">
+      <span>Fortunafi</span>
+    </a>
+  </div>
+</div>
