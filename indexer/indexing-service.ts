@@ -6,9 +6,11 @@ import {
   provider,
 } from "./constants";
 
-import { abi as PositionRouter } from "./abis/PositionRouter.json";
-
 import { QueryCommand, PutCommand } from "@aws-sdk/lib-dynamodb";
+import {
+  indexIncreasePosition,
+  isIncreasePosition,
+} from "./index-increase-position-service";
 
 export async function getNextBlockNumberToIndex(
   currentBlockNumber: number
@@ -37,16 +39,7 @@ export async function synchronizeBlocks(blockNumbers: number[]): Promise<void> {
               const receipt = await provider.getTransactionReceipt(
                 transactionHash
               );
-              const contractInterface = new ethers.utils.Interface(
-                PositionRouter
-              );
-              const receiptCheckResult = receipt.logs.map((log) => {
-                const event = contractInterface.parseLog(log);
-                console.log("Event Name:", event.name);
-                console.log("Event Values:", event.args);
-                return event.name === "ExecuteIncreasePosition";
-              });
-              if (receiptCheckResult.some((result) => result)) {
+              if (isIncreasePosition(receipt)) {
                 return receipt;
               }
             })
@@ -58,10 +51,11 @@ export async function synchronizeBlocks(blockNumbers: number[]): Promise<void> {
 
   if (indexableTransactions.length > 0) {
     console.log("Indexable transactions");
-    console.log(indexableTransactions);
-  }
 
-  //TODO: do actual sync
+    for (let i = 0; i < indexableTransactions.length; i++) {
+      await indexIncreasePosition(indexableTransactions[i]);
+    }
+  }
 
   setBlockSynced(blockNumbers[blockNumbers.length - 1]);
 }
