@@ -23,4 +23,7 @@ export const defaultNextBlockToIndex = Number(
 export const dynamodbLastSyncedBlockTableName =
   process.env.DYNAMODB_LAST_SYNCED_BLOCK_TABLE_NAME;
 
+export const dynamodbPositionsFromTableName =
+  process.env.DYNAMODB_POSITIONS_FROM_TABLE_NAME;
+
 export const blockBatchSize = Number(process.env.BLOCK_BATCH_SIZE);

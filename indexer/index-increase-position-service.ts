@@ -2,7 +2,12 @@ import { BigNumber, ethers } from "ethers";
 import { abi as PositionRouter } from "./abis/PositionRouter.json";
 import { Position } from "./types";
 import { getTokenSymbol } from "./token-address-to-token-symbol";
-import { provider } from "./constants";
+import {
+  docClient,
+  dynamodbPositionsFromTableName,
+  provider,
+} from "./constants";
+import { PutCommand } from "@aws-sdk/lib-dynamodb";
 
 export async function indexIncreasePosition(
   transaction: ethers.providers.TransactionReceipt
@@ -32,6 +37,11 @@ export async function indexIncreasePosition(
               .then((block) => block.timestamp),
           };
           console.log(position);
+          const command = new PutCommand({
+            TableName: dynamodbPositionsFromTableName,
+            Item: position,
+          });
+          await docClient.send(command);
         }
       } catch (e) {}
     }
