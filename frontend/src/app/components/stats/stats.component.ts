@@ -10,4 +10,5 @@ export class StatsComponent {
   @Input() body: string = '';
   @Input() icon: string = '';
   @Input() icons: string[] = [];
+  @Input() styleOverride: string = '';
 }

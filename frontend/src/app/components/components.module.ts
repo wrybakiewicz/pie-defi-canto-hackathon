@@ -7,6 +7,7 @@ import { StatsComponent } from './stats/stats.component';
 import { cryptoEth, cryptoTusd, cryptoUsdc, cryptoXrp, cryptoSushi } from '@ng-icons/cryptocurrency-icons';
 import { tdesignLockOn, tdesignLeaderboard, tdesignDespise } from '@ng-icons/tdesign-icons';
 import { PnlChartComponent } from './pnl-chart/pnl-chart.component';
+import { NgApexchartsModule } from 'ng-apexcharts';
 
 
 
@@ -14,6 +15,7 @@ import { PnlChartComponent } from './pnl-chart/pnl-chart.component';
   declarations: [TitleComponent, StatsComponent, PnlChartComponent],
   imports: [
     CommonModule,
+    NgApexchartsModule,
     NgIconsModule.withIcons({
       bootstrapSearch, bootstrapBackspace,
       bootstrapSymmetryVertical, bootstrapSoundwave, bootstrapSpeedometer, bootstrapStars, bootstrapGraphUp,
