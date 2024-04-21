@@ -8,11 +8,12 @@ import { cryptoEth, cryptoTusd, cryptoUsdc, cryptoXrp, cryptoSushi } from '@ng-i
 import { tdesignLockOn, tdesignLeaderboard, tdesignDespise } from '@ng-icons/tdesign-icons';
 import { PnlChartComponent } from './pnl-chart/pnl-chart.component';
 import { NgApexchartsModule } from 'ng-apexcharts';
+import { ClosedPositionsComponent } from './closed-positions/closed-positions.component';
 
 
 
 @NgModule({
-  declarations: [TitleComponent, StatsComponent, PnlChartComponent],
+  declarations: [TitleComponent, StatsComponent, PnlChartComponent, ClosedPositionsComponent],
   imports: [
     CommonModule,
     NgApexchartsModule,
@@ -24,6 +25,6 @@ import { NgApexchartsModule } from 'ng-apexcharts';
       cryptoEth, cryptoTusd, cryptoUsdc, cryptoXrp, cryptoSushi,
       bootstrapArrowUpRightCircleFill, bootstrapArrowDownRightCircleFill, bootstrapHourglassSplit})
   ],
-  exports: [TitleComponent, StatsComponent, PnlChartComponent]
+  exports: [TitleComponent, StatsComponent, PnlChartComponent, ClosedPositionsComponent]
 })
 export class ComponentsModule { }
