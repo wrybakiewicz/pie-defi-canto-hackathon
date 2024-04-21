@@ -1,0 +1,673 @@
+yarn run v1.22.21
+$ ts-node ./index.ts
+Running indexer
+Syncing new blocks from 8472290 to 8472390
+Syncing new blocks from 8472391 to 8472491
+Syncing new blocks from 8472492 to 8472592
+Syncing new blocks from 8472593 to 8472693
+Syncing new blocks from 8472694 to 8472794
+Syncing new blocks from 8472795 to 8472895
+Syncing new blocks from 8472896 to 8472996
+Syncing new blocks from 8472997 to 8473097
+Syncing new blocks from 8473098 to 8473198
+Syncing new blocks from 8473199 to 8473299
+Syncing new blocks from 8473300 to 8473400
+Syncing new blocks from 8473401 to 8473501
+Syncing new blocks from 8473502 to 8473602
+Syncing new blocks from 8473603 to 8473703
+Syncing new blocks from 8473704 to 8473804
+Syncing new blocks from 8473805 to 8473905
+Syncing new blocks from 8473906 to 8474006
+Syncing new blocks from 8474007 to 8474107
+Syncing new blocks from 8474108 to 8474208
+Event Name: ExecuteIncreasePosition
+Event Values: [
+  '0x6c0172DE23Cc67FB2a2349270D74DBe61008FfBd',
+  [ '0x826551890Dc65655a0Aceca109aB11AbDbD7a07B' ],
+  '0x826551890Dc65655a0Aceca109aB11AbDbD7a07B',
+  BigNumber { _hex: '0x056bc75e2d63100000', _isBigNumber: true },
+  BigNumber { _hex: '0x00', _isBigNumber: true },
+  BigNumber {
+    _hex: '0x0256acaf260eb6b02eab0aa691c0',
+    _isBigNumber: true
+  },
+  true,
+  BigNumber {
+    _hex: '0x0205868bbb38429ff677c00000',
+    _isBigNumber: true
+  },
+  BigNumber { _hex: '0xf55bfa53cce800', _isBigNumber: true },
+  BigNumber { _hex: '0x02', _isBigNumber: true },
+  BigNumber { _hex: '0x0c', _isBigNumber: true },
+  account: '0x6c0172DE23Cc67FB2a2349270D74DBe61008FfBd',
+  path: [ '0x826551890Dc65655a0Aceca109aB11AbDbD7a07B' ],
+  indexToken: '0x826551890Dc65655a0Aceca109aB11AbDbD7a07B',
+  amountIn: BigNumber { _hex: '0x056bc75e2d63100000', _isBigNumber: true },
+  minOut: BigNumber { _hex: '0x00', _isBigNumber: true },
+  sizeDelta: BigNumber {
+    _hex: '0x0256acaf260eb6b02eab0aa691c0',
+    _isBigNumber: true
+  },
+  isLong: true,
+  acceptablePrice: BigNumber {
+    _hex: '0x0205868bbb38429ff677c00000',
+    _isBigNumber: true
+  },
+  executionFee: BigNumber { _hex: '0xf55bfa53cce800', _isBigNumber: true },
+  blockGap: BigNumber { _hex: '0x02', _isBigNumber: true },
+  timeGap: BigNumber { _hex: '0x0c', _isBigNumber: true }
+]
+LogDescription {
+  eventFragment: {
+    name: 'ExecuteIncreasePosition',
+    anonymous: false,
+    inputs: [
+      [ParamType], [ParamType],
+      [ParamType], [ParamType],
+      [ParamType], [ParamType],
+      [ParamType], [ParamType],
+      [ParamType], [ParamType],
+      [ParamType]
+    ],
+    type: 'event',
+    _isFragment: true,
+    constructor: [Function: EventFragment] {
+      from: [Function (anonymous)],
+      fromObject: [Function (anonymous)],
+      fromString: [Function (anonymous)],
+      isEventFragment: [Function (anonymous)]
+    },
+    format: [Function (anonymous)]
+  },
+  name: 'ExecuteIncreasePosition',
+  signature: 'ExecuteIncreasePosition(address,address[],address,uint256,uint256,uint256,bool,uint256,uint256,uint256,uint256)',
+  topic: '0x1be316b94d38c07bd41cdb4913772d0a0a82802786a2f8b657b6e85dbcdfc641',
+  args: [
+    '0x6c0172DE23Cc67FB2a2349270D74DBe61008FfBd',
+    [ '0x826551890Dc65655a0Aceca109aB11AbDbD7a07B' ],
+    '0x826551890Dc65655a0Aceca109aB11AbDbD7a07B',
+    BigNumber { _hex: '0x056bc75e2d63100000', _isBigNumber: true },
+    BigNumber { _hex: '0x00', _isBigNumber: true },
+    BigNumber {
+      _hex: '0x0256acaf260eb6b02eab0aa691c0',
+      _isBigNumber: true
+    },
+    true,
+    BigNumber {
+      _hex: '0x0205868bbb38429ff677c00000',
+      _isBigNumber: true
+    },
+    BigNumber { _hex: '0xf55bfa53cce800', _isBigNumber: true },
+    BigNumber { _hex: '0x02', _isBigNumber: true },
+    BigNumber { _hex: '0x0c', _isBigNumber: true },
+    account: '0x6c0172DE23Cc67FB2a2349270D74DBe61008FfBd',
+    path: [ '0x826551890Dc65655a0Aceca109aB11AbDbD7a07B' ],
+    indexToken: '0x826551890Dc65655a0Aceca109aB11AbDbD7a07B',
+    amountIn: BigNumber { _hex: '0x056bc75e2d63100000', _isBigNumber: true },
+    minOut: BigNumber { _hex: '0x00', _isBigNumber: true },
+    sizeDelta: BigNumber {
+      _hex: '0x0256acaf260eb6b02eab0aa691c0',
+      _isBigNumber: true
+    },
+    isLong: true,
+    acceptablePrice: BigNumber {
+      _hex: '0x0205868bbb38429ff677c00000',
+      _isBigNumber: true
+    },
+    executionFee: BigNumber { _hex: '0xf55bfa53cce800', _isBigNumber: true },
+    blockGap: BigNumber { _hex: '0x02', _isBigNumber: true },
+    timeGap: BigNumber { _hex: '0x0c', _isBigNumber: true }
+  ]
+}
+Indexable transactions
+[
+  {
+    to: '0x650515D3F829c4f3456e2746C5ed0F27FAf72037',
+    from: '0x6B4B321c69da743685dD9bd97A89E8f84d7A4cA3',
+    contractAddress: null,
+    transactionIndex: 0,
+    gasUsed: BigNumber { _hex: '0x3d0900', _isBigNumber: true },
+    logsBloom: '0x0010000000800000000000001000000201000000000000000000c00000001000000200000100000000400000000000000000002000000680009000002000008008000000020000000000000800002000000000004040000000000000200000000000000000000000000000000000000000010000000004000000001002000002200000000000000008200000001000000000000000000200100000000000000020000010000000800004800008000000000004000200000002800000000000000000000a000100000100000010000009100000000000200000010202000000400000000000800000000000000000000000000000000004000000000000000000',
+    blockHash: '0x16e0f7b352785c59ebb8d4998ce41b3ecb417e1bb1a66956899be6008cf41a40',
+    transactionHash: '0xc92f1f8cc004d971e502f279690b10283ef63cd6f028416d82a0ca78cff66213',
+    logs: [
+      [Object], [Object],
+      [Object], [Object],
+      [Object], [Object],
+      [Object], [Object],
+      [Object], [Object],
+      [Object], [Object],
+      [Object], [Object],
+      [Object], [Object],
+      [Object]
+    ],
+    blockNumber: 8474162,
+    confirmations: 201378,
+    cumulativeGasUsed: BigNumber { _hex: '0x3d0900', _isBigNumber: true },
+    effectiveGasPrice: BigNumber { _hex: '0xe8d4a51000', _isBigNumber: true },
+    status: 1,
+    type: 0,
+    byzantium: true
+  }
+]
+Syncing new blocks from 8474209 to 8474309
+Event Name: ExecuteDecreasePosition
+Event Values: [
+  '0x3c92C8597e2008a507f53657AabA60cFFec2404B',
+  [ '0x5FD55A1B9FC24967C4dB09C513C3BA0DFa7FF687' ],
+  '0x5FD55A1B9FC24967C4dB09C513C3BA0DFa7FF687',
+  BigNumber { _hex: '0x00', _isBigNumber: true },
+  BigNumber {
+    _hex: '0x04f9923f827f475fd8795a0f98b460',
+    _isBigNumber: true
+  },
+  true,
+  '0x3c92C8597e2008a507f53657AabA60cFFec2404B',
+  BigNumber {
+    _hex: '0xa3db412b551b5315fe9171c00000',
+    _isBigNumber: true
+  },
+  BigNumber { _hex: '0x00', _isBigNumber: true },
+  BigNumber { _hex: '0xf55bfa53cce800', _isBigNumber: true },
+  BigNumber { _hex: '0x01', _isBigNumber: true },
+  BigNumber { _hex: '0x06', _isBigNumber: true },
+  account: '0x3c92C8597e2008a507f53657AabA60cFFec2404B',
+  path: [ '0x5FD55A1B9FC24967C4dB09C513C3BA0DFa7FF687' ],
+  indexToken: '0x5FD55A1B9FC24967C4dB09C513C3BA0DFa7FF687',
+  collateralDelta: BigNumber { _hex: '0x00', _isBigNumber: true },
+  sizeDelta: BigNumber {
+    _hex: '0x04f9923f827f475fd8795a0f98b460',
+    _isBigNumber: true
+  },
+  isLong: true,
+  receiver: '0x3c92C8597e2008a507f53657AabA60cFFec2404B',
+  acceptablePrice: BigNumber {
+    _hex: '0xa3db412b551b5315fe9171c00000',
+    _isBigNumber: true
+  },
+  minOut: BigNumber { _hex: '0x00', _isBigNumber: true },
+  executionFee: BigNumber { _hex: '0xf55bfa53cce800', _isBigNumber: true },
+  blockGap: BigNumber { _hex: '0x01', _isBigNumber: true },
+  timeGap: BigNumber { _hex: '0x06', _isBigNumber: true }
+]
+LogDescription {
+  eventFragment: {
+    name: 'ExecuteDecreasePosition',
+    anonymous: false,
+    inputs: [
+      [ParamType], [ParamType],
+      [ParamType], [ParamType],
+      [ParamType], [ParamType],
+      [ParamType], [ParamType],
+      [ParamType], [ParamType],
+      [ParamType], [ParamType]
+    ],
+    type: 'event',
+    _isFragment: true,
+    constructor: [Function: EventFragment] {
+      from: [Function (anonymous)],
+      fromObject: [Function (anonymous)],
+      fromString: [Function (anonymous)],
+      isEventFragment: [Function (anonymous)]
+    },
+    format: [Function (anonymous)]
+  },
+  name: 'ExecuteDecreasePosition',
+  signature: 'ExecuteDecreasePosition(address,address[],address,uint256,uint256,bool,address,uint256,uint256,uint256,uint256,uint256)',
+  topic: '0x21435c5b618d77ff3657140cd3318e2cffaebc5e0e1b7318f56a9ba4044c3ed2',
+  args: [
+    '0x3c92C8597e2008a507f53657AabA60cFFec2404B',
+    [ '0x5FD55A1B9FC24967C4dB09C513C3BA0DFa7FF687' ],
+    '0x5FD55A1B9FC24967C4dB09C513C3BA0DFa7FF687',
+    BigNumber { _hex: '0x00', _isBigNumber: true },
+    BigNumber {
+      _hex: '0x04f9923f827f475fd8795a0f98b460',
+      _isBigNumber: true
+    },
+    true,
+    '0x3c92C8597e2008a507f53657AabA60cFFec2404B',
+    BigNumber {
+      _hex: '0xa3db412b551b5315fe9171c00000',
+      _isBigNumber: true
+    },
+    BigNumber { _hex: '0x00', _isBigNumber: true },
+    BigNumber { _hex: '0xf55bfa53cce800', _isBigNumber: true },
+    BigNumber { _hex: '0x01', _isBigNumber: true },
+    BigNumber { _hex: '0x06', _isBigNumber: true },
+    account: '0x3c92C8597e2008a507f53657AabA60cFFec2404B',
+    path: [ '0x5FD55A1B9FC24967C4dB09C513C3BA0DFa7FF687' ],
+    indexToken: '0x5FD55A1B9FC24967C4dB09C513C3BA0DFa7FF687',
+    collateralDelta: BigNumber { _hex: '0x00', _isBigNumber: true },
+    sizeDelta: BigNumber {
+      _hex: '0x04f9923f827f475fd8795a0f98b460',
+      _isBigNumber: true
+    },
+    isLong: true,
+    receiver: '0x3c92C8597e2008a507f53657AabA60cFFec2404B',
+    acceptablePrice: BigNumber {
+      _hex: '0xa3db412b551b5315fe9171c00000',
+      _isBigNumber: true
+    },
+    minOut: BigNumber { _hex: '0x00', _isBigNumber: true },
+    executionFee: BigNumber { _hex: '0xf55bfa53cce800', _isBigNumber: true },
+    blockGap: BigNumber { _hex: '0x01', _isBigNumber: true },
+    timeGap: BigNumber { _hex: '0x06', _isBigNumber: true }
+  ]
+}
+Syncing new blocks from 8474310 to 8474410
+Event Name: ExecuteIncreasePosition
+Event Values: [
+  '0x3c92C8597e2008a507f53657AabA60cFFec2404B',
+  [ '0xEe602429Ef7eCe0a13e4FfE8dBC16e101049504C' ],
+  '0x5FD55A1B9FC24967C4dB09C513C3BA0DFa7FF687',
+  BigNumber { _hex: '0x02367c41b20574ad531a', _isBigNumber: true },
+  BigNumber { _hex: '0x00', _isBigNumber: true },
+  BigNumber {
+    _hex: '0x051df653665b5b7a2f419e653ca8c0',
+    _isBigNumber: true
+  },
+  false,
+  BigNumber {
+    _hex: '0xa3db412b551b5315fe9171c00000',
+    _isBigNumber: true
+  },
+  BigNumber { _hex: '0xf55bfa53cce800', _isBigNumber: true },
+  BigNumber { _hex: '0x02', _isBigNumber: true },
+  BigNumber { _hex: '0x0b', _isBigNumber: true },
+  account: '0x3c92C8597e2008a507f53657AabA60cFFec2404B',
+  path: [ '0xEe602429Ef7eCe0a13e4FfE8dBC16e101049504C' ],
+  indexToken: '0x5FD55A1B9FC24967C4dB09C513C3BA0DFa7FF687',
+  amountIn: BigNumber { _hex: '0x02367c41b20574ad531a', _isBigNumber: true },
+  minOut: BigNumber { _hex: '0x00', _isBigNumber: true },
+  sizeDelta: BigNumber {
+    _hex: '0x051df653665b5b7a2f419e653ca8c0',
+    _isBigNumber: true
+  },
+  isLong: false,
+  acceptablePrice: BigNumber {
+    _hex: '0xa3db412b551b5315fe9171c00000',
+    _isBigNumber: true
+  },
+  executionFee: BigNumber { _hex: '0xf55bfa53cce800', _isBigNumber: true },
+  blockGap: BigNumber { _hex: '0x02', _isBigNumber: true },
+  timeGap: BigNumber { _hex: '0x0b', _isBigNumber: true }
+]
+LogDescription {
+  eventFragment: {
+    name: 'ExecuteIncreasePosition',
+    anonymous: false,
+    inputs: [
+      [ParamType], [ParamType],
+      [ParamType], [ParamType],
+      [ParamType], [ParamType],
+      [ParamType], [ParamType],
+      [ParamType], [ParamType],
+      [ParamType]
+    ],
+    type: 'event',
+    _isFragment: true,
+    constructor: [Function: EventFragment] {
+      from: [Function (anonymous)],
+      fromObject: [Function (anonymous)],
+      fromString: [Function (anonymous)],
+      isEventFragment: [Function (anonymous)]
+    },
+    format: [Function (anonymous)]
+  },
+  name: 'ExecuteIncreasePosition',
+  signature: 'ExecuteIncreasePosition(address,address[],address,uint256,uint256,uint256,bool,uint256,uint256,uint256,uint256)',
+  topic: '0x1be316b94d38c07bd41cdb4913772d0a0a82802786a2f8b657b6e85dbcdfc641',
+  args: [
+    '0x3c92C8597e2008a507f53657AabA60cFFec2404B',
+    [ '0xEe602429Ef7eCe0a13e4FfE8dBC16e101049504C' ],
+    '0x5FD55A1B9FC24967C4dB09C513C3BA0DFa7FF687',
+    BigNumber { _hex: '0x02367c41b20574ad531a', _isBigNumber: true },
+    BigNumber { _hex: '0x00', _isBigNumber: true },
+    BigNumber {
+      _hex: '0x051df653665b5b7a2f419e653ca8c0',
+      _isBigNumber: true
+    },
+    false,
+    BigNumber {
+      _hex: '0xa3db412b551b5315fe9171c00000',
+      _isBigNumber: true
+    },
+    BigNumber { _hex: '0xf55bfa53cce800', _isBigNumber: true },
+    BigNumber { _hex: '0x02', _isBigNumber: true },
+    BigNumber { _hex: '0x0b', _isBigNumber: true },
+    account: '0x3c92C8597e2008a507f53657AabA60cFFec2404B',
+    path: [ '0xEe602429Ef7eCe0a13e4FfE8dBC16e101049504C' ],
+    indexToken: '0x5FD55A1B9FC24967C4dB09C513C3BA0DFa7FF687',
+    amountIn: BigNumber { _hex: '0x02367c41b20574ad531a', _isBigNumber: true },
+    minOut: BigNumber { _hex: '0x00', _isBigNumber: true },
+    sizeDelta: BigNumber {
+      _hex: '0x051df653665b5b7a2f419e653ca8c0',
+      _isBigNumber: true
+    },
+    isLong: false,
+    acceptablePrice: BigNumber {
+      _hex: '0xa3db412b551b5315fe9171c00000',
+      _isBigNumber: true
+    },
+    executionFee: BigNumber { _hex: '0xf55bfa53cce800', _isBigNumber: true },
+    blockGap: BigNumber { _hex: '0x02', _isBigNumber: true },
+    timeGap: BigNumber { _hex: '0x0b', _isBigNumber: true }
+  ]
+}
+Event Name: ExecuteIncreasePosition
+Event Values: [
+  '0x373BB51d0a0f7138Ae6C111E9dB7bbb4d4480bEb',
+  [
+    '0xEe602429Ef7eCe0a13e4FfE8dBC16e101049504C',
+    '0x826551890Dc65655a0Aceca109aB11AbDbD7a07B'
+  ],
+  '0x826551890Dc65655a0Aceca109aB11AbDbD7a07B',
+  BigNumber { _hex: '0x0431c9feb046da0973', _isBigNumber: true },
+  BigNumber { _hex: '0x00', _isBigNumber: true },
+  BigNumber {
+    _hex: '0x0ba00802b60aa3e71744363f0780',
+    _isBigNumber: true
+  },
+  true,
+  BigNumber {
+    _hex: '0x0201f0527e5b9be3cbf3a00000',
+    _isBigNumber: true
+  },
+  BigNumber { _hex: '0xf55bfa53cce800', _isBigNumber: true },
+  BigNumber { _hex: '0x01', _isBigNumber: true },
+  BigNumber { _hex: '0x05', _isBigNumber: true },
+  account: '0x373BB51d0a0f7138Ae6C111E9dB7bbb4d4480bEb',
+  path: [
+    '0xEe602429Ef7eCe0a13e4FfE8dBC16e101049504C',
+    '0x826551890Dc65655a0Aceca109aB11AbDbD7a07B'
+  ],
+  indexToken: '0x826551890Dc65655a0Aceca109aB11AbDbD7a07B',
+  amountIn: BigNumber { _hex: '0x0431c9feb046da0973', _isBigNumber: true },
+  minOut: BigNumber { _hex: '0x00', _isBigNumber: true },
+  sizeDelta: BigNumber {
+    _hex: '0x0ba00802b60aa3e71744363f0780',
+    _isBigNumber: true
+  },
+  isLong: true,
+  acceptablePrice: BigNumber {
+    _hex: '0x0201f0527e5b9be3cbf3a00000',
+    _isBigNumber: true
+  },
+  executionFee: BigNumber { _hex: '0xf55bfa53cce800', _isBigNumber: true },
+  blockGap: BigNumber { _hex: '0x01', _isBigNumber: true },
+  timeGap: BigNumber { _hex: '0x05', _isBigNumber: true }
+]
+LogDescription {
+  eventFragment: {
+    name: 'ExecuteIncreasePosition',
+    anonymous: false,
+    inputs: [
+      [ParamType], [ParamType],
+      [ParamType], [ParamType],
+      [ParamType], [ParamType],
+      [ParamType], [ParamType],
+      [ParamType], [ParamType],
+      [ParamType]
+    ],
+    type: 'event',
+    _isFragment: true,
+    constructor: [Function: EventFragment] {
+      from: [Function (anonymous)],
+      fromObject: [Function (anonymous)],
+      fromString: [Function (anonymous)],
+      isEventFragment: [Function (anonymous)]
+    },
+    format: [Function (anonymous)]
+  },
+  name: 'ExecuteIncreasePosition',
+  signature: 'ExecuteIncreasePosition(address,address[],address,uint256,uint256,uint256,bool,uint256,uint256,uint256,uint256)',
+  topic: '0x1be316b94d38c07bd41cdb4913772d0a0a82802786a2f8b657b6e85dbcdfc641',
+  args: [
+    '0x373BB51d0a0f7138Ae6C111E9dB7bbb4d4480bEb',
+    [
+      '0xEe602429Ef7eCe0a13e4FfE8dBC16e101049504C',
+      '0x826551890Dc65655a0Aceca109aB11AbDbD7a07B'
+    ],
+    '0x826551890Dc65655a0Aceca109aB11AbDbD7a07B',
+    BigNumber { _hex: '0x0431c9feb046da0973', _isBigNumber: true },
+    BigNumber { _hex: '0x00', _isBigNumber: true },
+    BigNumber {
+      _hex: '0x0ba00802b60aa3e71744363f0780',
+      _isBigNumber: true
+    },
+    true,
+    BigNumber {
+      _hex: '0x0201f0527e5b9be3cbf3a00000',
+      _isBigNumber: true
+    },
+    BigNumber { _hex: '0xf55bfa53cce800', _isBigNumber: true },
+    BigNumber { _hex: '0x01', _isBigNumber: true },
+    BigNumber { _hex: '0x05', _isBigNumber: true },
+    account: '0x373BB51d0a0f7138Ae6C111E9dB7bbb4d4480bEb',
+    path: [
+      '0xEe602429Ef7eCe0a13e4FfE8dBC16e101049504C',
+      '0x826551890Dc65655a0Aceca109aB11AbDbD7a07B'
+    ],
+    indexToken: '0x826551890Dc65655a0Aceca109aB11AbDbD7a07B',
+    amountIn: BigNumber { _hex: '0x0431c9feb046da0973', _isBigNumber: true },
+    minOut: BigNumber { _hex: '0x00', _isBigNumber: true },
+    sizeDelta: BigNumber {
+      _hex: '0x0ba00802b60aa3e71744363f0780',
+      _isBigNumber: true
+    },
+    isLong: true,
+    acceptablePrice: BigNumber {
+      _hex: '0x0201f0527e5b9be3cbf3a00000',
+      _isBigNumber: true
+    },
+    executionFee: BigNumber { _hex: '0xf55bfa53cce800', _isBigNumber: true },
+    blockGap: BigNumber { _hex: '0x01', _isBigNumber: true },
+    timeGap: BigNumber { _hex: '0x05', _isBigNumber: true }
+  ]
+}
+Indexable transactions
+[
+  {
+    to: '0x650515D3F829c4f3456e2746C5ed0F27FAf72037',
+    from: '0x6B4B321c69da743685dD9bd97A89E8f84d7A4cA3',
+    contractAddress: null,
+    transactionIndex: 0,
+    gasUsed: BigNumber { _hex: '0x3d0900', _isBigNumber: true },
+    logsBloom: '0x0010000000800000000000000000000201000000000000000040800000001000000000000100000000400000000000000000000000000080001000002100008008000000000000000000000800002000000000004040000000000000240000000000800000000000000000000000000000008000000004000000001002000022200000000000000008000000001000000000000020000220000000000000000040000210000000800004800008000000000004000200000002808000000000000000000a000000000000000000000009100000000000200000010202000020500000000000800000000000000000000000800000000004000000000000400000',
+    blockHash: '0xee461c4132e1042180fc0f3ed89ad74abd04071b7d3209723e94b6ec47bc5ffd',
+    transactionHash: '0x4c06c8aa8284422fe9a9d3712ee6502735faad8e01f81ab86ca3dce3f9ebd3d7',
+    logs: [
+      [Object], [Object],
+      [Object], [Object],
+      [Object], [Object],
+      [Object], [Object],
+      [Object], [Object],
+      [Object], [Object],
+      [Object], [Object],
+      [Object]
+    ],
+    blockNumber: 8474367,
+    confirmations: 201185,
+    cumulativeGasUsed: BigNumber { _hex: '0x3d0900', _isBigNumber: true },
+    effectiveGasPrice: BigNumber { _hex: '0xe8d4a51000', _isBigNumber: true },
+    status: 1,
+    type: 0,
+    byzantium: true
+  },
+  {
+    to: '0x650515D3F829c4f3456e2746C5ed0F27FAf72037',
+    from: '0x6B4B321c69da743685dD9bd97A89E8f84d7A4cA3',
+    contractAddress: null,
+    transactionIndex: 9,
+    gasUsed: BigNumber { _hex: '0x3d0900', _isBigNumber: true },
+    logsBloom: '0x0010000000800000000000001000000201000000000000000040c00000001000000200000100000000400000000000000000082000000680009000002100008008000000000000000000000800002000000000004040000000000000240000040000800000080000000000000000000000018000000004000020001422000002200000000000000008000000001000000400400020000220100000000000000060000210000000800004800008000000000044000200000002808000000000800000000a800100000180000000000009100000010000200000010202000020500000000000800000000000000000000000000000000004000000000000020000',
+    blockHash: '0xc0855bd91602529ba60e35fa2e4f07428dc10bf94c04664099117214d9a11011',
+    transactionHash: '0x81b9639c39822162d05d48dd0a2be466c4a418622eab4acb297612373a6ca617',
+    logs: [
+      [Object], [Object], [Object],
+      [Object], [Object], [Object],
+      [Object], [Object], [Object],
+      [Object], [Object], [Object],
+      [Object], [Object], [Object],
+      [Object], [Object], [Object],
+      [Object], [Object], [Object],
+      [Object], [Object], [Object],
+      [Object], [Object], [Object]
+    ],
+    blockNumber: 8474408,
+    confirmations: 201144,
+    cumulativeGasUsed: BigNumber { _hex: '0x4f33e1', _isBigNumber: true },
+    effectiveGasPrice: BigNumber { _hex: '0xe8d4a51000', _isBigNumber: true },
+    status: 1,
+    type: 0,
+    byzantium: true
+  }
+]
+Syncing new blocks from 8474411 to 8474511
+Syncing new blocks from 8474512 to 8474612
+Syncing new blocks from 8474613 to 8474713
+Syncing new blocks from 8474714 to 8474814
+Syncing new blocks from 8474815 to 8474915
+Syncing new blocks from 8474916 to 8475016
+Syncing new blocks from 8475017 to 8475117
+Syncing new blocks from 8475118 to 8475218
+Syncing new blocks from 8475219 to 8475319
+Syncing new blocks from 8475320 to 8475420
+Syncing new blocks from 8475421 to 8475521
+Syncing new blocks from 8475522 to 8475622
+Syncing new blocks from 8475623 to 8475723
+Syncing new blocks from 8475724 to 8475824
+Syncing new blocks from 8475825 to 8475925
+Syncing new blocks from 8475926 to 8476026
+Event Name: ExecuteIncreasePosition
+Event Values: [
+  '0xF9f27A374b64ED7c16d9E0bfA1A4B65E7D2997B5',
+  [ '0x826551890Dc65655a0Aceca109aB11AbDbD7a07B' ],
+  '0x826551890Dc65655a0Aceca109aB11AbDbD7a07B',
+  BigNumber { _hex: '0x021e19e0c9bab2400000', _isBigNumber: true },
+  BigNumber { _hex: '0x00', _isBigNumber: true },
+  BigNumber {
+    _hex: '0xefea7cb36f25ba641c0da8afa2e0',
+    _isBigNumber: true
+  },
+  true,
+  BigNumber {
+    _hex: '0x020f40f6dd270135577ca80000',
+    _isBigNumber: true
+  },
+  BigNumber { _hex: '0xf55bfa53cce800', _isBigNumber: true },
+  BigNumber { _hex: '0x01', _isBigNumber: true },
+  BigNumber { _hex: '0x06', _isBigNumber: true },
+  account: '0xF9f27A374b64ED7c16d9E0bfA1A4B65E7D2997B5',
+  path: [ '0x826551890Dc65655a0Aceca109aB11AbDbD7a07B' ],
+  indexToken: '0x826551890Dc65655a0Aceca109aB11AbDbD7a07B',
+  amountIn: BigNumber { _hex: '0x021e19e0c9bab2400000', _isBigNumber: true },
+  minOut: BigNumber { _hex: '0x00', _isBigNumber: true },
+  sizeDelta: BigNumber {
+    _hex: '0xefea7cb36f25ba641c0da8afa2e0',
+    _isBigNumber: true
+  },
+  isLong: true,
+  acceptablePrice: BigNumber {
+    _hex: '0x020f40f6dd270135577ca80000',
+    _isBigNumber: true
+  },
+  executionFee: BigNumber { _hex: '0xf55bfa53cce800', _isBigNumber: true },
+  blockGap: BigNumber { _hex: '0x01', _isBigNumber: true },
+  timeGap: BigNumber { _hex: '0x06', _isBigNumber: true }
+]
+LogDescription {
+  eventFragment: {
+    name: 'ExecuteIncreasePosition',
+    anonymous: false,
+    inputs: [
+      [ParamType], [ParamType],
+      [ParamType], [ParamType],
+      [ParamType], [ParamType],
+      [ParamType], [ParamType],
+      [ParamType], [ParamType],
+      [ParamType]
+    ],
+    type: 'event',
+    _isFragment: true,
+    constructor: [Function: EventFragment] {
+      from: [Function (anonymous)],
+      fromObject: [Function (anonymous)],
+      fromString: [Function (anonymous)],
+      isEventFragment: [Function (anonymous)]
+    },
+    format: [Function (anonymous)]
+  },
+  name: 'ExecuteIncreasePosition',
+  signature: 'ExecuteIncreasePosition(address,address[],address,uint256,uint256,uint256,bool,uint256,uint256,uint256,uint256)',
+  topic: '0x1be316b94d38c07bd41cdb4913772d0a0a82802786a2f8b657b6e85dbcdfc641',
+  args: [
+    '0xF9f27A374b64ED7c16d9E0bfA1A4B65E7D2997B5',
+    [ '0x826551890Dc65655a0Aceca109aB11AbDbD7a07B' ],
+    '0x826551890Dc65655a0Aceca109aB11AbDbD7a07B',
+    BigNumber { _hex: '0x021e19e0c9bab2400000', _isBigNumber: true },
+    BigNumber { _hex: '0x00', _isBigNumber: true },
+    BigNumber {
+      _hex: '0xefea7cb36f25ba641c0da8afa2e0',
+      _isBigNumber: true
+    },
+    true,
+    BigNumber {
+      _hex: '0x020f40f6dd270135577ca80000',
+      _isBigNumber: true
+    },
+    BigNumber { _hex: '0xf55bfa53cce800', _isBigNumber: true },
+    BigNumber { _hex: '0x01', _isBigNumber: true },
+    BigNumber { _hex: '0x06', _isBigNumber: true },
+    account: '0xF9f27A374b64ED7c16d9E0bfA1A4B65E7D2997B5',
+    path: [ '0x826551890Dc65655a0Aceca109aB11AbDbD7a07B' ],
+    indexToken: '0x826551890Dc65655a0Aceca109aB11AbDbD7a07B',
+    amountIn: BigNumber { _hex: '0x021e19e0c9bab2400000', _isBigNumber: true },
+    minOut: BigNumber { _hex: '0x00', _isBigNumber: true },
+    sizeDelta: BigNumber {
+      _hex: '0xefea7cb36f25ba641c0da8afa2e0',
+      _isBigNumber: true
+    },
+    isLong: true,
+    acceptablePrice: BigNumber {
+      _hex: '0x020f40f6dd270135577ca80000',
+      _isBigNumber: true
+    },
+    executionFee: BigNumber { _hex: '0xf55bfa53cce800', _isBigNumber: true },
+    blockGap: BigNumber { _hex: '0x01', _isBigNumber: true },
+    timeGap: BigNumber { _hex: '0x06', _isBigNumber: true }
+  ]
+}
+Indexable transactions
+[
+  {
+    to: '0x650515D3F829c4f3456e2746C5ed0F27FAf72037',
+    from: '0x6B4B321c69da743685dD9bd97A89E8f84d7A4cA3',
+    contractAddress: null,
+    transactionIndex: 1,
+    gasUsed: BigNumber { _hex: '0x3d0900', _isBigNumber: true },
+    logsBloom: '0x0010000000800000000000001000000201000000000000000000c00000001000000200000100000000400000000000000000002000000680009000002000008008000000000000000000000800002000000000004040000000000000200000000000000000000000000000000000000000010000000004000000001002000002200000000004000008000000001000000000000000000200100000000000000020000010000000800004800088000000000004000200000002800000000000000000000a000100000100000000000009100000000000200000010202000000400000000400800020000000000000000000000000000004800000008000000000',
+    blockHash: '0xaff8159769b2bea3c79069cefec961080d460862a9280d86dda11b260f04c00c',
+    transactionHash: '0xac8b855dda1f1abec4e2c15f8307f03a387af3834f26fca227aa0f4b7f6fbd13',
+    logs: [
+      [Object], [Object], [Object],
+      [Object], [Object], [Object],
+      [Object], [Object], [Object],
+      [Object], [Object], [Object],
+      [Object], [Object], [Object],
+      [Object], [Object], [Object]
+    ],
+    blockNumber: 8475931,
+    confirmations: 199874,
+    cumulativeGasUsed: BigNumber { _hex: '0x41f617', _isBigNumber: true },
+    effectiveGasPrice: BigNumber { _hex: '0xe8d4a51000', _isBigNumber: true },
+    status: 1,
+    type: 0,
+    byzantium: true
+  }
+]
+Syncing new blocks from 8476027 to 8476127
+Syncing new blocks from 8476128 to 8476228
+Syncing new blocks from 8476229 to 8476329
+Syncing new blocks from 8476330 to 8476430
+Syncing new blocks from 8476431 to 8476531
