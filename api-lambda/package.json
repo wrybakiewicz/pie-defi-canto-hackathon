@@ -5,7 +5,9 @@
   "license": "MIT",
   "scripts": {
     "build": "esbuild src/index.ts --bundle --minify --platform=node --target=es2022 --outfile=build/index.js",
-    "clean": "rm -rf build"
+    "clean": "rm -rf build",
+    "zip": "zip -r build.zip build/index.js*",
+    "push": "aws s3api put-object --bucket pie-defi-lambdas --key $(date +%s).zip --body ./build.zip  && echo \"S3: $(date +%s).zip\""
   },
   "dependencies": {
     "ts-node": "^10.9.2",
