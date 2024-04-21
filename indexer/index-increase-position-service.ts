@@ -2,6 +2,7 @@ import { BigNumber, ethers } from "ethers";
 import { abi as PositionRouter } from "./abis/PositionRouter.json";
 import { Position } from "./types";
 import { getTokenSymbol } from "./token-address-to-token-symbol";
+import { provider } from "./constants";
 
 export async function indexIncreasePosition(
   transaction: ethers.providers.TransactionReceipt
@@ -14,8 +15,9 @@ export async function indexIncreasePosition(
       try {
         const event = contractInterface.parseLog(transaction.logs[i]);
         if (event.name === "ExecuteIncreasePosition") {
+          console.log(event);
           const position: Position = {
-            account: event.args.account,
+            account: event.args.account.toLowerCase(),
             tradingToken: getTokenSymbol(event.args.indexToken),
             positionSizeInUsd:
               event.args.sizeDelta.div(BigNumber.from(10).pow(28)).toNumber() /
@@ -25,6 +27,9 @@ export async function indexIncreasePosition(
                 .div(BigNumber.from(10).pow(28))
                 .toNumber() / 100.0,
             isLong: event.args.isLong,
+            timestampSeconds: await provider
+              .getBlock(transaction.blockNumber)
+              .then((block) => block.timestamp),
           };
           console.log(position);
         }

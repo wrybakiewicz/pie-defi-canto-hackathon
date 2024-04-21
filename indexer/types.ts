@@ -4,4 +4,5 @@ export type Position = {
   positionSizeInUsd: number;
   tradingTokenPrice: number;
   isLong: boolean;
+  timestampSeconds: number;
 };
