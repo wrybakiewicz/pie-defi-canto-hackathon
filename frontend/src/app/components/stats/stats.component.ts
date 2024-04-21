@@ -1,5 +1,4 @@
 import { Component, Input } from '@angular/core';
-import { ComponentsModule } from '../components.module';
 
 @Component({
   selector: 'app-stats',

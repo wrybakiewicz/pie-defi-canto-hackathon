@@ -6,11 +6,12 @@ import { TitleComponent } from './title/title.component';
 import { StatsComponent } from './stats/stats.component';
 import { cryptoEth, cryptoTusd, cryptoUsdc, cryptoXrp, cryptoSushi } from '@ng-icons/cryptocurrency-icons';
 import { tdesignLockOn, tdesignLeaderboard, tdesignDespise } from '@ng-icons/tdesign-icons';
+import { PnlChartComponent } from './pnl-chart/pnl-chart.component';
 
 
 
 @NgModule({
-  declarations: [TitleComponent, StatsComponent],
+  declarations: [TitleComponent, StatsComponent, PnlChartComponent],
   imports: [
     CommonModule,
     NgIconsModule.withIcons({
@@ -21,6 +22,6 @@ import { tdesignLockOn, tdesignLeaderboard, tdesignDespise } from '@ng-icons/tde
       cryptoEth, cryptoTusd, cryptoUsdc, cryptoXrp, cryptoSushi,
       bootstrapArrowUpRightCircleFill, bootstrapArrowDownRightCircleFill, bootstrapHourglassSplit})
   ],
-  exports: [TitleComponent, StatsComponent]
+  exports: [TitleComponent, StatsComponent, PnlChartComponent]
 })
 export class ComponentsModule { }
