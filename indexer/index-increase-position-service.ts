@@ -1,4 +1,4 @@
-import { ethers } from "ethers";
+import { BigNumber, ethers } from "ethers";
 import { abi as PositionRouter } from "./abis/PositionRouter.json";
 import { Position } from "./types";
 import { getTokenSymbol } from "./token-address-to-token-symbol";
@@ -17,16 +17,24 @@ export async function indexIncreasePosition(
           console.log("Event Name:", event.name);
           console.log("Event Values:", event.args);
           console.log(event);
-          const position: Position = {
-            account: event.args.account,
-            tradingToken: getTokenSymbol(event.args.indexToken),
-            positionSizeInUsd: event.args.account.div(10 ** 30).toNumber(),
-            tradingTokenPrice: event.args.acceptablePrice
-              .div(10 ** 30)
-              .toNumber(),
-            isLong: event.args.isLong,
-          };
-          console.log(position);
+          try {
+            const position: Position = {
+              account: event.args.account,
+              tradingToken: getTokenSymbol(event.args.indexToken),
+              positionSizeInUsd:
+                event.args.sizeDelta
+                  .div(BigNumber.from(10).pow(28))
+                  .toNumber() / 100.0,
+              tradingTokenPrice:
+                event.args.acceptablePrice
+                  .div(BigNumber.from(10).pow(28))
+                  .toNumber() / 100.0,
+              isLong: event.args.isLong,
+            };
+            console.log(position);
+          } catch (e) {
+            console.error(e);
+          }
         }
       } catch (e) {}
     }
