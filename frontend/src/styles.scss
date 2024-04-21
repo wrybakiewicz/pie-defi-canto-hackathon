@@ -14,5 +14,29 @@ ng-icon {
     color: black;
 }
 
+.overlay-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    min-height: 100%; /* Ensures it covers all contained content */
+    z-index: 1; /* Relative stacking context */
+}
+
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(circle, rgba(#00112d, 0.6) 50%, rgba(#0f1014, 0.01) 100%);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-size: 36px;
+    z-index: 2; /* Ensures it is above all content within the container */
+}
+
 /* Importing Bootstrap SCSS file. */
-@import 'bootstrap/scss/bootstrap';
+@import "bootstrap/scss/bootstrap";
