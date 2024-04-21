@@ -1,13 +1,35 @@
+@import './../../../variables'; 
+
 .menu-item {
-    background-color: rgb(77, 77, 77);
-    margin-top: 0.1em;
-    margin-bottom: 0.1em;
-    margin-left: 0.3em;
-    padding: 0.3em;
-    border-radius: 0.3em;
+    margin: 0.3em;
+    padding-left: 0.8em;
+    padding-right: 0.8em;
+    padding-top: 0.3em;
+    padding-bottom: 0.3em;
+    border-radius: 0.5em;
     cursor: pointer;
+
+    &:hover {
+        background-color: $background-hover-active;
+        color: $text-color-hover-active;
+
+        span {
+            color: $text-color-hover-active;
+        }
+    }
+
     span {
         font-size: 1.3em;
-        color: aliceblue;
+        font-weight: 500;
+        color: $text-color-default;
+    }
+
+    &.active {
+        background-color: $background-hover-active;
+        color: $text-color-hover-active;
+
+        span {
+            color: $text-color-hover-active;
+        }
     }
 }
