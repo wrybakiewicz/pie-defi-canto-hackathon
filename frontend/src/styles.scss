@@ -2,3 +2,10 @@
 .app-container {
     background: none !important;
 }
+
+ng-icon {
+    overflow: visible !important;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+}

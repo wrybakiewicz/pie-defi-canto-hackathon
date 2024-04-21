@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
+import { ComponentsModule } from '../../components/components.module';
 import { HeaderComponent } from '../../components/header/header.component';
-import { TitleComponent } from '../../components/title/title.component';
 
 @Component({
   selector: 'app-dashboard-cadence',
   standalone: true,
-  imports: [HeaderComponent, TitleComponent],
+  imports: [HeaderComponent, ComponentsModule],
   templateUrl: './dashboard-cadence.component.html',
   styleUrl: './dashboard-cadence.component.scss',
 })
