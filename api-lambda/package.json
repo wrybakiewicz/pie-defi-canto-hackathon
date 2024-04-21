@@ -1,0 +1,14 @@
+{
+  "name": "api-lambda",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "build": "esbuild src/index.ts --bundle --minify --platform=node --target=es2022 --outfile=build/index.js",
+    "clean": "rm -rf build"
+  },
+  "dependencies": {
+    "ts-node": "^10.9.2",
+    "typescript": "^5.4.5"
+  }
+}
