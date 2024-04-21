@@ -14,27 +14,19 @@ export async function indexIncreasePosition(
       try {
         const event = contractInterface.parseLog(transaction.logs[i]);
         if (event.name === "ExecuteIncreasePosition") {
-          console.log("Event Name:", event.name);
-          console.log("Event Values:", event.args);
-          console.log(event);
-          try {
-            const position: Position = {
-              account: event.args.account,
-              tradingToken: getTokenSymbol(event.args.indexToken),
-              positionSizeInUsd:
-                event.args.sizeDelta
-                  .div(BigNumber.from(10).pow(28))
-                  .toNumber() / 100.0,
-              tradingTokenPrice:
-                event.args.acceptablePrice
-                  .div(BigNumber.from(10).pow(28))
-                  .toNumber() / 100.0,
-              isLong: event.args.isLong,
-            };
-            console.log(position);
-          } catch (e) {
-            console.error(e);
-          }
+          const position: Position = {
+            account: event.args.account,
+            tradingToken: getTokenSymbol(event.args.indexToken),
+            positionSizeInUsd:
+              event.args.sizeDelta.div(BigNumber.from(10).pow(28)).toNumber() /
+              100.0,
+            tradingTokenPrice:
+              event.args.acceptablePrice
+                .div(BigNumber.from(10).pow(28))
+                .toNumber() / 100.0,
+            isLong: event.args.isLong,
+          };
+          console.log(position);
         }
       } catch (e) {}
     }
