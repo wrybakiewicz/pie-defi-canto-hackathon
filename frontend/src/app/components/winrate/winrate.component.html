@@ -10,10 +10,15 @@
         </div>
     </div>
 
-    <div class="card-body pt-0 pb-0">
+    <div class="card-body pt-0 pb-0 d-flex flex-column justify-content-center align-items-center">
         <div class="d-flex flex-column align-items-center text-center justify-content-center mt-3 w-100">
             <div class="fw-bold fs-6 text-white opacity-75 w-100">
-                Test
+                <apx-chart [series]="chartOptions.series" [chart]="chartOptions.chart" [xaxis]="chartOptions.xaxis"
+                    [labels]="chartOptions.labels" [yaxis]="chartOptions.yaxis" [dataLabels]="chartOptions.dataLabels"
+                    [stroke]="chartOptions.stroke" [legend]="chartOptions.legend" [fill]="chartOptions.fill"
+                    [states]="chartOptions.states" [tooltip]="chartOptions.tooltip" [colors]="chartOptions.colors"
+                    [markers]="chartOptions.markers" [plotOptions]="chartOptions.plotOptions"></apx-chart>
             </div>
         </div>
+        <span class="text-white text-center" style="transform: translate(0px, -72px);">78%</span>
     </div>
