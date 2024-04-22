@@ -1,4 +1,8 @@
 /* You can add global styles to this file, and also import other style files */
+body{
+    overflow-x: hidden;
+}
+
 .app-container {
     background: none !important;
 }
@@ -41,7 +45,6 @@ ng-icon {
 .card-header {
     border-bottom: none !important;
 }
-
 
 /* Importing Bootstrap SCSS file. */
 @import "bootstrap/scss/bootstrap";
