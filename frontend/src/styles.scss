@@ -38,5 +38,10 @@ ng-icon {
     z-index: 2; /* Ensures it is above all content within the container */
 }
 
+.card-header {
+    border-bottom: none !important;
+}
+
+
 /* Importing Bootstrap SCSS file. */
 @import "bootstrap/scss/bootstrap";
