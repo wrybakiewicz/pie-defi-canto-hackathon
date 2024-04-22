@@ -38,6 +38,7 @@ import { StatsComponent } from './stats/stats.component';
 import { TimelineComponent } from './timeline/timeline.component';
 import { TitleComponent } from './title/title.component';
 import { WinrateComponent } from './winrate/winrate.component';
+import { TotalTradesComponent } from './total-trades/total-trades.component';
 
 @NgModule({
   declarations: [
@@ -47,7 +48,8 @@ import { WinrateComponent } from './winrate/winrate.component';
     ClosedPositionsComponent,
     OpenedPositionsComponent,
     TimelineComponent,
-    WinrateComponent
+    WinrateComponent,
+    TotalTradesComponent
   ],
   imports: [
     CommonModule,
@@ -85,7 +87,8 @@ import { WinrateComponent } from './winrate/winrate.component';
     ClosedPositionsComponent,
     OpenedPositionsComponent,
     TimelineComponent,
-    WinrateComponent
+    WinrateComponent,
+    TotalTradesComponent
   ],
 })
 export class ComponentsModule {}
