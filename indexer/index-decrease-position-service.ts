@@ -1,5 +1,6 @@
 import { BigNumber, ethers } from "ethers";
 import { abi as PositionRouter } from "./abis/PositionRouter.json";
+import { abi as Vault } from "./abis/Vault.json";
 import { Position } from "./types";
 import { getTokenSymbol } from "./token-address-to-token-symbol";
 import {
@@ -35,6 +36,7 @@ export async function indexDecreasePosition(
               .getBlock(transaction.blockNumber)
               .then((block) => block.timestamp),
             type: "DECREASE",
+            pnl: getPnl(transaction),
           };
           console.log(position);
           const command = new PutCommand({
@@ -61,4 +63,28 @@ export function isDecreasePosition(
     }
   });
   return receiptCheckResult.some((result) => result);
+}
+
+function getPnl(transaction: ethers.providers.TransactionReceipt): number {
+  const contractInterface = new ethers.utils.Interface(Vault);
+  const results = transaction.logs
+    .map((log) => {
+      try {
+        const event = contractInterface.parseLog(log);
+        if (event.name === "UpdatePnl") {
+          const hasProfitMultiplier = event.args.hasProfit ? 1 : -1;
+          return (
+            hasProfitMultiplier *
+            (event.args.delta.div(BigNumber.from(10).pow(28)).toNumber() /
+              100.0)
+          );
+        }
+      } catch (e) {}
+    })
+    .filter((result) => result !== undefined);
+  if (results.length > 0) {
+    return results[0];
+  } else {
+    return 0;
+  }
 }

@@ -35,6 +35,7 @@ export async function indexIncreasePosition(
               .getBlock(transaction.blockNumber)
               .then((block) => block.timestamp),
             type: "INCREASE",
+            pnl: 0,
           };
           console.log(position);
           const command = new PutCommand({

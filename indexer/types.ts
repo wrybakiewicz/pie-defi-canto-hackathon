@@ -6,4 +6,5 @@ export type Position = {
   isLong: boolean;
   timestampSeconds: number;
   type: string;
+  pnl: number;
 };
