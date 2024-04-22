@@ -11,6 +11,10 @@ import {
   indexIncreasePosition,
   isIncreasePosition,
 } from "./index-increase-position-service";
+import {
+  indexDecreasePosition,
+  isDecreasePosition,
+} from "./index-decrease-position-service";
 
 export async function getNextBlockNumberToIndex(
   currentBlockNumber: number
@@ -39,7 +43,7 @@ export async function synchronizeBlocks(blockNumbers: number[]): Promise<void> {
               const receipt = await provider.getTransactionReceipt(
                 transactionHash
               );
-              if (isIncreasePosition(receipt)) {
+              if (isIncreasePosition(receipt) || isDecreasePosition(receipt)) {
                 return receipt;
               }
             })
@@ -54,6 +58,7 @@ export async function synchronizeBlocks(blockNumbers: number[]): Promise<void> {
 
     for (let i = 0; i < indexableTransactions.length; i++) {
       await indexIncreasePosition(indexableTransactions[i]);
+      await indexDecreasePosition(indexableTransactions[i]);
     }
   }
 

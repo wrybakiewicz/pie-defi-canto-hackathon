@@ -9,16 +9,16 @@ import {
 } from "./constants";
 import { PutCommand } from "@aws-sdk/lib-dynamodb";
 
-export async function indexIncreasePosition(
+export async function indexDecreasePosition(
   transaction: ethers.providers.TransactionReceipt
 ): Promise<void> {
-  if (isIncreasePosition(transaction)) {
-    console.log(`Handling increasing position`);
+  if (isDecreasePosition(transaction)) {
+    console.log(`Handling decreasing position`);
     const contractInterface = new ethers.utils.Interface(PositionRouter);
     for (let i = 0; i < transaction.logs.length; i++) {
       try {
         const event = contractInterface.parseLog(transaction.logs[i]);
-        if (event.name === "ExecuteIncreasePosition") {
+        if (event.name === "ExecuteDecreasePosition") {
           console.log(event);
           const position: Position = {
             account: event.args.account.toLowerCase(),
@@ -34,7 +34,7 @@ export async function indexIncreasePosition(
             timestampSeconds: await provider
               .getBlock(transaction.blockNumber)
               .then((block) => block.timestamp),
-            type: "INCREASE",
+            type: "DECREASE",
           };
           console.log(position);
           const command = new PutCommand({
@@ -48,14 +48,14 @@ export async function indexIncreasePosition(
   }
 }
 
-export function isIncreasePosition(
+export function isDecreasePosition(
   transaction: ethers.providers.TransactionReceipt
 ): boolean {
   const contractInterface = new ethers.utils.Interface(PositionRouter);
   const receiptCheckResult = transaction.logs.map((log) => {
     try {
       const event = contractInterface.parseLog(log);
-      return event.name === "ExecuteIncreasePosition";
+      return event.name === "ExecuteDecreasePosition";
     } catch (e) {
       return false;
     }

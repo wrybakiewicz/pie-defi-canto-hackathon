@@ -5,4 +5,5 @@ export type Position = {
   tradingTokenPrice: number;
   isLong: boolean;
   timestampSeconds: number;
+  type: string;
 };
