@@ -37,6 +37,7 @@ import { PnlChartComponent } from './pnl-chart/pnl-chart.component';
 import { StatsComponent } from './stats/stats.component';
 import { TimelineComponent } from './timeline/timeline.component';
 import { TitleComponent } from './title/title.component';
+import { WinrateComponent } from './winrate/winrate.component';
 
 @NgModule({
   declarations: [
@@ -46,6 +47,7 @@ import { TitleComponent } from './title/title.component';
     ClosedPositionsComponent,
     OpenedPositionsComponent,
     TimelineComponent,
+    WinrateComponent
   ],
   imports: [
     CommonModule,
@@ -83,6 +85,7 @@ import { TitleComponent } from './title/title.component';
     ClosedPositionsComponent,
     OpenedPositionsComponent,
     TimelineComponent,
+    WinrateComponent
   ],
 })
 export class ComponentsModule {}
