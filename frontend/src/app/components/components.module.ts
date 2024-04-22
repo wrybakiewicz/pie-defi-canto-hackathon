@@ -1,40 +1,42 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
 import {
-  bootstrapSearch,
-  bootstrapBackspace,
   bootstrapArrowDownRightCircleFill,
   bootstrapArrowUpRightCircleFill,
+  bootstrapBackspace,
+  bootstrapCheck2Circle,
+  bootstrapClock,
   bootstrapCoin,
   bootstrapFiles,
   bootstrapGraphUp,
   bootstrapHourglassSplit,
   bootstrapOption,
+  bootstrapSearch,
   bootstrapSoundwave,
   bootstrapSpeedometer,
   bootstrapStars,
-  bootstrapSymmetryVertical,
+  bootstrapSymmetryVertical
 } from '@ng-icons/bootstrap-icons';
 import { NgIconsModule } from '@ng-icons/core';
-import { TitleComponent } from './title/title.component';
-import { StatsComponent } from './stats/stats.component';
 import {
   cryptoEth,
+  cryptoSushi,
   cryptoTusd,
   cryptoUsdc,
   cryptoXrp,
-  cryptoSushi,
 } from '@ng-icons/cryptocurrency-icons';
 import {
-  tdesignLockOn,
-  tdesignLeaderboard,
   tdesignDespise,
+  tdesignLeaderboard,
+  tdesignLockOn,
 } from '@ng-icons/tdesign-icons';
-import { PnlChartComponent } from './pnl-chart/pnl-chart.component';
 import { NgApexchartsModule } from 'ng-apexcharts';
 import { ClosedPositionsComponent } from './closed-positions/closed-positions.component';
 import { OpenedPositionsComponent } from './opened-positions/opened-positions.component';
+import { PnlChartComponent } from './pnl-chart/pnl-chart.component';
+import { StatsComponent } from './stats/stats.component';
 import { TimelineComponent } from './timeline/timeline.component';
+import { TitleComponent } from './title/title.component';
 
 @NgModule({
   declarations: [
@@ -70,6 +72,8 @@ import { TimelineComponent } from './timeline/timeline.component';
       bootstrapArrowUpRightCircleFill,
       bootstrapArrowDownRightCircleFill,
       bootstrapHourglassSplit,
+      bootstrapCheck2Circle,
+      bootstrapClock
     }),
   ],
   exports: [
