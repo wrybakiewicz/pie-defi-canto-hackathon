@@ -19,7 +19,7 @@ export async function handler(event, context) {
   const getPositionsQuery = new QueryCommand({
     TableName:
       process.env.DYNAMODB_POSITIONS_FROM_TABLE_NAME ||
-      "piedefi-positions-from-v1",
+      "piedefi-positions-from-v2",
     KeyConditionExpression: "#key = :key",
     ExpressionAttributeNames: { "#key": "account" },
     ExpressionAttributeValues: { ":key": address },
