@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-total-trades',
@@ -6,5 +6,6 @@ import { Component } from '@angular/core';
   styleUrl: './total-trades.component.scss'
 })
 export class TotalTradesComponent {
+  @Input() styleOverride: string = '';
 
 }
