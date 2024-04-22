@@ -42,6 +42,7 @@ import { TimelineComponent } from './timeline/timeline.component';
 import { TitleComponent } from './title/title.component';
 import { TotalTradesComponent } from './total-trades/total-trades.component';
 import { WinrateComponent } from './winrate/winrate.component';
+import { jamCrown } from '@ng-icons/jam-icons';
 
 @NgModule({
   declarations: [
@@ -82,7 +83,7 @@ import { WinrateComponent } from './winrate/winrate.component';
       bootstrapHourglassSplit,
       bootstrapCheck2Circle,
       bootstrapClock,
-      iconoirMedal1st,
+      jamCrown,
       bootstrapArrowRightShort
     }),
   ],
