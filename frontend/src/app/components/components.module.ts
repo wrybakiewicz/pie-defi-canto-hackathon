@@ -39,6 +39,7 @@ import { TimelineComponent } from './timeline/timeline.component';
 import { TitleComponent } from './title/title.component';
 import { WinrateComponent } from './winrate/winrate.component';
 import { TotalTradesComponent } from './total-trades/total-trades.component';
+import { CadenceLeaderboardComponent } from './cadence-leaderboard/cadence-leaderboard.component';
 
 @NgModule({
   declarations: [
@@ -49,7 +50,8 @@ import { TotalTradesComponent } from './total-trades/total-trades.component';
     OpenedPositionsComponent,
     TimelineComponent,
     WinrateComponent,
-    TotalTradesComponent
+    TotalTradesComponent,
+    CadenceLeaderboardComponent
   ],
   imports: [
     CommonModule,
@@ -88,7 +90,8 @@ import { TotalTradesComponent } from './total-trades/total-trades.component';
     OpenedPositionsComponent,
     TimelineComponent,
     WinrateComponent,
-    TotalTradesComponent
+    TotalTradesComponent,
+    CadenceLeaderboardComponent
   ],
 })
 export class ComponentsModule {}
