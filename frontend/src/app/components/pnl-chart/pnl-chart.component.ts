@@ -1,4 +1,5 @@
-import { AfterViewInit, Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, Input, OnInit } from '@angular/core';
+import { PnlChart, PnlDataPoint } from '../../models/cadence.model';
 
 @Component({
   selector: 'app-pnl-chart',
@@ -6,6 +7,9 @@ import { AfterViewInit, Component, OnInit } from '@angular/core';
   styleUrl: './pnl-chart.component.scss'
 })
 export class PnlChartComponent implements AfterViewInit {
+
+  @Input() data!: PnlChart;
+
   chartOptions: any = {};
   labelColor: any = {};
   borderColor: any = {};
@@ -21,8 +25,7 @@ export class PnlChartComponent implements AfterViewInit {
     this.baseColor = this.getCssValue('--bs-success');
     this.baseLightColor = this.getCssValue('--bs-purple');
     this.secondaryColor = this.getCssValue('--bs-danger');
-    this.chartOptions = this.getChartOptions();
-
+    this.chartOptions = this.getChartOptions(this.data);
   }
 
   getCssValue(variableName: string): string {
@@ -30,23 +33,28 @@ export class PnlChartComponent implements AfterViewInit {
     return style.getPropertyValue(variableName).trim();
   }
 
-  getChartOptions() {
+  getChartOptions(pnlChart: PnlChart) {
+    const profits = this.extractProfits(pnlChart);
+    const losses = this.extractLosses(pnlChart);
+    const volumes = this.extractVolumes(pnlChart);
+    const labels = this.getAllKeysAsString(pnlChart);
+    debugger;
     return {
       series: [
         {
-          "name": "Net Profit",
+          "name": "Profit",
           "type": "bar",
-          "data": [45, 70, 30, 95, 55, 20, 50, 40, 60, 90, 30, 85, 35, 40]
+          "data": profits
         },
         {
-          "name": "Net Loss",
+          "name": "Loss",
           "type": "bar",
-          "data": [25, 15, 35, 40, 10, 30, 25, 20, 15, 25, 35, 30, 10, 40]
+          "data": losses
         },
         {
           "name": "Volume",
           "type": "area",
-          "data": [40, 100, 45, 80, 60, 95, 55, 85, 70, 100, 60, 75, 55, 90]
+          "data": volumes
         }
       ],      
       chart: {
@@ -77,7 +85,7 @@ export class PnlChartComponent implements AfterViewInit {
         colors: ['transparent'],
       },
       xaxis: {
-        categories: ["01.04", "02.04", "03.04", "04.04", "05.04", "06.04", "07.04", "08.04", "09.04", "10.04", "11.04", "12.04", "13.04", "14.04"],
+        categories: labels,
         axisBorder: {
           show: false,
         },
@@ -142,4 +150,38 @@ export class PnlChartComponent implements AfterViewInit {
       },
     };
   }
+
+  private extractProfits(pnlChart: PnlChart): number[] {
+    let profitValues: number[] = [];
+    pnlChart.data.forEach((dataPoint: PnlDataPoint) => {
+        profitValues.push(dataPoint.profit);
+    });
+    return profitValues;
+  }
+
+  private extractLosses(pnlChart: PnlChart): number[] {
+    let lossValues: number[] = [];
+    pnlChart.data.forEach((dataPoint: PnlDataPoint) => {
+        lossValues.push(dataPoint.loss);
+    });
+    return lossValues;
+  }
+
+  private extractVolumes(pnlChart: PnlChart): number[] {
+    let volumeValues: number[] = [];
+    pnlChart.data.forEach((dataPoint: PnlDataPoint) => {
+        volumeValues.push(dataPoint.volume);
+    });
+    return volumeValues;
+  }
+
+  private getAllKeysAsString(pnlChart: PnlChart): string[] {
+    let keysAsStrings: string[] = [];
+    pnlChart.data.forEach((_, key: Date) => {
+        let day = key.getDate().toString().padStart(2, '0'); // Ensures the day is two digits
+        let month = (key.getMonth() + 1).toString().padStart(2, '0'); // Month is 0-indexed, add 1
+        keysAsStrings.push(`${day}.${month}`);
+    });
+    return keysAsStrings;
+}
 }

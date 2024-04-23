@@ -7,9 +7,20 @@ export interface CadenceData {
     lostTradesCount: number;
     openedTrades: number;
     closedTrades:number;
+    pnlChart: PnlChart;
 }
 
 export interface BestWorstTrade {
     best: number;
     worst: number;
+}
+
+export interface PnlChart {
+    data: Map<Date, PnlDataPoint>
+}
+
+export interface PnlDataPoint {
+    profit: number;
+    loss: number;
+    volume: number;
 }
