@@ -20,5 +20,7 @@
                     [markers]="chartOptions.markers" [plotOptions]="chartOptions.plotOptions"></apx-chart>
             </div>
         </div>
-        <span class="text-white text-center fw-bold" style="transform: translate(0px, -72px);">78%</span>
+        <span class="text-white text-center fw-bold" style="transform: translate(0px, -72px);">
+            {{(wonTrades/(wonTrades/lostTrades)) | number: '1.0-0'}}%
+        </span>
     </div>

@@ -7,6 +7,9 @@ import { AfterViewInit, Component, Input } from '@angular/core';
 })
 export class WinrateComponent implements AfterViewInit {
   @Input() styleOverride: string = '';
+  @Input() wonTrades!: number;
+  @Input() lostTrades!: number;
+
   chartOptions: any = {};
   labelColor: any = {};
   baseColor: any = {};

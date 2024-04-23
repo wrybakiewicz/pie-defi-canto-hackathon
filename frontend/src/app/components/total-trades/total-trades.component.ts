@@ -7,5 +7,6 @@ import { Component, Input } from '@angular/core';
 })
 export class TotalTradesComponent {
   @Input() styleOverride: string = '';
-
+  @Input() openedTrades!: number;
+  @Input() closedTrades!: number;
 }

@@ -1,22 +1,22 @@
 <div class="row gy-5 mt-2 mb-2 mb-xl-3">
   <div class="col-xl-3 col-md-6 mt-2 mt-xl-5">
-    <app-stats title="PnL" icon="bootstrapSymmetryVertical" body="+12370$"></app-stats>
+    <app-stats title="PnL" icon="bootstrapSymmetryVertical" body="{{data.pnl}}"></app-stats>
   </div>
   <div class="col-xl-3 col-md-6 mt-2 mt-xl-5">
-    <app-stats title="Avg Trade" icon="bootstrapSoundwave" body="3892$"></app-stats>
+    <app-stats title="Avg Trade" icon="bootstrapSoundwave" body="{{data.avgTrade}}"></app-stats>
   </div>
   <div class="col-xl-3 col-md-6 mt-2 mt-xl-5">
-    <app-stats title="Best/Worst" icon="bootstrapStars" body="+1273$/-129$"></app-stats>
+    <app-stats title="Best/Worst" icon="bootstrapStars" body="{{data.bwTrade.best}}/{{data.bwTrade.worst}}"></app-stats>
   </div>
   <div class="col-xl-3 col-md-6 mt-2 mt-xl-5">
-    <app-stats title="Total volume" icon="bootstrapSpeedometer" body="2139799$"></app-stats>
+    <app-stats title="Total volume" icon="bootstrapSpeedometer" body="{{data.totalVolume}}"></app-stats>
   </div>
 </div>
 
 <div class="row g-5 g-xl-10 mb-5">
   <div class="col-xl-3 col-md-12 col-sm-12 col-xs-12 mb-md-1">
-    <app-winrate styleOverride="height: 50% !important; margin-bottom: 1rem"></app-winrate>
-    <app-total-trades styleOverride="height: 50% !important; margin-bottom: 1rem"></app-total-trades>
+    <app-winrate [wonTrades]="data.wonTradesCount" [lostTrades]="data.lostTradesCount" styleOverride="height: 50% !important; margin-bottom: 1rem"></app-winrate>
+    <app-total-trades [openedTrades]="data.openedTrades" [closedTrades]="data.closedTrades" styleOverride="height: 50% !important; margin-bottom: 1rem"></app-total-trades>
   </div>
   <div class="col-xl-9 col-md-12 col-sm-12 col-xs-12 mb-md-1">
     <app-pnl-chart></app-pnl-chart>
