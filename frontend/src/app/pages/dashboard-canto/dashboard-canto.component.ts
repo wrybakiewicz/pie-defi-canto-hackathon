@@ -1,9 +1,9 @@
-import { AfterViewInit, Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
 import { HeaderComponent } from '../../components/header/header.component';
 import { ComponentsModule } from '../../components/components.module';
 import { MockDataService } from '../../services/mock-data.service';
 import { CadenceData, PnlChart } from '../../models/cadence.model';
-import { Observable, Subject } from 'rxjs';
+import { Observable, Subject, Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-dashboard-canto',
@@ -12,7 +12,9 @@ import { Observable, Subject } from 'rxjs';
   templateUrl: './dashboard-canto.component.html',
   styleUrl: './dashboard-canto.component.scss',
 })
-export class DashboardCantoComponent implements OnInit, AfterViewInit {
+export class DashboardCantoComponent implements OnInit, AfterViewInit, OnDestroy {
+  private subscription: Subscription = new Subscription();
+
   data!: CadenceData;
   data$!: Observable<CadenceData>;
   private pnlData = new Subject<PnlChart>();
@@ -23,13 +25,17 @@ export class DashboardCantoComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
-    this.data$.subscribe((data) => {
+    this.subscription.add(this.data$.subscribe((data) => {
       this.data = data;
       this.pnlData.next(data.pnlChart);
-    });
+    }));
   }
 
   ngAfterViewInit(): void {
     this.mockData.getCadenceDashboardData()
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
   }
 }
