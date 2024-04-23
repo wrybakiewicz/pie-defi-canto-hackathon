@@ -29,6 +29,7 @@
     "@popperjs/core": "^2.11.8",
     "apexcharts": "^3.48.0",
     "bootstrap": "^5.3.3",
+    "ng-animate": "^2.0.1",
     "ng-apexcharts": "^1.10.0",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",

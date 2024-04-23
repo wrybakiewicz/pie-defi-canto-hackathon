@@ -1,14 +1,28 @@
-import { Component, Input } from '@angular/core';
+import { trigger, transition, useAnimation } from '@angular/animations';
+import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { pulse } from 'ng-animate';
 
 @Component({
   selector: 'app-stats',
   templateUrl: './stats.component.html',
-  styleUrl: './stats.component.scss'
+  styleUrl: './stats.component.scss',
+  animations: [
+    trigger('bounce', [transition('* => *', useAnimation(pulse, {
+      params: { timing: 0.3, delay: 0 }
+    }))])
+  ],
 })
-export class StatsComponent {
+export class StatsComponent implements OnChanges{
+  
   @Input() title: string = '';
   @Input() body: string = '';
   @Input() icon: string = '';
   @Input() icons: string[] = [];
   @Input() styleOverride: string = '';
+
+  bounce: any = false;
+
+  ngOnChanges(changes: SimpleChanges): void {
+    this.bounce = !this.bounce
+  }
 }
