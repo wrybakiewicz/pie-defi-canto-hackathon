@@ -16,8 +16,8 @@ export class DashboardCantoComponent {
   data!: CadenceData;
 
   constructor(private mockData: MockDataService) {
-    this.mockData.getCadenceDashboardData().subscribe(data => {
-      this.data = data;
-    });
+    // this.mockData.getCadenceDashboardData().subscribe(data => {
+    //   this.data = data;
+    // });
   }
 }

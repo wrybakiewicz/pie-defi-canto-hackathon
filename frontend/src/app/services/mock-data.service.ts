@@ -1,14 +1,18 @@
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { Observable, Subject, of } from 'rxjs';
 import { CadenceData } from '../models/cadence.model';
 
 @Injectable({
   providedIn: 'root',
 })
 export class MockDataService {
+
+  private dataSource = new Subject<CadenceData>();
+  data$ = this.dataSource.asObservable();
+
   constructor() {}
 
-  getCadenceDashboardData(): Observable<CadenceData> {
+  getCadenceDashboardData(): void {
     const profits = this.getRandomIntArray(0, 5000, 14);
     const losses = this.getRandomIntArray(0, 3000, 14);
     const volumes = this.getRandomIntArray(0, 15000, 14);
@@ -28,7 +32,7 @@ export class MockDataService {
       '13.04',
       '14.04',
     ];
-    return of({
+    this.dataSource.next({
       pnl: this.getRandomInt(100, 55555),
       avgTrade: this.getRandomInt(100, 55555),
       bwTrade: {

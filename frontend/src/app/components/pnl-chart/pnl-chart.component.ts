@@ -1,14 +1,15 @@
-import { AfterViewInit, Component, Input } from '@angular/core';
+import { AfterViewInit, Component, Input, OnInit } from '@angular/core';
 import { PnlChart } from '../../models/cadence.model';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-pnl-chart',
   templateUrl: './pnl-chart.component.html',
   styleUrl: './pnl-chart.component.scss'
 })
-export class PnlChartComponent implements AfterViewInit {
+export class PnlChartComponent implements AfterViewInit, OnInit {
 
-  @Input() data!: PnlChart;
+  @Input() data$!: Observable<PnlChart>;
 
   chartOptions: any = {};
   labelColor: any = {};
@@ -19,13 +20,19 @@ export class PnlChartComponent implements AfterViewInit {
 
   constructor() {}
 
+  ngOnInit(): void {
+    this.data$.subscribe((data) => {
+      debugger
+      this.chartOptions = this.getChartOptions(data);
+    })
+  }
+
   ngAfterViewInit() {
     this.labelColor = this.getCssValue('--bs-gray-500');
     this.borderColor = this.getCssValue('--bs-gray-200');
     this.baseColor = this.getCssValue('--bs-success');
     this.baseLightColor = this.getCssValue('--bs-purple');
     this.secondaryColor = this.getCssValue('--bs-danger');
-    this.chartOptions = this.getChartOptions(this.data);
   }
 
   getCssValue(variableName: string): string {

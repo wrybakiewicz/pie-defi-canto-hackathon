@@ -19,8 +19,8 @@ export class DashboardCadenceComponent implements OnInit {
   constructor(private mockData: MockDataService) {}
 
   ngOnInit(): void {
-    this.mockData.getCadenceDashboardData().subscribe((data) => {
-      // this.data = data;
-    });
+    // this.mockData.getCadenceDashboardData().subscribe((data) => {
+    //   // this.data = data;
+    // });
   }
 }

@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ComponentsModule } from '../../components/components.module';
 import { HeaderComponent } from '../../components/header/header.component';
-import { CadenceData } from '../../models/cadence.model';
+import { CadenceData, PnlChart } from '../../models/cadence.model';
 import { MockDataService } from '../../services/mock-data.service';
-import { mergeMap, timer } from 'rxjs';
+import { Observable, Subject, mergeMap, timer } from 'rxjs';
 
 @Component({
   selector: 'app-dashboard-cadence-example',
@@ -14,18 +14,21 @@ import { mergeMap, timer } from 'rxjs';
 })
 export class DashboardCadenceExampleComponent implements OnInit {
   data!: CadenceData;
+  data$!: Observable<CadenceData>;
+  private pnlData = new Subject<PnlChart>();
+  pnlData$ = this.pnlData.asObservable();
 
-  constructor(private mockData: MockDataService) {}
+  constructor(private mockData: MockDataService) {
+    this.data$ = mockData.data$;
+  }
 
   ngOnInit(): void {
-    timer(0, 2000)
-      .pipe(
-        mergeMap(async (_) =>
-          this.mockData.getCadenceDashboardData().subscribe((data) => {
-            this.data = data;
-          })
-        )
-      )
+    this.data$.subscribe((data) => {
+      this.data = data;
+      this.pnlData.next(data.pnlChart)
+    });
+    timer(0, 3000)
+      .pipe(mergeMap(async (_) => this.mockData.getCadenceDashboardData()))
       .subscribe();
     // timer(0, 2).pipe(() => {
     //   mergeMap(_ =>
