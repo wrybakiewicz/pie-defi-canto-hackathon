@@ -19,7 +19,7 @@
             </div>
             <div *ngIf="icons"
                 class="d-flex justify-content-center mb-2">
-                <div class="d-flex flex-row-fluid">
+                <div [@pulse]="anim" class="d-flex flex-row-fluid">
                     <ng-icon *ngFor="let ic of icons"
                         class="fw-bold fs-6 text-white mb-2"
                         name="{{ic}}"></ng-icon>

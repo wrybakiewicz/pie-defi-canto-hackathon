@@ -30,7 +30,8 @@ export class DashboardCadenceExampleComponent implements OnInit, OnDestroy {
       this.data = data;
       this.pnlData.next(data.pnlChart)
     }));
-    this.timer = timer(0, 3000)
+    this.mockData.getCadenceDashboardData()
+    this.timer = timer(0, 5000)
     .pipe(mergeMap(async (_) => this.mockData.getCadenceDashboardData()))
     .subscribe();
   }
