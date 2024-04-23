@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ComponentsModule } from '../../components/components.module';
 import { HeaderComponent } from '../../components/header/header.component';
-import { CadenceData, PnlDataPoint } from '../../models/cadence.model';
+import { CadenceData } from '../../models/cadence.model';
 
 @Component({
   selector: 'app-dashboard-cadence',
@@ -14,8 +14,34 @@ export class DashboardCadenceComponent implements OnInit {
   data!: CadenceData;
 
   ngOnInit(): void {
-    const pnlData = new Map<Date, PnlDataPoint>();
-    this.initPnlChartMockData(pnlData);
+    const profits = [
+      2300, 1500, 4000, 1200, 2200, 1800, 900, 1000, 3000, 1600, 2000, 2500,
+      1000, 1700,
+    ];
+    const losses = [
+      1200, 2500, 900, 800, 3200, 700, 400, 1900, 500, 300, 3000, 600, 200,
+      2800,
+    ];
+    const volumes = [
+      3500, 5000, 6000, 2900, 5500, 4200, 3100, 6200, 7100, 3400, 4500, 3800,
+      3000, 5900,
+    ];
+    const dates = [
+      '01.04',
+      '02.04',
+      '03.04',
+      '04.04',
+      '05.04',
+      '06.04',
+      '07.04',
+      '08.04',
+      '09.04',
+      '10.04',
+      '11.04',
+      '12.04',
+      '13.04',
+      '14.04',
+    ];
     this.data = {
       pnl: 39218,
       avgTrade: 2038,
@@ -29,81 +55,11 @@ export class DashboardCadenceComponent implements OnInit {
       openedTrades: 18,
       closedTrades: 22,
       pnlChart: {
-        data: pnlData,
+        profit: profits,
+        loss: losses,
+        volume: volumes,
+        labels: dates,
       },
     };
-  }
-
-  private initPnlChartMockData(pnlData: Map<Date, PnlDataPoint>) {
-    pnlData.set(new Date('04.01.2024'), {
-      profit: 2300,
-      loss: 1200,
-      volume: 3500,
-    });
-    pnlData.set(new Date('04.02.2024'), {
-      profit: 1500,
-      loss: 2500,
-      volume: 5000,
-    });
-    pnlData.set(new Date('04.03.2024'), {
-      profit: 4000,
-      loss: 900,
-      volume: 6000,
-    });
-    pnlData.set(new Date('04.04.2024'), {
-      profit: 1200,
-      loss: 800,
-      volume: 2900,
-    });
-    pnlData.set(new Date('04.05.2024'), {
-      profit: 2200,
-      loss: 3200,
-      volume: 5500,
-    });
-    pnlData.set(new Date('04.06.2024'), {
-      profit: 1800,
-      loss: 700,
-      volume: 4200,
-    });
-    pnlData.set(new Date('04.07.2024'), {
-      profit: 900,
-      loss: 400,
-      volume: 3100,
-    });
-    pnlData.set(new Date('04.08.2024'), {
-      profit: 1000,
-      loss: 1900,
-      volume: 6200,
-    });
-    pnlData.set(new Date('04.09.2024'), {
-      profit: 3000,
-      loss: 500,
-      volume: 7100,
-    });
-    pnlData.set(new Date('04.10.2024'), {
-      profit: 1600,
-      loss: 300,
-      volume: 3400,
-    });
-    pnlData.set(new Date('04.11.2024'), {
-      profit: 2000,
-      loss: 3000,
-      volume: 4500,
-    });
-    pnlData.set(new Date('04.12.2024'), {
-      profit: 2500,
-      loss: 600,
-      volume: 3800,
-    });
-    pnlData.set(new Date('04.13.2024'), {
-      profit: 1000,
-      loss: 200,
-      volume: 3000,
-    });
-    pnlData.set(new Date('04.14.2024'), {
-      profit: 1700,
-      loss: 2800,
-      volume: 5900,
-    });
   }
 }

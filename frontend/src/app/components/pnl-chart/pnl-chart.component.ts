@@ -1,5 +1,5 @@
-import { AfterViewInit, Component, Input, OnInit } from '@angular/core';
-import { PnlChart, PnlDataPoint } from '../../models/cadence.model';
+import { AfterViewInit, Component, Input } from '@angular/core';
+import { PnlChart } from '../../models/cadence.model';
 
 @Component({
   selector: 'app-pnl-chart',
@@ -34,27 +34,22 @@ export class PnlChartComponent implements AfterViewInit {
   }
 
   getChartOptions(pnlChart: PnlChart) {
-    const profits = this.extractProfits(pnlChart);
-    const losses = this.extractLosses(pnlChart);
-    const volumes = this.extractVolumes(pnlChart);
-    const labels = this.getAllKeysAsString(pnlChart);
-    debugger;
     return {
       series: [
         {
           "name": "Profit",
           "type": "bar",
-          "data": profits
+          "data": pnlChart.profit
         },
         {
           "name": "Loss",
           "type": "bar",
-          "data": losses
+          "data": pnlChart.loss
         },
         {
           "name": "Volume",
           "type": "area",
-          "data": volumes
+          "data": pnlChart.volume
         }
       ],
       chart: {
@@ -88,7 +83,7 @@ export class PnlChartComponent implements AfterViewInit {
         colors: ['transparent'],
       },
       xaxis: {
-        categories: labels,
+        categories: pnlChart.labels,
         axisBorder: {
           show: false,
         },
@@ -152,38 +147,4 @@ export class PnlChartComponent implements AfterViewInit {
       },
     };
   }
-
-  private extractProfits(pnlChart: PnlChart): number[] {
-    let profitValues: number[] = [];
-    pnlChart.data.forEach((dataPoint: PnlDataPoint) => {
-        profitValues.push(dataPoint.profit);
-    });
-    return profitValues;
-  }
-
-  private extractLosses(pnlChart: PnlChart): number[] {
-    let lossValues: number[] = [];
-    pnlChart.data.forEach((dataPoint: PnlDataPoint) => {
-        lossValues.push(dataPoint.loss);
-    });
-    return lossValues;
-  }
-
-  private extractVolumes(pnlChart: PnlChart): number[] {
-    let volumeValues: number[] = [];
-    pnlChart.data.forEach((dataPoint: PnlDataPoint) => {
-        volumeValues.push(dataPoint.volume);
-    });
-    return volumeValues;
-  }
-
-  private getAllKeysAsString(pnlChart: PnlChart): string[] {
-    let keysAsStrings: string[] = [];
-    pnlChart.data.forEach((_, key: Date) => {
-        let day = key.getDate().toString().padStart(2, '0'); // Ensures the day is two digits
-        let month = (key.getMonth() + 1).toString().padStart(2, '0'); // Month is 0-indexed, add 1
-        keysAsStrings.push(`${day}.${month}`);
-    });
-    return keysAsStrings;
-}
 }

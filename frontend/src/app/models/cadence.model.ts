@@ -16,11 +16,8 @@ export interface BestWorstTrade {
 }
 
 export interface PnlChart {
-    data: Map<Date, PnlDataPoint>
-}
-
-export interface PnlDataPoint {
-    profit: number;
-    loss: number;
-    volume: number;
+    profit: number[];
+    loss: number[];
+    volume: number[];
+    labels: string[]; 
 }
