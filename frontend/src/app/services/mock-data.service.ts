@@ -9,18 +9,9 @@ export class MockDataService {
   constructor() {}
 
   getCadenceDashboardData(): Observable<CadenceData> {
-    const profits = [
-      2300, 1500, 4000, 1200, 2200, 1800, 900, 1000, 3000, 1600, 2000, 2500,
-      1000, 1700,
-    ];
-    const losses = [
-      1200, 2500, 900, 800, 3200, 700, 400, 1900, 500, 300, 3000, 600, 200,
-      2800,
-    ];
-    const volumes = [
-      3500, 5000, 6000, 2900, 5500, 4200, 3100, 6200, 7100, 3400, 4500, 3800,
-      3000, 5900,
-    ];
+    const profits = this.getRandomIntArray(0, 5000, 14);
+    const losses = this.getRandomIntArray(0, 3000, 14);
+    const volumes = this.getRandomIntArray(0, 15000, 14);
     const dates = [
       '01.04',
       '02.04',
@@ -38,17 +29,17 @@ export class MockDataService {
       '14.04',
     ];
     return of({
-      pnl: 39218,
-      avgTrade: 2038,
+      pnl: this.getRandomInt(100, 55555),
+      avgTrade: this.getRandomInt(100, 55555),
       bwTrade: {
-        best: 93829,
-        worst: 63299,
+        best: this.getRandomInt(100, 55555),
+        worst: this.getRandomInt(100, 55555),
       },
-      totalVolume: 9872340,
-      wonTradesCount: 70,
-      lostTradesCount: 30,
-      openedTrades: 18,
-      closedTrades: 22,
+      totalVolume: this.getRandomInt(100, 5555555),
+      wonTradesCount: this.getRandomInt(10, 80),
+      lostTradesCount: this.getRandomInt(1, 70),
+      openedTrades: this.getRandomInt(1, 50),
+      closedTrades: this.getRandomInt(1, 200),
       pnlChart: {
         profit: profits,
         loss: losses,
@@ -57,4 +48,19 @@ export class MockDataService {
       },
     });
   }
+
+  getRandomInt(min: number, max: number): number {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+  }
+  
+  getRandomIntArray(min: number, max: number, size: number): number[] {
+    const randoms: number[] = [];
+    for (let i = 0; i < size; i++) {
+      randoms.push(this.getRandomInt(min, max));
+    }
+    return randoms;
+  }
+  
 }

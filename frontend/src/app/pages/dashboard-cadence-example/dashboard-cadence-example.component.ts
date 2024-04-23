@@ -3,6 +3,7 @@ import { ComponentsModule } from '../../components/components.module';
 import { HeaderComponent } from '../../components/header/header.component';
 import { CadenceData } from '../../models/cadence.model';
 import { MockDataService } from '../../services/mock-data.service';
+import { mergeMap, timer } from 'rxjs';
 
 @Component({
   selector: 'app-dashboard-cadence-example',
@@ -17,8 +18,20 @@ export class DashboardCadenceExampleComponent implements OnInit {
   constructor(private mockData: MockDataService) {}
 
   ngOnInit(): void {
-    this.mockData.getCadenceDashboardData().subscribe((data) => {
-      this.data = data;
-    });
+    timer(0, 2000)
+      .pipe(
+        mergeMap(async (_) =>
+          this.mockData.getCadenceDashboardData().subscribe((data) => {
+            this.data = data;
+          })
+        )
+      )
+      .subscribe();
+    // timer(0, 2).pipe(() => {
+    //   mergeMap(_ =>
+    //     this.mockData.getCadenceDashboardData().subscribe((data) => {
+    //     this.data = data;
+    //   }))
+    // });
   }
 }
