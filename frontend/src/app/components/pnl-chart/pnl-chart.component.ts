@@ -56,13 +56,16 @@ export class PnlChartComponent implements AfterViewInit {
           "type": "area",
           "data": volumes
         }
-      ],      
+      ],
       chart: {
         stacked: true,
         height: 350,
         toolbar: {
           show: false,
         },
+        zoom: {
+          enabled: true
+        }
       },
       plotOptions: {
         bar: {
@@ -100,7 +103,6 @@ export class PnlChartComponent implements AfterViewInit {
         },
       },
       yaxis: {
-        max: 120,
         labels: {
           style: {
             colors: this.labelColor,
@@ -124,7 +126,7 @@ export class PnlChartComponent implements AfterViewInit {
         cssClass: 'chart-tooltip',
         style: {
           fontSize: '12px',
-          
+
         },
         y: {
           formatter: function (val: number) {
