@@ -7,7 +7,7 @@ import { pulse } from 'ng-animate';
   templateUrl: './stats.component.html',
   styleUrl: './stats.component.scss',
   animations: [
-    trigger('bounce', [transition('* => *', useAnimation(pulse, {
+    trigger('pulse', [transition('* => *', useAnimation(pulse, {
       params: { timing: 0.3, delay: 0 }
     }))])
   ],
@@ -20,9 +20,9 @@ export class StatsComponent implements OnChanges{
   @Input() icons: string[] = [];
   @Input() styleOverride: string = '';
 
-  bounce: any = false;
+  anim: any = false;
 
   ngOnChanges(changes: SimpleChanges): void {
-    this.bounce = !this.bounce
+    this.anim = !this.anim
   }
 }

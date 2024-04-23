@@ -13,9 +13,9 @@
     <div class="card-body pt-0 pb-0">
         <div class="d-flex flex-column align-items-start text-start mt-3">
             <div class="d-flex flex-column text-white fw-bold">
-                <span>Opened: {{openedTrades}}</span>
-                <span>Closed: {{closedTrades}}</span>
-                <span>Total: {{openedTrades + closedTrades}}</span>
+                <span [@pulse]="anim">Opened: {{openedTrades}}</span>
+                <span [@pulse]="anim">Closed: {{closedTrades}}</span>
+                <span [@pulse]="anim">Total: {{openedTrades + closedTrades}}</span>
             </div>
         </div>
         <div class="progress mb-3 mt-4 mb-0 pb-0">
