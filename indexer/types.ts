@@ -8,3 +8,9 @@ export type Position = {
   type: string;
   pnl: number;
 };
+
+export type Price = {
+  token: string;
+  price: number;
+  timestampSeconds: number;
+};

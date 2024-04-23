@@ -1,0 +1,30 @@
+{
+  "abi": [
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "address",
+          "name": "token",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "price",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "internalType": "address",
+          "name": "priceFeed",
+          "type": "address"
+        }
+      ],
+      "name": "PriceUpdate",
+      "payable": false,
+      "type": "event"
+    }
+  ]
+}
