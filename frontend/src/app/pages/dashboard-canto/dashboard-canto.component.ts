@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { HeaderComponent } from '../../components/header/header.component';
 import { ComponentsModule } from '../../components/components.module';
+import { MockDataService } from '../../services/mock-data.service';
+import { CadenceData } from '../../models/cadence.model';
 
 @Component({
   selector: 'app-dashboard-canto',
@@ -11,4 +13,11 @@ import { ComponentsModule } from '../../components/components.module';
 })
 export class DashboardCantoComponent {
 
+  data!: CadenceData;
+
+  constructor(private mockData: MockDataService) {
+    this.mockData.getCadenceDashboardData().subscribe(data => {
+      this.data = data;
+    });
+  }
 }
