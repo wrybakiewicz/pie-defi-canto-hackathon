@@ -26,4 +26,6 @@ export const dynamodbLastSyncedBlockTableName =
 export const dynamodbPositionsFromTableName =
   process.env.DYNAMODB_POSITIONS_FROM_TABLE_NAME;
 
+export const dynamodbPriceTableName = process.env.DYNAMODB_PRICE_TABLE_NAME;
+
 export const blockBatchSize = Number(process.env.BLOCK_BATCH_SIZE);
