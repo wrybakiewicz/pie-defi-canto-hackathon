@@ -1,9 +1,9 @@
-import { AfterViewInit, Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
 import { ComponentsModule } from '../../components/components.module';
 import { HeaderComponent } from '../../components/header/header.component';
 import { CadenceData, PnlChart } from '../../models/cadence.model';
 import { MockDataService } from '../../services/mock-data.service';
-import { Observable, Subject, mergeMap, timer } from 'rxjs';
+import { Observable, Subject, Subscription, mergeMap, timer } from 'rxjs';
 
 @Component({
   selector: 'app-dashboard-cadence-example',
@@ -12,7 +12,10 @@ import { Observable, Subject, mergeMap, timer } from 'rxjs';
   templateUrl: './dashboard-cadence-example.component.html',
   styleUrl: './dashboard-cadence-example.component.scss',
 })
-export class DashboardCadenceExampleComponent implements OnInit, AfterViewInit {
+export class DashboardCadenceExampleComponent implements OnInit, OnDestroy {
+  private subscription: Subscription = new Subscription();
+  private timer!: Subscription;
+
   data!: CadenceData;
   data$!: Observable<CadenceData>;
   private pnlData = new Subject<PnlChart>();
@@ -23,15 +26,18 @@ export class DashboardCadenceExampleComponent implements OnInit, AfterViewInit {
   }
   
   ngOnInit(): void {
-    this.data$.subscribe((data) => {
+    this.subscription.add(this.data$.subscribe((data) => {
       this.data = data;
       this.pnlData.next(data.pnlChart)
-    });
-  }
-
-  ngAfterViewInit(): void {
-    timer(0, 3000)
+    }));
+    this.timer = timer(0, 3000)
     .pipe(mergeMap(async (_) => this.mockData.getCadenceDashboardData()))
     .subscribe();
   }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
+    this.timer?.unsubscribe();
+  }
+
 }
