@@ -26,7 +26,7 @@ import {
   cryptoUsdc,
   cryptoXrp,
 } from '@ng-icons/cryptocurrency-icons';
-import { iconoirMedal1st } from '@ng-icons/iconoir';
+import { jamCrown } from '@ng-icons/jam-icons';
 import {
   tdesignDespise,
   tdesignLeaderboard,
@@ -37,12 +37,12 @@ import { CadenceLeaderboardComponent } from './cadence-leaderboard/cadence-leade
 import { ClosedPositionsComponent } from './closed-positions/closed-positions.component';
 import { OpenedPositionsComponent } from './opened-positions/opened-positions.component';
 import { PnlChartComponent } from './pnl-chart/pnl-chart.component';
+import { PreSearchOverlayComponent } from './pre-search-overlay/pre-search-overlay.component';
 import { StatsComponent } from './stats/stats.component';
 import { TimelineComponent } from './timeline/timeline.component';
 import { TitleComponent } from './title/title.component';
 import { TotalTradesComponent } from './total-trades/total-trades.component';
 import { WinrateComponent } from './winrate/winrate.component';
-import { jamCrown } from '@ng-icons/jam-icons';
 
 @NgModule({
   declarations: [
@@ -54,7 +54,8 @@ import { jamCrown } from '@ng-icons/jam-icons';
     TimelineComponent,
     WinrateComponent,
     TotalTradesComponent,
-    CadenceLeaderboardComponent
+    CadenceLeaderboardComponent,
+    PreSearchOverlayComponent
   ],
   imports: [
     CommonModule,
@@ -96,7 +97,8 @@ import { jamCrown } from '@ng-icons/jam-icons';
     TimelineComponent,
     WinrateComponent,
     TotalTradesComponent,
-    CadenceLeaderboardComponent
+    CadenceLeaderboardComponent,
+    PreSearchOverlayComponent,
   ],
 })
 export class ComponentsModule {}
