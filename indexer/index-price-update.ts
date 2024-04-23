@@ -16,7 +16,7 @@ export async function indexPriceUpdate(
 ): Promise<void> {
   if (isPriceUpdated(transaction)) {
     console.log(`Handling price update`);
-    const contractInterface = new ethers.utils.Interface(PositionRouter);
+    const contractInterface = new ethers.utils.Interface(FastPriceEvents);
     for (let i = 0; i < transaction.logs.length; i++) {
       try {
         const event = contractInterface.parseLog(transaction.logs[i]);
@@ -45,7 +45,7 @@ export async function indexPriceUpdate(
 export function isPriceUpdated(
   transaction: ethers.providers.TransactionReceipt
 ): boolean {
-  const contractInterface = new ethers.utils.Interface(PositionRouter);
+  const contractInterface = new ethers.utils.Interface(FastPriceEvents);
   const receiptCheckResult = transaction.logs.map((log) => {
     try {
       const event = contractInterface.parseLog(log);
