@@ -26,26 +26,19 @@ export async function handler(event, context) {
   });
   const positionEvents = (await docClient.send(getPositionsQuery)).Items;
 
+  // console.log(positionEvents);
+
   let totalVolume = 0.0;
   const dailyVolume = new Map(); // day is a key, volume number is a value
-  const openedPositions = Map(); // type-token is a key, position is a value
+  const openedPositions = new Map(); // type-token is a key, position is a value
   const closedPosition = [];
   for (let i = 0; i < positionEvents.length; i++) {
     const positionEvent = positionEvents[i];
-    console.log(positionEvent);
+    // console.log(positionEvent);
     const existingPosition = openedPositions.get(getPositionKey(positionEvent));
-    if (positionEvent === "INCREASE") {
+    if (positionEvent.type === "INCREASE") {
       if (existingPosition) {
         console.log("Increasing position that already exist");
-        openedPositions.set(getPositionKey(positionEvent), {
-          type: positionEvent.isLong ? "LONG" : "SHORT",
-          token: positionEvent.tradingToken,
-          positionSizeInUsd: positionEvent.positionSizeInUsd,
-          openPrice: positionEvent.tradingTokenPrice,
-          openTimestampSeconds: positionEvent.timestampSeconds,
-        });
-      } else {
-        console.log("Increasing position that does not exist");
         openedPositions.set(getPositionKey(positionEvent), {
           type: positionEvent.isLong ? "LONG" : "SHORT",
           token: positionEvent.tradingToken,
@@ -54,6 +47,17 @@ export async function handler(event, context) {
             existingPosition.positionSizeInUsd,
           openPrice: positionEvent.tradingTokenPrice,
           openTimestampSeconds: positionEvent.timestampSeconds,
+          pnl: 0,
+        });
+      } else {
+        console.log("Increasing position that does not exist");
+        openedPositions.set(getPositionKey(positionEvent), {
+          type: positionEvent.isLong ? "LONG" : "SHORT",
+          token: positionEvent.tradingToken,
+          positionSizeInUsd: positionEvent.positionSizeInUsd,
+          openPrice: positionEvent.tradingTokenPrice,
+          openTimestampSeconds: positionEvent.timestampSeconds,
+          pnl: 0,
         });
       }
     } else {
@@ -69,12 +73,24 @@ export async function handler(event, context) {
           openTimestampSeconds: existingPosition.timestampSeconds,
           closePrice: positionEvent.tradingTokenPrice,
           closeTimestampSeconds: positionEvent.timestampSeconds,
-          pnl: positionEvent.pnl,
+          pnl: positionEvent.pnl + existingPosition.pnl,
         });
         openedPositions.delete(getPositionKey(positionEvent));
       } else {
         console.log("Closing partially the position");
         //TODO: in case position get decreased we should not include it in position size ?
+        openedPositions.set(getPositionKey(positionEvent), {
+          type: existingPosition.isLong ? "LONG" : "SHORT",
+          token: existingPosition.tradingToken,
+          positionSizeInUsd:
+            positionEvent.positionSizeInUsd +
+            existingPosition.positionSizeInUsd,
+          openPrice: existingPosition.tradingTokenPrice,
+          openTimestampSeconds: existingPosition.timestampSeconds,
+          closePrice: positionEvent.tradingTokenPrice,
+          closeTimestampSeconds: positionEvent.timestampSeconds,
+          pnl: positionEvent.pnl,
+        });
       }
     }
     const positionEventDate = new Date(positionEvent.timestampSeconds * 1000);
