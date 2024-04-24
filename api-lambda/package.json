@@ -7,7 +7,7 @@
   "scripts": {
     "clean": "rm -rf ./build.zip",
     "zip": "zip -r build.zip .",
-    "push": "aws s3api put-object --bucket pie-defi-lambdas --key v2.0.zip --body ./build.zip"
+    "push": "aws s3api put-object --bucket pie-defi-lambdas --key v2.1.zip --body ./build.zip"
   },
   "dependencies": {
     "@aws-sdk/client-dynamodb": "^3.556.0",
