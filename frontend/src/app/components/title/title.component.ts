@@ -8,6 +8,8 @@ import { Router } from '@angular/router';
 })
 export class TitleComponent {
 
+  @Input() glow: boolean = false;
+
   constructor(private router: Router) {}
 
   isActive(url: string): boolean {
