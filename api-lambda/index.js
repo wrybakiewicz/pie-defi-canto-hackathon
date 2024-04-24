@@ -38,6 +38,11 @@ export async function handler(event, context) {
   const closedPositions = [];
   for (let i = 0; i < positionEvents.length; i++) {
     const positionEvent = positionEvents[i];
+    const positionEventDate = new Date(positionEvent.timestampSeconds * 1000);
+    const dayMonthYear = `${positionEventDate.getFullYear()}-${(
+      "0" +
+      (positionEventDate.getMonth() + 1)
+    ).slice(-2)}-${positionEventDate.getDate()}`;
     // console.log(positionEvent);
     const existingPosition = openedPositions.get(getPositionKey(positionEvent));
     if (positionEvent.type === "INCREASE") {
@@ -50,7 +55,7 @@ export async function handler(event, context) {
             positionEvent.positionSizeInUsd +
             existingPosition.positionSizeInUsd,
           openPrice: positionEvent.tradingTokenPrice,
-          openTimestampSeconds: positionEvent.timestampSeconds,
+          openDate: dayMonthYear,
           pnl: 0,
         });
       } else {
@@ -60,7 +65,7 @@ export async function handler(event, context) {
           token: positionEvent.tradingToken,
           positionSizeInUsd: positionEvent.positionSizeInUsd,
           openPrice: positionEvent.tradingTokenPrice,
-          openTimestampSeconds: positionEvent.timestampSeconds,
+          openDate: dayMonthYear,
           pnl: 0,
         });
       }
@@ -74,9 +79,9 @@ export async function handler(event, context) {
           token: existingPosition.token,
           positionSizeInUsd: existingPosition.positionSizeInUsd,
           openPrice: existingPosition.openPrice,
-          openTimestampSeconds: existingPosition.openTimestampSeconds,
+          openDate: existingPosition.openDate,
           closePrice: positionEvent.tradingTokenPrice,
-          closeTimestampSeconds: positionEvent.timestampSeconds,
+          closeDate: dayMonthYear,
           pnl: positionEvent.pnl + existingPosition.pnl,
         });
         openedPositions.delete(getPositionKey(positionEvent));
@@ -90,15 +95,13 @@ export async function handler(event, context) {
             existingPosition.positionSizeInUsd -
             positionEvent.positionSizeInUsd,
           openPrice: existingPosition.openPrice,
-          openTimestampSeconds: existingPosition.openTimestampSeconds,
+          openDate: existingPosition.openDate,
           closePrice: positionEvent.closePrice,
-          closeTimestampSeconds: positionEvent.timestampSeconds,
+          closeDate: dayMonthYear,
           pnl: positionEvent.pnl,
         });
       }
     }
-    const positionEventDate = new Date(positionEvent.timestampSeconds * 1000);
-    const dayMonthYear = `${positionEventDate.getFullYear()}-${positionEventDate.getMonth()}-${positionEventDate.getDate()}`;
     dailyVolume.set(
       dayMonthYear,
       (dailyVolume.get(dayMonthYear) || 0) + positionEvent.positionSizeInUsd
@@ -118,7 +121,7 @@ export async function handler(event, context) {
       token: position.token,
       positionSizeInUsd: position.positionSizeInUsd,
       openPrice: position.openPrice,
-      openTimestampSeconds: position.openTimestampSeconds,
+      openDate: position.openDate,
       pnl:
         getPositionTokenVolume(position) *
         (allLatestTokenPrices.get(position.token).price - position.openPrice),
