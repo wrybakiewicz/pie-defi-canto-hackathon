@@ -31,7 +31,7 @@ export async function handler(event, context) {
   let totalVolume = 0.0;
   const dailyVolume = new Map(); // day is a key, volume number is a value
   const openedPositions = new Map(); // type-token is a key, position is a value
-  const closedPosition = [];
+  const closedPositions = [];
   for (let i = 0; i < positionEvents.length; i++) {
     const positionEvent = positionEvents[i];
     // console.log(positionEvent);
@@ -65,12 +65,12 @@ export async function handler(event, context) {
         positionEvent.positionSizeInUsd === existingPosition.positionSizeInUsd
       ) {
         console.log("Closing entirely the position");
-        closedPosition.push({
+        closedPositions.push({
           type: existingPosition.isLong ? "LONG" : "SHORT",
-          token: existingPosition.tradingToken,
+          token: existingPosition.token,
           positionSizeInUsd: existingPosition.positionSizeInUsd,
-          openPrice: existingPosition.tradingTokenPrice,
-          openTimestampSeconds: existingPosition.timestampSeconds,
+          openPrice: existingPosition.openPrice,
+          openTimestampSeconds: existingPosition.openTimestampSeconds,
           closePrice: positionEvent.tradingTokenPrice,
           closeTimestampSeconds: positionEvent.timestampSeconds,
           pnl: positionEvent.pnl + existingPosition.pnl,
@@ -81,13 +81,13 @@ export async function handler(event, context) {
         //TODO: in case position get decreased we should not include it in position size ?
         openedPositions.set(getPositionKey(positionEvent), {
           type: existingPosition.isLong ? "LONG" : "SHORT",
-          token: existingPosition.tradingToken,
+          token: existingPosition.token,
           positionSizeInUsd:
-            positionEvent.positionSizeInUsd +
-            existingPosition.positionSizeInUsd,
-          openPrice: existingPosition.tradingTokenPrice,
-          openTimestampSeconds: existingPosition.timestampSeconds,
-          closePrice: positionEvent.tradingTokenPrice,
+            existingPosition.positionSizeInUsd -
+            positionEvent.positionSizeInUsd,
+          openPrice: existingPosition.openPrice,
+          openTimestampSeconds: existingPosition.openTimestampSeconds,
+          closePrice: positionEvent.closePrice,
           closeTimestampSeconds: positionEvent.timestampSeconds,
           pnl: positionEvent.pnl,
         });
@@ -97,14 +97,27 @@ export async function handler(event, context) {
     const dayMonthYear = `${positionEventDate.getFullYear()}-${positionEventDate.getMonth()}-${positionEventDate.getDate()}`;
     dailyVolume.set(
       dayMonthYear,
-      dailyVolume.get(dayMonthYear) + positionEvent.positionSizeInUsd
+      (dailyVolume.get(dayMonthYear) || 0) + positionEvent.positionSizeInUsd
     );
     totalVolume += positionEvent.positionSizeInUsd;
   }
   //TODO: list of trades: Type | Token | Size | Open price | Open date | Close price | Close date | PnL
   //TODO: live trades - calculate PnL by last price
   console.log(positionEvents);
-  return positionEvents;
+
+  const dailyVolumeArray = Array.from(dailyVolume, ([key, value]) => {
+    return { date: key, dailyVolume: value };
+  });
+  console.log(`Total volume: ${totalVolume}`);
+  console.log(`Daily volume:`);
+  console.log(dailyVolumeArray);
+  console.log(`Closed positions:`);
+  console.log(closedPositions);
+  return {
+    totalVolume: totalVolume,
+    dailyVolumes: dailyVolumeArray,
+    closedPositions: closedPositions,
+  };
 }
 
 function getPositionKey(positionEvent) {
