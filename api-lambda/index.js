@@ -108,15 +108,30 @@ export async function handler(event, context) {
   const dailyVolumeArray = Array.from(dailyVolume, ([key, value]) => {
     return { date: key, dailyVolume: value };
   });
+
+  const openedPositionsArray = Array.from(openedPositions, ([_, position]) => {
+    return {
+      type: position.type,
+      token: position.token,
+      positionSizeInUsd: position.positionSizeInUsd,
+      openPrice: position.openPrice,
+      openTimestampSeconds: position.openTimestampSeconds,
+      pnl: 0,
+    };
+  });
+
   console.log(`Total volume: ${totalVolume}`);
   console.log(`Daily volume:`);
   console.log(dailyVolumeArray);
   console.log(`Closed positions:`);
   console.log(closedPositions);
+  console.log(`Opened positions:`);
+  console.log(openedPositionsArray);
   return {
     totalVolume: totalVolume,
     dailyVolumes: dailyVolumeArray,
     closedPositions: closedPositions,
+    openedPositions: openedPositionsArray,
   };
 }
 
