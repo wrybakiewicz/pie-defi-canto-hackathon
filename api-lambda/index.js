@@ -119,7 +119,9 @@ export async function handler(event, context) {
       positionSizeInUsd: position.positionSizeInUsd,
       openPrice: position.openPrice,
       openTimestampSeconds: position.openTimestampSeconds,
-      pnl: 0,
+      pnl:
+        getPositionTokenVolume(position) *
+        (allLatestTokenPrices.get(position.token).price - position.openPrice),
     };
   });
 
@@ -141,6 +143,10 @@ export async function handler(event, context) {
 function getPositionKey(positionEvent) {
   const type = positionEvent.isLong ? "LONG" : "SHORT";
   return `${type}-${positionEvent.tradingToken}`;
+}
+
+function getPositionTokenVolume(position) {
+  return position.positionSizeInUsd / position.openPrice;
 }
 
 async function getAllLatestTokenPrices() {
