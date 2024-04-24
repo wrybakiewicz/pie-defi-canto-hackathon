@@ -12,6 +12,8 @@ const docClient = DynamoDBDocumentClient.from(client, {
   },
 });
 
+let allLatestTokenPrices;
+
 export async function handler(event, context) {
   const address = event.queryStringParameters.address.toLowerCase();
   console.log(address);
@@ -24,9 +26,8 @@ export async function handler(event, context) {
     ExpressionAttributeNames: { "#key": "account" },
     ExpressionAttributeValues: { ":key": address },
   });
+  const allLatestTokenPrices = await getAllLatestTokenPrices();
   const positionEvents = (await docClient.send(getPositionsQuery)).Items;
-
-  // console.log(positionEvents);
 
   let totalVolume = 0.0;
   const dailyVolume = new Map(); // day is a key, volume number is a value
@@ -101,7 +102,6 @@ export async function handler(event, context) {
     );
     totalVolume += positionEvent.positionSizeInUsd;
   }
-  //TODO: list of trades: Type | Token | Size | Open price | Open date | Close price | Close date | PnL
   //TODO: live trades - calculate PnL by last price
   console.log(positionEvents);
 
@@ -138,6 +138,25 @@ export async function handler(event, context) {
 function getPositionKey(positionEvent) {
   const type = positionEvent.isLong ? "LONG" : "SHORT";
   return `${type}-${positionEvent.tradingToken}`;
+}
+
+async function getAllLatestTokenPrices() {
+  if (allLatestTokenPrices) {
+    return allLatestTokenPrices;
+  } else {
+    const tokens = ["WCANTO", "ETH", "ATOM"];
+    tokens.map(async (token) => {
+      const getLatestPrice = new QueryCommand({
+        TableName: process.env.DYNAMODB_PRICE_TABLE_NAME || "piedefi-price-v2",
+        KeyConditionExpression: "#key = :key",
+        ExpressionAttributeNames: { "#key": "token" },
+        ExpressionAttributeValues: { ":key": token },
+        ScanIndexForward: false,
+        Limit: 1,
+      });
+      return (await docClient.send(getLatestPrice)).Items;
+    });
+  }
 }
 
 handler({
