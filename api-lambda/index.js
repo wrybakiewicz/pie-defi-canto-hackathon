@@ -26,8 +26,11 @@ export async function handler(event, context) {
     ExpressionAttributeNames: { "#key": "account" },
     ExpressionAttributeValues: { ":key": address },
   });
-  const allLatestTokenPrices = await getAllLatestTokenPrices();
-  const positionEvents = (await docClient.send(getPositionsQuery)).Items;
+  const allLatestTokenPricesPromise = getAllLatestTokenPrices();
+  const positionEventsPromise = docClient.send(getPositionsQuery);
+
+  const allLatestTokenPrices = await allLatestTokenPricesPromise;
+  const positionEvents = (await positionEventsPromise).Items;
 
   let totalVolume = 0.0;
   const dailyVolume = new Map(); // day is a key, volume number is a value
@@ -145,17 +148,25 @@ async function getAllLatestTokenPrices() {
     return allLatestTokenPrices;
   } else {
     const tokens = ["WCANTO", "ETH", "ATOM"];
-    tokens.map(async (token) => {
-      const getLatestPrice = new QueryCommand({
-        TableName: process.env.DYNAMODB_PRICE_TABLE_NAME || "piedefi-price-v2",
-        KeyConditionExpression: "#key = :key",
-        ExpressionAttributeNames: { "#key": "token" },
-        ExpressionAttributeValues: { ":key": token },
-        ScanIndexForward: false,
-        Limit: 1,
-      });
-      return (await docClient.send(getLatestPrice)).Items;
-    });
+    const result = await Promise.all(
+      tokens.map(async (token) => {
+        const getLatestPrice = new QueryCommand({
+          TableName:
+            process.env.DYNAMODB_PRICE_TABLE_NAME || "piedefi-price-v2",
+          KeyConditionExpression: "#key = :key",
+          ExpressionAttributeNames: { "#key": "token" },
+          ExpressionAttributeValues: { ":key": token },
+          ScanIndexForward: false,
+          Limit: 1,
+        });
+        return (await docClient.send(getLatestPrice)).Items[0];
+      })
+    );
+    const resultMap = new Map(
+      result.map((element) => [element.token, element])
+    );
+    allLatestTokenPrices = resultMap;
+    return allLatestTokenPrices;
   }
 }
 
