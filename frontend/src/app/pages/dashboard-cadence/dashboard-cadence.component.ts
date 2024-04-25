@@ -37,15 +37,20 @@ export class DashboardCadenceComponent implements OnInit, AfterViewInit {
   
   ngOnInit(): void {
     if(!this.showExample){
-      this.subscription.add(this.data$.subscribe((data) => {
-        this.data = data;
-        this.pnlData.next(data.pnlChart)
-      }));
-      this.mockData.getCadenceDashboardData()
+      this.loadMockData();
     }
     this.subscription.add(this.tradingData$.subscribe((data) => {
       this.tradingData = data;
+      this.loadMockData();
     }))
+  }
+
+  private loadMockData() {
+    this.subscription.add(this.data$.subscribe((data) => {
+      this.data = data;
+      this.pnlData.next(data.pnlChart);
+    }));
+    this.mockData.getCadenceDashboardData();
   }
 
   ngAfterViewInit(): void {
