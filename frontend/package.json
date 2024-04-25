@@ -10,7 +10,7 @@
     "buildProd": "ng build --configuration=production",
     "clearS3": "aws s3 rm s3://piedefi.com --recursive",
     "uploadToS3": "aws s3 sync ./dist/canto-web-ui/browser s3://piedefi.com",
-    "cfInvalidate": "aws cloudfront create-invalidation --distribution-id E9ZJY8AOYOZJG --paths '/'",
+    "cfInvalidate": "aws cloudfront create-invalidation --distribution-id E29G27AAJ89404 --paths '/'",
     "deploy": "yarn buildProd && yarn clearS3 && yarn uploadToS3 && yarn cfInvalidate"
   },
   "private": true,
