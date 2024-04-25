@@ -1,7 +1,7 @@
 import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { ComponentsModule } from '../../components/components.module';
 import { HeaderComponent } from '../../components/header/header.component';
-import { CadenceData, PnlChart } from '../../models/cadence.model';
+import { BestWorstTrade, CadenceData, PnlChart } from '../../models/cadence.model';
 import { MockDataService } from '../../services/mock-data.service';
 import { DashboardCadenceExampleComponent } from '../dashboard-cadence-example/dashboard-cadence-example.component';
 import { CommonModule } from '@angular/common';
@@ -41,7 +41,8 @@ export class DashboardCadenceComponent implements OnInit, AfterViewInit {
     }
     this.subscription.add(this.tradingData$.subscribe((data) => {
       this.tradingData = data;
-      this.loadMockData();
+      this.data = this.convert(data);
+      // this.loadMockData();
     }))
   }
 
@@ -62,4 +63,50 @@ export class DashboardCadenceComponent implements OnInit, AfterViewInit {
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
   }
+
+  private convert(data: TradingData): CadenceData {
+    const avgTrade = data.closedPositions
+    .reduce((a, b) => a + b.positionSizeInUsd, 0) / data.closedPositions.length
+    + data.openedPositions.reduce((a, b) => a + b.positionSizeInUsd, 0) / data.openedPositions.length;
+    const bwTrade = this.findBestAndWorstTradeValues(data);
+    const wonTradesCount = data.closedPositions.filter((a) => a.closePrice && a.openPrice > a.closePrice).reduce((a) => a + 1, 0);
+    const lostTradesCount = data.closedPositions.filter((a) => a.closePrice && a.openPrice <= a.closePrice).reduce((a) => a + 1, 0);
+    const pnlTotal = data.closedPositions.reduce((a, b) => a + b.pnl, 0);
+    debugger
+    return {
+      pnl: pnlTotal,
+      avgTrade: avgTrade,
+      bwTrade: bwTrade,
+      totalVolume: data.totalVolume,
+      wonTradesCount: wonTradesCount,
+      lostTradesCount: lostTradesCount,
+      openedTrades: data.openedPositions.length,
+      closedTrades: data.closedPositions.length,
+      pnlChart: {
+        profit: [],
+        loss: [],
+        volume: [],
+        labels: [] 
+      }
+    }
+  }
+
+  private findBestAndWorstTradeValues(data: TradingData): BestWorstTrade {
+    let best: number = 0;
+    let worst: number = 0;
+    data.closedPositions.forEach(position => {
+        if (position.closePrice !== undefined) {
+            const pnl = position.closePrice - position.openPrice;
+
+            if (best === null || pnl > best) {
+                best = pnl;
+            }
+            if (worst === null || pnl < worst) {
+                worst = pnl;
+            }
+        }
+    });
+
+    return { best, worst };
+}
 }
