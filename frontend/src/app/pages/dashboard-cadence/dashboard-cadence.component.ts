@@ -78,19 +78,13 @@ export class DashboardCadenceComponent implements OnInit, AfterViewInit {
   }
 
   private convert(data: TradingData): CadenceData {
-    const avgTrade = this.calculateAvgTrade(data);
-    const bwTrade = this.findBestAndWorstTradeValues(data);
-    const wonTradesCount = this.countWonTrades(data);
-    const lostTradesCount = this.countLostTrades(data);
-    const pnlTotal = data.closedPositions.reduce((a, b) => a + b.pnl, 0);
-    debugger;
     return {
-      pnl: pnlTotal,
-      avgTrade: avgTrade,
-      bwTrade: bwTrade,
+      pnl: this.calculateTotalPnl(data),
+      avgTrade: this.calculateAvgTrade(data),
+      bwTrade: this.findBestAndWorstTradeValues(data),
       totalVolume: data.totalVolume,
-      wonTradesCount: wonTradesCount,
-      lostTradesCount: lostTradesCount,
+      wonTradesCount: this.countWonTrades(data),
+      lostTradesCount: this.countLostTrades(data),
       openedTrades: data.openedPositions.length,
       closedTrades: data.closedPositions.length,
       pnlChart: {
@@ -100,6 +94,10 @@ export class DashboardCadenceComponent implements OnInit, AfterViewInit {
         labels: [],
       },
     };
+  }
+
+  private calculateTotalPnl(data: TradingData) {
+    return data.closedPositions.reduce((a, b) => a + b.pnl, 0);
   }
 
   private countLostTrades(data: TradingData) {
