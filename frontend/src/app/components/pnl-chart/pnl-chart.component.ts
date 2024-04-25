@@ -22,7 +22,6 @@ export class PnlChartComponent implements AfterViewInit, OnInit {
 
   ngOnInit(): void {
     this.data$.subscribe((data) => {
-      debugger
       this.chartOptions = this.getChartOptions(data);
     })
   }

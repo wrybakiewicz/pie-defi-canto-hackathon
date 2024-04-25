@@ -10,6 +10,8 @@ export class TitleComponent {
 
   @Input() glow: boolean = false;
 
+  address!: string | undefined;
+
   constructor(private router: Router) {}
 
   isActive(url: string): boolean {
@@ -19,5 +21,13 @@ export class TitleComponent {
       queryParams: 'ignored',
       fragment: 'ignored'
     });
+  }
+
+  onDelete() {
+    this.address = '';
+  }
+
+  onSearch() {
+
   }
 }

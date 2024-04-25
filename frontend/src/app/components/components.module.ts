@@ -43,6 +43,7 @@ import { TimelineComponent } from './timeline/timeline.component';
 import { TitleComponent } from './title/title.component';
 import { TotalTradesComponent } from './total-trades/total-trades.component';
 import { WinrateComponent } from './winrate/winrate.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -59,6 +60,7 @@ import { WinrateComponent } from './winrate/winrate.component';
   ],
   imports: [
     CommonModule,
+    FormsModule,
     NgApexchartsModule,
     NgIconsModule.withIcons({
       bootstrapSearch,
