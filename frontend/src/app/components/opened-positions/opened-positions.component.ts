@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { Position } from '../../models/trades.model';
 
 @Component({
   selector: 'app-opened-positions',
@@ -7,4 +8,5 @@ import { Component } from '@angular/core';
 })
 export class OpenedPositionsComponent {
 
+  @Input() positions!: Position[];
 }

@@ -25,11 +25,11 @@
 </div>
 
 <div class="row g-5 mb-2 mb-xl-3">
-  <div class="col-md-12 col-lg-12 col-xl-6 col-xxl-6">
-    <app-closed-positions></app-closed-positions>
+  <div class="col-12">
+    <app-closed-positions [positions]="tradingData.closedPositions"></app-closed-positions>
   </div>
-  <div class="col-md-12 col-lg-12 col-xl-6 col-xxl-6">
-    <app-opened-positions></app-opened-positions>
+  <div class="col-12">
+    <app-opened-positions [positions]="tradingData.openedPositions"></app-opened-positions>
   </div>
 </div>
 </div>

@@ -44,6 +44,7 @@ import { TitleComponent } from './title/title.component';
 import { TotalTradesComponent } from './total-trades/total-trades.component';
 import { WinrateComponent } from './winrate/winrate.component';
 import { FormsModule } from '@angular/forms';
+import { octArrowUpRight, octArrowDownRight } from '@ng-icons/octicons';
 
 @NgModule({
   declarations: [
@@ -87,7 +88,9 @@ import { FormsModule } from '@angular/forms';
       bootstrapCheck2Circle,
       bootstrapClock,
       jamCrown,
-      bootstrapArrowRightShort
+      bootstrapArrowRightShort,
+      octArrowUpRight,
+      octArrowDownRight
     }),
   ],
   exports: [

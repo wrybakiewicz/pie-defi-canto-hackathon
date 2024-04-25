@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { Position } from '../../models/trades.model';
 
 @Component({
   selector: 'app-closed-positions',
@@ -6,5 +7,7 @@ import { Component } from '@angular/core';
   styleUrl: './closed-positions.component.scss'
 })
 export class ClosedPositionsComponent {
+
+  @Input() positions!: Position[];
 
 }
