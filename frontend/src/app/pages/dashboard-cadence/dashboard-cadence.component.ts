@@ -1,7 +1,11 @@
 import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { ComponentsModule } from '../../components/components.module';
 import { HeaderComponent } from '../../components/header/header.component';
-import { BestWorstTrade, CadenceData, PnlChart } from '../../models/cadence.model';
+import {
+  BestWorstTrade,
+  CadenceData,
+  PnlChart,
+} from '../../models/cadence.model';
 import { MockDataService } from '../../services/mock-data.service';
 import { DashboardCadenceExampleComponent } from '../dashboard-cadence-example/dashboard-cadence-example.component';
 import { CommonModule } from '@angular/common';
@@ -12,7 +16,12 @@ import { ApiService } from '../../services/api.service';
 @Component({
   selector: 'app-dashboard-cadence',
   standalone: true,
-  imports: [CommonModule, HeaderComponent, ComponentsModule, DashboardCadenceExampleComponent],
+  imports: [
+    CommonModule,
+    HeaderComponent,
+    ComponentsModule,
+    DashboardCadenceExampleComponent,
+  ],
   templateUrl: './dashboard-cadence.component.html',
   styleUrl: './dashboard-cadence.component.scss',
 })
@@ -34,29 +43,33 @@ export class DashboardCadenceComponent implements OnInit, AfterViewInit {
     this.data$ = mockData.data$;
     this.tradingData$ = api.tradingData$;
   }
-  
+
   ngOnInit(): void {
-    if(!this.showExample){
+    if (!this.showExample) {
       this.loadMockData();
     }
-    this.subscription.add(this.tradingData$.subscribe((data) => {
-      this.tradingData = data;
-      this.data = this.convert(data);
-      // this.loadMockData();
-    }))
+    this.subscription.add(
+      this.tradingData$.subscribe((data) => {
+        this.tradingData = data;
+        this.data = this.convert(data);
+        // this.loadMockData();
+      })
+    );
   }
 
   private loadMockData() {
-    this.subscription.add(this.data$.subscribe((data) => {
-      this.data = data;
-      this.pnlData.next(data.pnlChart);
-    }));
+    this.subscription.add(
+      this.data$.subscribe((data) => {
+        this.data = data;
+        this.pnlData.next(data.pnlChart);
+      })
+    );
     this.mockData.getCadenceDashboardData();
   }
 
   ngAfterViewInit(): void {
-    if(!this.showExample){
-      this.mockData.getCadenceDashboardData()
+    if (!this.showExample) {
+      this.mockData.getCadenceDashboardData();
     }
   }
 
@@ -65,14 +78,12 @@ export class DashboardCadenceComponent implements OnInit, AfterViewInit {
   }
 
   private convert(data: TradingData): CadenceData {
-    const avgTrade = data.closedPositions
-    .reduce((a, b) => a + b.positionSizeInUsd, 0) / data.closedPositions.length
-    + data.openedPositions.reduce((a, b) => a + b.positionSizeInUsd, 0) / data.openedPositions.length;
+    const avgTrade = this.calculateAvgTrade(data);
     const bwTrade = this.findBestAndWorstTradeValues(data);
-    const wonTradesCount = data.closedPositions.filter((a) => a.closePrice && a.openPrice > a.closePrice).reduce((a) => a + 1, 0);
-    const lostTradesCount = data.closedPositions.filter((a) => a.closePrice && a.openPrice <= a.closePrice).reduce((a) => a + 1, 0);
+    const wonTradesCount = this.countWonTrades(data);
+    const lostTradesCount = this.countLostTrades(data);
     const pnlTotal = data.closedPositions.reduce((a, b) => a + b.pnl, 0);
-    debugger
+    debugger;
     return {
       pnl: pnlTotal,
       avgTrade: avgTrade,
@@ -86,27 +97,48 @@ export class DashboardCadenceComponent implements OnInit, AfterViewInit {
         profit: [],
         loss: [],
         volume: [],
-        labels: [] 
-      }
-    }
+        labels: [],
+      },
+    };
+  }
+
+  private countLostTrades(data: TradingData) {
+    return data.closedPositions
+      .filter((a) => a.closePrice && a.openPrice <= a.closePrice)
+      .reduce((a) => a + 1, 0);
+  }
+
+  private countWonTrades(data: TradingData) {
+    return data.closedPositions
+      .filter((a) => a.closePrice && a.openPrice > a.closePrice)
+      .reduce((a) => a + 1, 0);
+  }
+
+  private calculateAvgTrade(data: TradingData) {
+    return (
+      data.closedPositions.reduce((a, b) => a + b.positionSizeInUsd, 0) /
+        data.closedPositions.length +
+      data.openedPositions.reduce((a, b) => a + b.positionSizeInUsd, 0) /
+        data.openedPositions.length
+    );
   }
 
   private findBestAndWorstTradeValues(data: TradingData): BestWorstTrade {
     let best: number = 0;
     let worst: number = 0;
-    data.closedPositions.forEach(position => {
-        if (position.closePrice !== undefined) {
-            const pnl = position.closePrice - position.openPrice;
+    data.closedPositions.forEach((position) => {
+      if (position.closePrice !== undefined) {
+        const pnl = position.closePrice - position.openPrice;
 
-            if (best === null || pnl > best) {
-                best = pnl;
-            }
-            if (worst === null || pnl < worst) {
-                worst = pnl;
-            }
+        if (best === null || pnl > best) {
+          best = pnl;
         }
+        if (worst === null || pnl < worst) {
+          worst = pnl;
+        }
+      }
     });
 
     return { best, worst };
-}
+  }
 }
