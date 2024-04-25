@@ -1,7 +1,8 @@
 <div class="row gy-5 mt-2 mb-2 mb-xl-3">
-      <div class="progress" style="height: 0.1em;">
-      <div class="progress-bar" role="progressbar" [ngStyle]="{width: 100-barProgress +'%', backgroundColor: '#6f42c2', zIndex: 10, transition: 'none'}"></div>
-    </div>
+  <div class="progress" style="height: 0.1em;">
+    <div class="progress-bar" role="progressbar"
+      [ngStyle]="{width: 100-barProgress +'%', backgroundColor: '#6f42c2', zIndex: 10, transition: 'none'}"></div>
+  </div>
   <div class="col-xl-3 col-md-6 mt-2 mt-xl-5">
     <app-stats title="PnL" icon="bootstrapSymmetryVertical" body="{{data.pnl}}"></app-stats>
   </div>
@@ -19,7 +20,8 @@
 <div class="row g-5 g-xl-10 mb-5">
   <div class="col-xl-3 col-md-12 col-sm-12 col-xs-12 mb-md-1">
     <app-winrate [data$]="data$" styleOverride="height: 50% !important; margin-bottom: 1rem"></app-winrate>
-    <app-total-trades [openedTrades]="data.openedTrades" [closedTrades]="data.closedTrades" styleOverride="height: 50% !important; margin-bottom: 1rem"></app-total-trades>
+    <app-total-trades [openedTrades]="data.openedTrades" [closedTrades]="data.closedTrades"
+      styleOverride="height: 50% !important; margin-bottom: 1rem"></app-total-trades>
   </div>
   <div class="col-xl-9 col-md-12 col-sm-12 col-xs-12 mb-md-1">
     <app-pnl-chart [data$]="pnlData$"></app-pnl-chart>
