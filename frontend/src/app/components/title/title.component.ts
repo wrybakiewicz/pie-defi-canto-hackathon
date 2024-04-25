@@ -1,5 +1,6 @@
 import { AfterViewInit, Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { ApiService } from '../../services/api.service';
 
 @Component({
   selector: 'app-title',
@@ -12,7 +13,7 @@ export class TitleComponent {
 
   address!: string | undefined;
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private api: ApiService) {}
 
   isActive(url: string): boolean {
     return this.router.isActive(url, {
@@ -28,6 +29,10 @@ export class TitleComponent {
   }
 
   onSearch() {
-
+    if(this.address){
+      this.api.updateTradingData(this.address);
+    } else {
+      console.error('Address is empty');
+    }
   }
 }

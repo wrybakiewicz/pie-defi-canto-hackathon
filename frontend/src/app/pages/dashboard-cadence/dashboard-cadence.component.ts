@@ -6,6 +6,8 @@ import { MockDataService } from '../../services/mock-data.service';
 import { DashboardCadenceExampleComponent } from '../dashboard-cadence-example/dashboard-cadence-example.component';
 import { CommonModule } from '@angular/common';
 import { Subscription, Observable, Subject, timer, mergeMap } from 'rxjs';
+import { TradingData } from '../../models/trades.model';
+import { ApiService } from '../../services/api.service';
 
 @Component({
   selector: 'app-dashboard-cadence',
@@ -22,11 +24,15 @@ export class DashboardCadenceComponent implements OnInit, AfterViewInit {
 
   data!: CadenceData;
   data$!: Observable<CadenceData>;
+  tradingData!: TradingData;
+  tradingData$!: Observable<TradingData>;
+
   private pnlData = new Subject<PnlChart>();
   pnlData$ = this.pnlData.asObservable();
 
-  constructor(private mockData: MockDataService) {
+  constructor(private mockData: MockDataService, api: ApiService) {
     this.data$ = mockData.data$;
+    this.tradingData$ = api.tradingData$;
   }
   
   ngOnInit(): void {
@@ -37,6 +43,9 @@ export class DashboardCadenceComponent implements OnInit, AfterViewInit {
       }));
       this.mockData.getCadenceDashboardData()
     }
+    this.subscription.add(this.tradingData$.subscribe((data) => {
+      this.tradingData = data;
+    }))
   }
 
   ngAfterViewInit(): void {
