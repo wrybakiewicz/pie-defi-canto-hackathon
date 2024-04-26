@@ -1,5 +1,5 @@
 import { BigNumber, ethers } from "ethers";
-import { abi as PositionRouter } from "./abis/PositionRouter.json";
+import { abi as Vault } from "./abis/Vault.json";
 import { Position } from "./types";
 import { getTokenSymbol } from "./token-address-to-token-symbol";
 import {
@@ -15,7 +15,7 @@ export async function indexLiquidatePosition(
 ): Promise<void> {
   if (isLiquidatePosition(transaction)) {
     console.log(`Handling liquidating position`);
-    const contractInterface = new ethers.utils.Interface(PositionRouter);
+    const contractInterface = new ethers.utils.Interface(Vault);
     for (let i = 0; i < transaction.logs.length; i++) {
       try {
         const event = contractInterface.parseLog(transaction.logs[i]);
@@ -63,7 +63,7 @@ export async function indexLiquidatePosition(
 export function isLiquidatePosition(
   transaction: ethers.providers.TransactionReceipt
 ): boolean {
-  const contractInterface = new ethers.utils.Interface(PositionRouter);
+  const contractInterface = new ethers.utils.Interface(Vault);
   const receiptCheckResult = transaction.logs.map((log) => {
     try {
       const event = contractInterface.parseLog(log);
