@@ -1,16 +1,16 @@
 <div *ngIf="data || tradingData; else example" >
 <div class="row gy-5 mt-2 mb-2 mb-xl-3">
   <div class="col-xl-3 col-md-6 mt-2 mt-xl-5">
-    <app-stats title="PnL" icon="bootstrapSymmetryVertical" body="{{data.pnl}}"></app-stats>
+    <app-stats title="PnL" icon="bootstrapSymmetryVertical" body="{{data.pnl | number:'1.0-2'}}"></app-stats>
   </div>
   <div class="col-xl-3 col-md-6 mt-2 mt-xl-5">
-    <app-stats title="Avg Trade" icon="bootstrapSoundwave" body="{{data.avgTrade}}"></app-stats>
+    <app-stats title="Avg Trade" icon="bootstrapSoundwave" body="{{data.avgTrade | number:'1.0-2'}}"></app-stats>
   </div>
   <div class="col-xl-3 col-md-6 mt-2 mt-xl-5">
-    <app-stats title="Best/Worst" icon="bootstrapStars" body="{{data.bwTrade.best}}/{{data.bwTrade.worst}}"></app-stats>
+    <app-stats title="Best/Worst" icon="bootstrapStars" body="{{data.bwTrade.best | number:'1.0-2'}}/{{data.bwTrade.worst | number:'1.0-2'}}"></app-stats>
   </div>
   <div class="col-xl-3 col-md-6 mt-2 mt-xl-5">
-    <app-stats title="Total volume" icon="bootstrapSpeedometer" body="{{data.totalVolume}}"></app-stats>
+    <app-stats title="Total volume" icon="bootstrapSpeedometer" body="{{data.totalVolume | number:'1.0-2'}}"></app-stats>
   </div>
 </div>
 
