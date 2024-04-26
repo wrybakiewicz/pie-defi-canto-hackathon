@@ -25,7 +25,6 @@ export class WinrateComponent implements AfterViewInit, OnInit{
 
   ngOnInit(): void {
     this.data$.subscribe((data) => {
-      debugger
       this.wonTrades = data.wonTradesCount;
       this.lostTrades = data.lostTradesCount;
       this.chartOptions = this.getChartOptions(this.wonTrades, this.lostTrades);
