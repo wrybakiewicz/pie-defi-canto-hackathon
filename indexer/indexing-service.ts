@@ -67,9 +67,9 @@ export async function synchronizeBlocks(blockNumbers: number[]): Promise<void> {
     console.log("Indexable transactions");
 
     for (let i = 0; i < indexableTransactions.length; i++) {
-      await indexIncreasePosition(indexableTransactions[i]);
-      await indexDecreasePosition(indexableTransactions[i]);
-      await indexPriceUpdate(indexableTransactions[i]);
+      const prices = await indexPriceUpdate(indexableTransactions[i]);
+      await indexIncreasePosition(indexableTransactions[i], prices);
+      await indexDecreasePosition(indexableTransactions[i], prices);
       await indexLiquidatePosition(indexableTransactions[i]);
     }
   }

@@ -10,7 +10,8 @@ import {
 import { PutCommand } from "@aws-sdk/lib-dynamodb";
 
 export async function indexIncreasePosition(
-  transaction: ethers.providers.TransactionReceipt
+  transaction: ethers.providers.TransactionReceipt,
+  prices: Map<string, number>
 ): Promise<void> {
   if (isIncreasePosition(transaction)) {
     console.log(`Handling increasing position`);
@@ -20,16 +21,14 @@ export async function indexIncreasePosition(
         const event = contractInterface.parseLog(transaction.logs[i]);
         if (event.name === "ExecuteIncreasePosition") {
           console.log(event);
+          const token = getTokenSymbol(event.args.indexToken);
           const position: Position = {
             account: event.args.account.toLowerCase(),
-            tradingToken: getTokenSymbol(event.args.indexToken),
+            tradingToken: token,
             positionSizeInUsd:
               event.args.sizeDelta.div(BigNumber.from(10).pow(25)).toNumber() /
               100000.0,
-            tradingTokenPrice:
-              event.args.acceptablePrice
-                .div(BigNumber.from(10).pow(25))
-                .toNumber() / 100000.0,
+            tradingTokenPrice: prices.get(token),
             isLong: event.args.isLong,
             timestampSeconds: await provider
               .getBlock(transaction.blockNumber)
