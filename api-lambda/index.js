@@ -21,7 +21,7 @@ export async function handler(event, context) {
   const getPositionsQuery = new QueryCommand({
     TableName:
       process.env.DYNAMODB_POSITIONS_FROM_TABLE_NAME ||
-      "piedefi-positions-from-v2",
+      "piedefi-positions-from-3",
     KeyConditionExpression: "#key = :key",
     ExpressionAttributeNames: { "#key": "account" },
     ExpressionAttributeValues: { ":key": address },
@@ -161,7 +161,7 @@ async function getAllLatestTokenPrices() {
       tokens.map(async (token) => {
         const getLatestPrice = new QueryCommand({
           TableName:
-            process.env.DYNAMODB_PRICE_TABLE_NAME || "piedefi-price-v2",
+            process.env.DYNAMODB_PRICE_TABLE_NAME || "piedefi-price-v3",
           KeyConditionExpression: "#key = :key",
           ExpressionAttributeNames: { "#key": "token" },
           ExpressionAttributeValues: { ":key": token },
