@@ -9,6 +9,7 @@ import {
   provider,
 } from "./constants";
 import { PutCommand } from "@aws-sdk/lib-dynamodb";
+import { getAddressToPnl, saveAddressToPnl } from "./indexing-service";
 
 export async function indexDecreasePosition(
   transaction: ethers.providers.TransactionReceipt,
@@ -23,8 +24,11 @@ export async function indexDecreasePosition(
         if (event.name === "ExecuteDecreasePosition") {
           console.log(event);
           const token = getTokenSymbol(event.args.indexToken);
+          const pnl = getPnl(transaction);
+          const address = event.args.account.toLowerCase();
+          const addressToPnl = await getAddressToPnl(address);
           const position: Position = {
-            account: event.args.account.toLowerCase(),
+            account: address,
             tradingToken: token,
             positionSizeInUsd:
               event.args.sizeDelta.div(BigNumber.from(10).pow(25)).toNumber() /
@@ -35,7 +39,7 @@ export async function indexDecreasePosition(
               .getBlock(transaction.blockNumber)
               .then((block) => block.timestamp),
             type: "DECREASE",
-            pnl: getPnl(transaction),
+            pnl: pnl,
           };
           console.log(position);
           const command = new PutCommand({
@@ -43,6 +47,11 @@ export async function indexDecreasePosition(
             Item: position,
           });
           await docClient.send(command);
+          await saveAddressToPnl({
+            partition: "ALL",
+            address: address,
+            pnl: addressToPnl.pnl + pnl,
+          });
         }
       } catch (e) {}
     }

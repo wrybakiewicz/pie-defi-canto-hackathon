@@ -14,3 +14,9 @@ export type Price = {
   price: number;
   timestampSeconds: number;
 };
+
+export type AddressToPnl = {
+  partition: string;
+  address: string;
+  pnl: number;
+};

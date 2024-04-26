@@ -28,4 +28,7 @@ export const dynamodbPositionsFromTableName =
 
 export const dynamodbPriceTableName = process.env.DYNAMODB_PRICE_TABLE_NAME;
 
+export const dynamodbAllAddressesToPnlTableName =
+  process.env.DYNAMODB_ALL_ADDRESSES_TO_PLN_TABLE_NAME;
+
 export const blockBatchSize = Number(process.env.BLOCK_BATCH_SIZE);

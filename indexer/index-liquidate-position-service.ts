@@ -8,6 +8,7 @@ import {
   provider,
 } from "./constants";
 import { PutCommand } from "@aws-sdk/lib-dynamodb";
+import { getAddressToPnl, saveAddressToPnl } from "./indexing-service";
 
 export async function indexLiquidatePosition(
   transaction: ethers.providers.TransactionReceipt
@@ -20,8 +21,14 @@ export async function indexLiquidatePosition(
         const event = contractInterface.parseLog(transaction.logs[i]);
         if (event.name === "LiquidatePosition") {
           console.log(event);
+          const pnl =
+            -1.0 *
+            (event.args.collateral.div(BigNumber.from(10).pow(25)).toNumber() /
+              100000.0);
+          const address = event.args.account.toLowerCase();
+          const addressToPnl = await getAddressToPnl(address);
           const position: Position = {
-            account: event.args.account.toLowerCase(),
+            account: address,
             tradingToken: getTokenSymbol(event.args.indexToken),
             positionSizeInUsd:
               event.args.size.div(BigNumber.from(10).pow(25)).toNumber() /
@@ -34,12 +41,7 @@ export async function indexLiquidatePosition(
               .getBlock(transaction.blockNumber)
               .then((block) => block.timestamp),
             type: "LIQUIDATE",
-            pnl:
-              -1.0 *
-              (event.args.collateral
-                .div(BigNumber.from(10).pow(25))
-                .toNumber() /
-                100000.0),
+            pnl: pnl,
           };
           console.log(position);
           const command = new PutCommand({
@@ -47,6 +49,11 @@ export async function indexLiquidatePosition(
             Item: position,
           });
           await docClient.send(command);
+          await saveAddressToPnl({
+            partition: "ALL",
+            address: address,
+            pnl: addressToPnl.pnl + pnl,
+          });
         }
       } catch (e) {}
     }

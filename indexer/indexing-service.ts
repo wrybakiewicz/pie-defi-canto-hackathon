@@ -2,6 +2,7 @@ import { ethers } from "ethers";
 import {
   defaultNextBlockToIndex,
   docClient,
+  dynamodbAllAddressesToPnlTableName,
   dynamodbLastSyncedBlockTableName,
   provider,
 } from "./constants";
@@ -20,6 +21,7 @@ import {
   indexLiquidatePosition,
   isLiquidatePosition,
 } from "./index-liquidate-position-service";
+import { AddressToPnl } from "./types";
 
 export async function getNextBlockNumberToIndex(
   currentBlockNumber: number
@@ -96,6 +98,35 @@ async function setBlockSynced(blockNumber: number): Promise<void> {
   const command = new PutCommand({
     TableName: dynamodbLastSyncedBlockTableName,
     Item: { blockNumber: blockNumber, partition: "ALL" },
+  });
+  await docClient.send(command);
+}
+
+export async function getAddressToPnl(address: string): Promise<AddressToPnl> {
+  const query = new QueryCommand({
+    TableName: dynamodbAllAddressesToPnlTableName,
+    KeyConditionExpression: "#key = :key AND #address = :addressValue",
+    ExpressionAttributeNames: { "#key": "partition", "#address": "address" },
+    ExpressionAttributeValues: { ":key": "ALL", ":addressValue": address },
+  });
+  const result = (await docClient.send(query)).Items;
+  if (result.length > 0) {
+    return result[0] as AddressToPnl;
+  } else {
+    return {
+      partition: "ALL",
+      address: address,
+      pnl: 0.0,
+    };
+  }
+}
+
+export async function saveAddressToPnl(
+  addressToPnl: AddressToPnl
+): Promise<void> {
+  const command = new PutCommand({
+    TableName: dynamodbAllAddressesToPnlTableName,
+    Item: addressToPnl,
   });
   await docClient.send(command);
 }
