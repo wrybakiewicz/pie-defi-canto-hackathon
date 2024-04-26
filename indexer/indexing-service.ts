@@ -76,7 +76,7 @@ export async function synchronizeBlocks(blockNumbers: number[]): Promise<void> {
     }
   }
 
-  setBlockSynced(blockNumbers[blockNumbers.length - 1]);
+  await setBlockSynced(blockNumbers[blockNumbers.length - 1]);
 }
 
 async function getLastSyncedBlockFromDb(): Promise<number | undefined> {
