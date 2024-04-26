@@ -10,6 +10,7 @@ import { Observable } from 'rxjs';
 export class PnlChartComponent implements AfterViewInit, OnInit {
 
   @Input() data$!: Observable<PnlChart>;
+  @Input() initialData!: PnlChart;
 
   chartOptions: any = {};
   labelColor: any = {};
@@ -32,6 +33,7 @@ export class PnlChartComponent implements AfterViewInit, OnInit {
     this.baseColor = this.getCssValue('--bs-success');
     this.baseLightColor = this.getCssValue('--bs-purple');
     this.secondaryColor = this.getCssValue('--bs-danger');
+    this.chartOptions = this.getChartOptions(this.initialData);
   }
 
   getCssValue(variableName: string): string {

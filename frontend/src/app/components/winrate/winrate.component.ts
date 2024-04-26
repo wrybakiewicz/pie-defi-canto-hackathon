@@ -11,8 +11,8 @@ export class WinrateComponent implements AfterViewInit, OnInit{
   @Input() styleOverride: string = '';
   @Input() data$!: Observable<CadenceData>;
 
-  wonTrades!: number;
-  lostTrades!: number;
+  @Input() wonTrades!: number;
+  @Input() lostTrades!: number;
 
 
   chartOptions: any = {};
@@ -25,6 +25,7 @@ export class WinrateComponent implements AfterViewInit, OnInit{
 
   ngOnInit(): void {
     this.data$.subscribe((data) => {
+      debugger
       this.wonTrades = data.wonTradesCount;
       this.lostTrades = data.lostTradesCount;
       this.chartOptions = this.getChartOptions(this.wonTrades, this.lostTrades);
@@ -36,6 +37,7 @@ export class WinrateComponent implements AfterViewInit, OnInit{
     this.baseColor = this.getCssValue('--bs-success');
     this.baseLightColor = this.getCssValue('--bs-purple');
     this.secondaryColor = this.getCssValue('--bs-danger');
+    this.chartOptions = this.getChartOptions(this.wonTrades, this.lostTrades);
   }
 
   getCssValue(variableName: string): string {
