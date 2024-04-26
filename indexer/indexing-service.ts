@@ -16,6 +16,10 @@ import {
   isDecreasePosition,
 } from "./index-decrease-position-service";
 import { indexPriceUpdate, isPriceUpdated } from "./index-price-update";
+import {
+  indexLiquidatePosition,
+  isLiquidatePosition,
+} from "./index-liquidate-position-service";
 
 export async function getNextBlockNumberToIndex(
   currentBlockNumber: number
@@ -47,7 +51,8 @@ export async function synchronizeBlocks(blockNumbers: number[]): Promise<void> {
               if (
                 isIncreasePosition(receipt) ||
                 isDecreasePosition(receipt) ||
-                isPriceUpdated(receipt)
+                isPriceUpdated(receipt) ||
+                isLiquidatePosition(receipt)
               ) {
                 return receipt;
               }
@@ -65,6 +70,7 @@ export async function synchronizeBlocks(blockNumbers: number[]): Promise<void> {
       await indexIncreasePosition(indexableTransactions[i]);
       await indexDecreasePosition(indexableTransactions[i]);
       await indexPriceUpdate(indexableTransactions[i]);
+      await indexLiquidatePosition(indexableTransactions[i]);
     }
   }
 
