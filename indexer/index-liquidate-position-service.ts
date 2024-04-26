@@ -24,11 +24,11 @@ export async function indexLiquidatePosition(
             account: event.args.account.toLowerCase(),
             tradingToken: getTokenSymbol(event.args.indexToken),
             positionSizeInUsd:
-              event.args.size.div(BigNumber.from(10).pow(28)).toNumber() /
-              100.0,
+              event.args.size.div(BigNumber.from(10).pow(25)).toNumber() /
+              100000.0,
             tradingTokenPrice:
-              event.args.markPrice.div(BigNumber.from(10).pow(28)).toNumber() /
-              100.0,
+              event.args.markPrice.div(BigNumber.from(10).pow(25)).toNumber() /
+              100000.0,
             isLong: event.args.isLong,
             timestampSeconds: await provider
               .getBlock(transaction.blockNumber)
@@ -37,9 +37,9 @@ export async function indexLiquidatePosition(
             pnl:
               -1.0 *
               (event.args.collateral
-                .div(BigNumber.from(10).pow(28))
+                .div(BigNumber.from(10).pow(25))
                 .toNumber() /
-                100.0),
+                100000.0),
           };
           console.log(position);
           const command = new PutCommand({

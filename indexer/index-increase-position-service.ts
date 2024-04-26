@@ -24,12 +24,12 @@ export async function indexIncreasePosition(
             account: event.args.account.toLowerCase(),
             tradingToken: getTokenSymbol(event.args.indexToken),
             positionSizeInUsd:
-              event.args.sizeDelta.div(BigNumber.from(10).pow(28)).toNumber() /
-              100.0,
+              event.args.sizeDelta.div(BigNumber.from(10).pow(25)).toNumber() /
+              100000.0,
             tradingTokenPrice:
               event.args.acceptablePrice
-                .div(BigNumber.from(10).pow(28))
-                .toNumber() / 100.0,
+                .div(BigNumber.from(10).pow(25))
+                .toNumber() / 100000.0,
             isLong: event.args.isLong,
             timestampSeconds: await provider
               .getBlock(transaction.blockNumber)

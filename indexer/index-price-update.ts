@@ -28,8 +28,8 @@ export async function indexPriceUpdate(
               .getBlock(transaction.blockNumber)
               .then((block) => block.timestamp),
             price:
-              event.args.price.div(BigNumber.from(10).pow(28)).toNumber() /
-              100.0,
+              event.args.price.div(BigNumber.from(10).pow(25)).toNumber() /
+              100000.0,
           };
           const command = new PutCommand({
             TableName: dynamodbPriceTableName,
