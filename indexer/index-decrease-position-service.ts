@@ -22,7 +22,7 @@ export async function indexDecreasePosition(
       try {
         const event = contractInterface.parseLog(transaction.logs[i]);
         if (event.name === "ExecuteDecreasePosition") {
-          console.log(event);
+          // console.log(event);
           const token = getTokenSymbol(event.args.indexToken);
           const pnl = getPnl(transaction);
           const address = event.args.account.toLowerCase();

@@ -20,7 +20,7 @@ export async function indexLiquidatePosition(
       try {
         const event = contractInterface.parseLog(transaction.logs[i]);
         if (event.name === "LiquidatePosition") {
-          console.log(event);
+          // console.log(event);
           const pnl =
             -1.0 *
             (event.args.collateral.div(BigNumber.from(10).pow(25)).toNumber() /

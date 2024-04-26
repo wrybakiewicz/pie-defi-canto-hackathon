@@ -20,7 +20,7 @@ export async function indexIncreasePosition(
       try {
         const event = contractInterface.parseLog(transaction.logs[i]);
         if (event.name === "ExecuteIncreasePosition") {
-          console.log(event);
+          // console.log(event);
           const token = getTokenSymbol(event.args.indexToken);
           const position: Position = {
             account: event.args.account.toLowerCase(),

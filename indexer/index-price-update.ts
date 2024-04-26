@@ -22,7 +22,7 @@ export async function indexPriceUpdate(
       try {
         const event = contractInterface.parseLog(transaction.logs[i]);
         if (event.name === "PriceUpdate") {
-          console.log(event);
+          // console.log(event);
           const price: Price = {
             token: getTokenSymbol(event.args.token),
             timestampSeconds: await provider
