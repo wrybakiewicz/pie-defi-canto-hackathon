@@ -219,8 +219,8 @@ async function getAllLatestTokenPrices() {
 //   },
 // });
 
-handler({
-  queryStringParameters: {
-    address: "0x1b58d50afd08dce062fb14d4e1f9665eb1eabeaf",
-  },
-});
+// handler({
+//   queryStringParameters: {
+//     address: "0x1b58d50afd08dce062fb14d4e1f9665eb1eabeaf",
+//   },
+// });
