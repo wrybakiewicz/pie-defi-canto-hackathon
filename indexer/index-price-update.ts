@@ -14,10 +14,10 @@ import { PutCommand } from "@aws-sdk/lib-dynamodb";
 export async function indexPriceUpdate(
   transaction: ethers.providers.TransactionReceipt
 ): Promise<Map<string, number>> {
+  const tokenToPriceMap = new Map();
   if (isPriceUpdated(transaction)) {
     console.log(`Handling price update`);
     const contractInterface = new ethers.utils.Interface(FastPriceEvents);
-    const tokenToPriceMap = new Map();
     for (let i = 0; i < transaction.logs.length; i++) {
       try {
         const event = contractInterface.parseLog(transaction.logs[i]);
@@ -47,8 +47,8 @@ export async function indexPriceUpdate(
         }
       } catch (e) {}
     }
-    return tokenToPriceMap;
   }
+  return tokenToPriceMap;
 }
 
 export function isPriceUpdated(

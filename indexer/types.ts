@@ -7,6 +7,7 @@ export type Position = {
   timestampSeconds: number;
   type: string;
   pnl: number;
+  transactionHash: string;
 };
 
 export type Price = {

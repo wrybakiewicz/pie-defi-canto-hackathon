@@ -34,13 +34,18 @@ export async function indexDecreasePosition(
                 event.args.sizeDelta
                   .div(BigNumber.from(10).pow(25))
                   .toNumber() / 100000.0,
-              tradingTokenPrice: prices.get(token),
+              tradingTokenPrice:
+                prices.get(token) ??
+                event.args.acceptablePrice
+                  .div(BigNumber.from(10).pow(25))
+                  .toNumber() / 100000.0,
               isLong: event.args.isLong,
               timestampSeconds: await provider
                 .getBlock(transaction.blockNumber)
                 .then((block) => block.timestamp),
               type: "DECREASE",
               pnl: pnl,
+              transactionHash: transaction.transactionHash,
             };
             const command = new PutCommand({
               TableName: dynamodbPositionsFromTableName,

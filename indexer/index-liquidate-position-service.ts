@@ -45,6 +45,7 @@ export async function indexLiquidatePosition(
                 .then((block) => block.timestamp),
               type: "LIQUIDATE",
               pnl: pnl,
+              transactionHash: transaction.transactionHash,
             };
             const command = new PutCommand({
               TableName: dynamodbPositionsFromTableName,
