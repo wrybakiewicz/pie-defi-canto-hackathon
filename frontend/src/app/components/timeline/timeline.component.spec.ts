@@ -8,10 +8,9 @@ describe('TimelineComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [TimelineComponent]
-    })
-    .compileComponents();
-    
+      imports: [TimelineComponent],
+    }).compileComponents();
+
     fixture = TestBed.createComponent(TimelineComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

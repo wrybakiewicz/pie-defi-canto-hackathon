@@ -8,10 +8,9 @@ describe('PnlChartComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [PnlChartComponent]
-    })
-    .compileComponents();
-    
+      imports: [PnlChartComponent],
+    }).compileComponents();
+
     fixture = TestBed.createComponent(PnlChartComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

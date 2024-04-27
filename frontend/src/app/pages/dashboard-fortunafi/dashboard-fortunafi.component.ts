@@ -10,9 +10,11 @@ import { Observable, Subject, timer, mergeMap, Subscription } from 'rxjs';
   standalone: true,
   imports: [HeaderComponent, ComponentsModule],
   templateUrl: './dashboard-fortunafi.component.html',
-  styleUrl: './dashboard-fortunafi.component.scss'
+  styleUrl: './dashboard-fortunafi.component.scss',
 })
-export class DashboardFortunafiComponent implements OnInit, AfterViewInit, OnDestroy {
+export class DashboardFortunafiComponent
+  implements OnInit, AfterViewInit, OnDestroy
+{
   private subscription: Subscription = new Subscription();
 
   data!: CadenceData;
@@ -23,16 +25,18 @@ export class DashboardFortunafiComponent implements OnInit, AfterViewInit, OnDes
   constructor(private mockData: MockDataService) {
     this.data$ = mockData.data$;
   }
-  
+
   ngOnInit(): void {
-    this.subscription.add(this.data$.subscribe((data) => {
-      this.data = data;
-      this.pnlData.next(data.pnlChart)
-    }));
+    this.subscription.add(
+      this.data$.subscribe((data) => {
+        this.data = data;
+        this.pnlData.next(data.pnlChart);
+      })
+    );
   }
 
   ngAfterViewInit(): void {
-    this.mockData.getCadenceDashboardData()
+    this.mockData.getCadenceDashboardData();
   }
 
   ngOnDestroy(): void {

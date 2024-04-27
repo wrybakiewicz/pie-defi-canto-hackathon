@@ -1368,6 +1368,13 @@
   dependencies:
     tslib "^2.2.0"
 
+"@ng-icons/tabler-icons@^27.3.1":
+  version "27.3.1"
+  resolved "https://registry.npmjs.org/@ng-icons/tabler-icons/-/tabler-icons-27.3.1.tgz"
+  integrity sha512-3vHdIRu1QTwA7CmznCbJJLbOkFRmIlHLRn+JMIX56BybAjdgT34wcBhCimPjAfD3Fa1eHoQlWuU28UamNLEeRg==
+  dependencies:
+    tslib "^2.2.0"
+
 "@ng-icons/tdesign-icons@^27.3.1":
   version "27.3.1"
   resolved "https://registry.npmjs.org/@ng-icons/tdesign-icons/-/tdesign-icons-27.3.1.tgz"

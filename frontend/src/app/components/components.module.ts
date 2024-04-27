@@ -16,7 +16,7 @@ import {
   bootstrapSoundwave,
   bootstrapSpeedometer,
   bootstrapStars,
-  bootstrapSymmetryVertical
+  bootstrapSymmetryVertical,
 } from '@ng-icons/bootstrap-icons';
 import { NgIconsModule } from '@ng-icons/core';
 import {
@@ -45,6 +45,11 @@ import { TotalTradesComponent } from './total-trades/total-trades.component';
 import { WinrateComponent } from './winrate/winrate.component';
 import { FormsModule } from '@angular/forms';
 import { octArrowUpRight, octArrowDownRight } from '@ng-icons/octicons';
+import {
+  tablerArrowWaveRightDown,
+  tablerArrowWaveRightUp,
+} from '@ng-icons/tabler-icons';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -57,12 +62,13 @@ import { octArrowUpRight, octArrowDownRight } from '@ng-icons/octicons';
     WinrateComponent,
     TotalTradesComponent,
     CadenceLeaderboardComponent,
-    PreSearchOverlayComponent
+    PreSearchOverlayComponent,
   ],
   imports: [
     CommonModule,
     FormsModule,
     NgApexchartsModule,
+    NgbModule,
     NgIconsModule.withIcons({
       bootstrapSearch,
       bootstrapBackspace,
@@ -89,8 +95,8 @@ import { octArrowUpRight, octArrowDownRight } from '@ng-icons/octicons';
       bootstrapClock,
       jamCrown,
       bootstrapArrowRightShort,
-      octArrowUpRight,
-      octArrowDownRight
+      tablerArrowWaveRightDown,
+      tablerArrowWaveRightUp,
     }),
   ],
   exports: [

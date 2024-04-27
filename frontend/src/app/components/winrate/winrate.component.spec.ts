@@ -8,10 +8,9 @@ describe('WinrateComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [WinrateComponent]
-    })
-    .compileComponents();
-    
+      imports: [WinrateComponent],
+    }).compileComponents();
+
     fixture = TestBed.createComponent(WinrateComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

@@ -8,10 +8,9 @@ describe('ClosedPositionsComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ClosedPositionsComponent]
-    })
-    .compileComponents();
-    
+      imports: [ClosedPositionsComponent],
+    }).compileComponents();
+
     fixture = TestBed.createComponent(ClosedPositionsComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

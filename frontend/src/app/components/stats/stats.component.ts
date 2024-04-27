@@ -7,13 +7,17 @@ import { pulse } from 'ng-animate';
   templateUrl: './stats.component.html',
   styleUrl: './stats.component.scss',
   animations: [
-    trigger('pulse', [transition('* => *', useAnimation(pulse, {
-      params: { timing: 0.3, delay: 0 }
-    }))])
+    trigger('pulse', [
+      transition(
+        '* => *',
+        useAnimation(pulse, {
+          params: { timing: 0.3, delay: 0 },
+        })
+      ),
+    ]),
   ],
 })
-export class StatsComponent implements OnChanges{
-  
+export class StatsComponent implements OnChanges {
   @Input() title: string = '';
   @Input() body: string = '';
   @Input() icon: string = '';
@@ -23,6 +27,6 @@ export class StatsComponent implements OnChanges{
   anim: any = false;
 
   ngOnChanges(changes: SimpleChanges): void {
-    this.anim = !this.anim
+    this.anim = !this.anim;
   }
 }

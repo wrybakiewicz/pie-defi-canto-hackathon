@@ -1,48 +1,48 @@
 <div class="card card-flush">
     <div class="card-header align-items-start d-flex flex-column">
         <span class="card-label text-white fw-bolder fs-3 mb-1">Closed trades</span>
-        <span class="text-muted mt-1 fw-bold fs-7">Count 3</span>
+        <span class="text-muted mt-1 fw-bold fs-7">Count {{positions.length}}</span>
     </div>
     <div class="card-body pb-0">
         <table class="table table-dark table-striped">
             <tbody>
                 <tr>
                     <th>Type</th>
-                    <th>Open date</th>
+                    <th>Date</th>
                     <th>Token</th>
                     <th>Open price</th>
-                    <th>Position in $</th>
                     <th>Close price</th>
-                    <th>Close date</th>
+                    <th>Value</th>
+                    <th>PnL</th>
                 </tr>
                 <tr *ngFor="let position of positions">
-                    <td>
-                        <span *ngIf="position.type === 'SHORT'">
-                            <ng-icon class="text-danger fs-3 overflow-visible"
-                            name="octArrowDownRight"></ng-icon>
+                    <td data-toggle="tooltip">
+                        <span *ngIf="position.type === 'SHORT'" ngbTooltip="Short position">
+                            <ng-icon class="fs-3 overflow-visible" name="tablerArrowWaveRightDown"></ng-icon>
                         </span>
-                        <span *ngIf="position.type === 'LONG'">
-                            <ng-icon class="text-success fs-3 overflow-visible"
-                            name="octArrowUpRight"></ng-icon>
+                        <span *ngIf="position.type === 'LONG'" ngbTooltip="Long position">
+                            <ng-icon class="fs-3 overflow-visible" name="tablerArrowWaveRightUp"></ng-icon>
                         </span>
                     </td>
                     <td>
-                        <span>{{position.openDate}}</span>
+                        <span>{{position.openDate | date: 'dd.MM-yyyy'}} - {{position.closeDate | date:
+                            'dd.MM-yyyy'}}</span>
                     </td>
                     <td>
                         <span>{{position.token}}</span>
                     </td>
                     <td>
-                        <span>{{position.openPrice | number: '1.0-2'}}</span>
+                        <span>{{position.openPrice | number: '1.0-6'}}</span>
+                    </td>
+                    <td>
+                        <span>{{position.closePrice | number: '1.0-6'}}</span>
                     </td>
                     <td>
                         <span>{{position.positionSizeInUsd | number: '1.0-2'}} $</span>
                     </td>
                     <td>
-                        <span>{{position.closePrice | number: '1.0-2'}}</span>
-                    </td>
-                    <td>
-                        <span>{{position.closeDate}}</span>
+                        <span *ngIf="position.pnl < 0" class="text-danger">{{position.pnl | number: '1.0-2'}} $</span>
+                        <span *ngIf="position.pnl >= 0" class="text-success">{{position.pnl | number: '1.0-2'}} $</span>
                     </td>
                 </tr>
             </tbody>

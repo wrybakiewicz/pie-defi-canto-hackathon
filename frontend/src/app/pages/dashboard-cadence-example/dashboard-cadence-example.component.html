@@ -1,18 +1,18 @@
 <div class="row gy-5 mt-2 mb-2 mb-xl-3">
-  <div class="progress" style="height: 0.1em;">
+  <div class="progress" style="height: 0.05em;">
     <div class="progress-bar" role="progressbar"
       [ngStyle]="{width: 100-barProgress +'%', backgroundColor: '#6f42c2', zIndex: 10, transition: 'none'}"></div>
   </div>
-  <div class="col-xl-3 col-md-6 mt-2 mt-xl-5">
+  <div class="col-xl-3 col-md-6 mt-1">
     <app-stats title="PnL" icon="bootstrapSymmetryVertical" body="{{data.pnl}}"></app-stats>
   </div>
-  <div class="col-xl-3 col-md-6 mt-2 mt-xl-5">
+  <div class="col-xl-3 col-md-6 mt-1">
     <app-stats title="Avg Trade" icon="bootstrapSoundwave" body="{{data.avgTrade}}"></app-stats>
   </div>
-  <div class="col-xl-3 col-md-6 mt-2 mt-xl-5">
+  <div class="col-xl-3 col-md-6 mt-1">
     <app-stats title="Best/Worst" icon="bootstrapStars" body="{{data.bwTrade.best}}/{{data.bwTrade.worst}}"></app-stats>
   </div>
-  <div class="col-xl-3 col-md-6 mt-2 mt-xl-5">
+  <div class="col-xl-3 col-md-6 mt-1">
     <app-stats title="Total volume" icon="bootstrapSpeedometer" body="{{data.totalVolume}}"></app-stats>
   </div>
 </div>
@@ -29,10 +29,10 @@
 </div>
 
 <div class="row g-5 mb-2 mb-xl-3">
-  <div class="col-md-12 col-lg-12 col-xl-6 col-xxl-6">
-    <app-closed-positions></app-closed-positions>
+  <div class="col-12">
+    <app-closed-positions [positions]="closedPositions"></app-closed-positions>
   </div>
-  <div class="col-md-12 col-lg-12 col-xl-6 col-xxl-6">
-    <app-opened-positions></app-opened-positions>
+  <div class="col-12">
+    <app-opened-positions [positions]="openedPositions"></app-opened-positions>
   </div>
 </div>
