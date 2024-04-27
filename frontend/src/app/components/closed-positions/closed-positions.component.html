@@ -16,14 +16,14 @@
                     <th>PnL</th>
                 </tr>
                 <tr *ngFor="let position of positions">
-                    <td>
-                        <span *ngIf="position.type === 'SHORT'">
-                            <ng-icon class="text-danger fs-3 overflow-visible"
-                            name="octArrowDownRight"></ng-icon>
+                    <td data-toggle="tooltip">
+                        <span *ngIf="position.type === 'SHORT'" ngbTooltip="Short position">
+                            <ng-icon class="fs-3 overflow-visible"
+                            name="tablerArrowWaveRightDown"></ng-icon>
                         </span>
-                        <span *ngIf="position.type === 'LONG'">
-                            <ng-icon class="text-success fs-3 overflow-visible"
-                            name="octArrowUpRight"></ng-icon>
+                        <span *ngIf="position.type === 'LONG'" ngbTooltip="Long position">
+                            <ng-icon class="fs-3 overflow-visible"
+                            name="tablerArrowWaveRightUp"></ng-icon>
                         </span>
                     </td>
                     <td>
@@ -42,7 +42,8 @@
                         <span>{{position.positionSizeInUsd | number: '1.0-2'}} $</span>
                     </td>
                     <td>
-                        <span>{{position.pnl | number: '1.0-2'}} $</span>
+                        <span *ngIf="position.pnl < 0" class="text-danger">{{position.pnl | number: '1.0-2'}} $</span>
+                        <span *ngIf="position.pnl >= 0" class="text-success">{{position.pnl | number: '1.0-2'}} $</span>
                     </td>
                 </tr>
             </tbody>
