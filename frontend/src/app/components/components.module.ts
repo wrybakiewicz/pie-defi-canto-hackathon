@@ -50,6 +50,7 @@ import {
   tablerArrowWaveRightUp,
 } from '@ng-icons/tabler-icons';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgxSpinnerModule } from 'ngx-spinner';
 
 @NgModule({
   declarations: [
@@ -68,6 +69,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     CommonModule,
     FormsModule,
     NgApexchartsModule,
+    NgxSpinnerModule,
     NgbModule,
     NgIconsModule.withIcons({
       bootstrapSearch,

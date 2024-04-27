@@ -120,7 +120,7 @@
     ora "5.4.1"
     rxjs "7.8.1"
 
-"@angular/animations@^17.3.0", "@angular/animations@>=12.0.0", "@angular/animations@17.3.5":
+"@angular/animations@^17.3.0", "@angular/animations@>=12.0.0", "@angular/animations@>=15.0.0", "@angular/animations@17.3.5":
   version "17.3.5"
   resolved "https://registry.npmjs.org/@angular/animations/-/animations-17.3.5.tgz"
   integrity sha512-hbfCnBxwhYQMKB+9tDcmfvckUtB8LdY1gPST6TZ7CzrWCSPddsnXxqxBZSBjBI6zXvE4FOV3kUzaUXM/Bq5sRw==
@@ -151,7 +151,7 @@
     symbol-observable "4.0.0"
     yargs "17.7.2"
 
-"@angular/common@^17.0.0", "@angular/common@^17.0.2", "@angular/common@^17.1.0", "@angular/common@^17.3.0", "@angular/common@>=12.0.0", "@angular/common@17.3.5":
+"@angular/common@^17.0.0", "@angular/common@^17.0.2", "@angular/common@^17.1.0", "@angular/common@^17.3.0", "@angular/common@>=12.0.0", "@angular/common@>=15.0.0", "@angular/common@17.3.5":
   version "17.3.5"
   resolved "https://registry.npmjs.org/@angular/common/-/common-17.3.5.tgz"
   integrity sha512-Ox91WxSnOSrQ6I21cHi69EfT2Pxtd5Knb5AsdwpxqE57V2E7EnWMhb+LP+holCtFUhK529EGXCk788M+Elyw6g==
@@ -179,7 +179,7 @@
   dependencies:
     tslib "^2.3.0"
 
-"@angular/core@^17.0.0", "@angular/core@^17.0.2", "@angular/core@^17.1.0", "@angular/core@^17.3.0", "@angular/core@>=12.0.0", "@angular/core@17.3.5":
+"@angular/core@^17.0.0", "@angular/core@^17.0.2", "@angular/core@^17.1.0", "@angular/core@^17.3.0", "@angular/core@>=12.0.0", "@angular/core@>=15.0.0", "@angular/core@17.3.5":
   version "17.3.5"
   resolved "https://registry.npmjs.org/@angular/core/-/core-17.3.5.tgz"
   integrity sha512-y6P27lcrKy3yMx/rtMuGsAnDyVEsS3BdyArTXcD0TOImVGHhVIaB0L95DUCam3ajTe2f2x39eozJZDh7QSpJaw==
@@ -4501,6 +4501,13 @@ ng-apexcharts@^1.10.0:
   integrity sha512-Bg85iL3uAuALaj7yQ29XsPYGx8cr3gDrlBPYQtWzEbHcIHP1PBl9IEH9CLF7ESxypW/XPbliH3pc95o5+9gIag==
   dependencies:
     tslib "^2.0.0"
+
+ngx-spinner@^16.0.2:
+  version "16.0.2"
+  resolved "https://registry.npmjs.org/ngx-spinner/-/ngx-spinner-16.0.2.tgz"
+  integrity sha512-MZpOHb3dvSqD6xiEdR+EtOfPY2r1kfA7t5Hv5IVwi7gkbTwVgnqxDWdOYJ/HW1pSZ5iEGhqlJqWg6CysLmNfHQ==
+  dependencies:
+    tslib "^2.3.0"
 
 nice-napi@^1.0.2:
   version "1.0.2"
