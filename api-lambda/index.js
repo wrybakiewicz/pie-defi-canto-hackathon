@@ -43,7 +43,6 @@ export async function handler(event, context) {
       "0" +
       (positionEventDate.getMonth() + 1)
     ).slice(-2)}-${positionEventDate.getDate()}`;
-    // console.log(positionEvent);
     const existingPosition = openedPositions.get(getPositionKey(positionEvent));
     if (positionEvent.type === "INCREASE") {
       if (existingPosition) {
@@ -134,7 +133,6 @@ export async function handler(event, context) {
     );
     totalVolume += positionEvent.positionSizeInUsd;
   }
-  //TODO: live trades - calculate PnL by last price
   console.log(positionEvents);
 
   const dailyVolumeArray = Array.from(dailyVolume, ([key, value]) => {
