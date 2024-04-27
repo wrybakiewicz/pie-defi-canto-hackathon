@@ -88,6 +88,7 @@ export async function handler(event, context) {
           closePrice: positionEvent.tradingTokenPrice,
           closeDate: dayMonthYear,
           pnl: positionEvent.pnl + existingPosition.pnl,
+          isLiquidated: false,
         });
         openedPositions.delete(getPositionKey(positionEvent));
       } else {
