@@ -15,13 +15,23 @@ const docClient = DynamoDBDocumentClient.from(client, {
 let allLatestTokenPrices;
 
 export async function handler(event, context) {
+  console.log(event);
+  if (event.rawPath.endsWith("pnl")) {
+    const getPnls = new QueryCommand({
+      TableName: "piedefi-all-addresses-to-pnl-v3",
+      KeyConditionExpression: "#key = :key",
+      ExpressionAttributeNames: { "#key": "partition" },
+      ExpressionAttributeValues: { ":key": "ALL" },
+    });
+    const pnls = (await docClient.send(getPnls)).Items;
+    console.log(pnls);
+    return pnls;
+  }
   const address = event.queryStringParameters.address.toLowerCase();
   console.log(address);
 
   const getPositionsQuery = new QueryCommand({
-    TableName:
-      process.env.DYNAMODB_POSITIONS_FROM_TABLE_NAME ||
-      "piedefi-positions-from-v3",
+    TableName: "piedefi-positions-from-v3",
     KeyConditionExpression: "#key = :key",
     ExpressionAttributeNames: { "#key": "account" },
     ExpressionAttributeValues: { ":key": address },
@@ -185,8 +195,7 @@ async function getAllLatestTokenPrices() {
     const result = await Promise.all(
       tokens.map(async (token) => {
         const getLatestPrice = new QueryCommand({
-          TableName:
-            process.env.DYNAMODB_PRICE_TABLE_NAME || "piedefi-price-v3",
+          TableName: "piedefi-price-v3",
           KeyConditionExpression: "#key = :key",
           ExpressionAttributeNames: { "#key": "token" },
           ExpressionAttributeValues: { ":key": token },
@@ -223,3 +232,7 @@ async function getAllLatestTokenPrices() {
 //     address: "0x1b58d50afd08dce062fb14d4e1f9665eb1eabeaf",
 //   },
 // });
+
+handler({
+  rawPath: "pnl",
+});
