@@ -51,10 +51,11 @@ export async function synchronizeBlocks(blockNumbers: number[]): Promise<void> {
                 transactionHash
               );
               if (
-                isIncreasePosition(receipt) ||
-                isDecreasePosition(receipt) ||
-                isPriceUpdated(receipt) ||
-                isLiquidatePosition(receipt)
+                isTransactionNotFailed(receipt) &&
+                (isIncreasePosition(receipt) ||
+                  isDecreasePosition(receipt) ||
+                  isPriceUpdated(receipt) ||
+                  isLiquidatePosition(receipt))
               ) {
                 return receipt;
               }
@@ -129,4 +130,14 @@ export async function saveAddressToPnl(
     Item: addressToPnl,
   });
   await docClient.send(command);
+}
+
+function isTransactionNotFailed(
+  transaction: ethers.providers.TransactionReceipt
+) {
+  const notFailed = transaction.status !== 0;
+  if (!notFailed) {
+    console.log(`Transaction: ${transaction.transactionHash} failed`);
+  }
+  return notFailed;
 }
