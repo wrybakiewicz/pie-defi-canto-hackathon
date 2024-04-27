@@ -57,6 +57,7 @@ export async function handler(event, context) {
           openPrice: positionEvent.tradingTokenPrice,
           openDate: dayMonthYear,
           pnl: 0,
+          isLiquidated: false,
         });
       } else {
         console.log("Increasing position that does not exist");
@@ -67,10 +68,14 @@ export async function handler(event, context) {
           openPrice: positionEvent.tradingTokenPrice,
           openDate: dayMonthYear,
           pnl: 0,
+          isLiquidated: false,
         });
       }
-    } else {
-      if (
+    } else if (positionEvent.type === "DECREASE") {
+      if (!existingPosition) {
+        console.error("There is no position to close");
+        openedPositions.delete(getPositionKey(positionEvent));
+      } else if (
         positionEvent.positionSizeInUsd === existingPosition.positionSizeInUsd
       ) {
         console.log("Closing entirely the position");
@@ -87,7 +92,6 @@ export async function handler(event, context) {
         openedPositions.delete(getPositionKey(positionEvent));
       } else {
         console.log("Closing partially the position");
-        //TODO: in case position get decreased we should not include it in position size ?
         openedPositions.set(getPositionKey(positionEvent), {
           type: existingPosition.isLong ? "LONG" : "SHORT",
           token: existingPosition.token,
@@ -99,7 +103,28 @@ export async function handler(event, context) {
           closePrice: positionEvent.closePrice,
           closeDate: dayMonthYear,
           pnl: positionEvent.pnl,
+          isLiquidated: false,
         });
+      }
+    } else {
+      if (
+        positionEvent.positionSizeInUsd === existingPosition.positionSizeInUsd
+      ) {
+        console.log("Liquidating position");
+        closedPositions.push({
+          type: existingPosition.isLong ? "LONG" : "SHORT",
+          token: existingPosition.token,
+          positionSizeInUsd: existingPosition.positionSizeInUsd,
+          openPrice: existingPosition.openPrice,
+          openDate: existingPosition.openDate,
+          closePrice: positionEvent.tradingTokenPrice,
+          closeDate: dayMonthYear,
+          pnl: positionEvent.pnl + existingPosition.pnl,
+          isLiquidated: true,
+        });
+        openedPositions.delete(getPositionKey(positionEvent));
+      } else {
+        throw new Error("There is no position to liquidate");
       }
     }
     dailyVolume.set(
@@ -125,6 +150,7 @@ export async function handler(event, context) {
       pnl:
         getPositionTokenVolume(position) *
         (allLatestTokenPrices.get(position.token).price - position.openPrice),
+      isLiquidated: position.isLiquidated,
     };
   });
 
@@ -179,14 +205,22 @@ async function getAllLatestTokenPrices() {
   }
 }
 
+//me
 // handler({
 //   queryStringParameters: {
 //     address: "0x861532bb628e3e9896bd2e43b99693508a98e921",
 //   },
 // });
 
+//early address - works
 // handler({
 //   queryStringParameters: {
-//     address: "0x8e07ab8fc9e5f2613b17a5e5069673d522d0207a",
+//     address: "0x0cba2895a36d248b5025d083e6c5093f57a93ff7",
 //   },
 // });
+
+handler({
+  queryStringParameters: {
+    address: "0x1b58d50afd08dce062fb14d4e1f9665eb1eabeaf",
+  },
+});
