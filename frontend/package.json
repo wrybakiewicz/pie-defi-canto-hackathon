@@ -38,6 +38,7 @@
     "bootstrap": "^5.3.3",
     "ng-animate": "^2.0.1",
     "ng-apexcharts": "^1.10.0",
+    "ngx-spinner": "^16.0.2",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.14.3"

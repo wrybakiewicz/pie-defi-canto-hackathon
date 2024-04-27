@@ -27,6 +27,7 @@
             "styles": [
               "./node_modules/@forevolve/bootstrap-dark/dist/css/toggle-bootstrap.min.css",
               "./node_modules/@forevolve/bootstrap-dark/dist/css/toggle-bootstrap-dark.min.css",
+              "node_modules/ngx-spinner/animations/ball-scale-multiple.css",
               "src/styles.scss"
             ],
             "scripts": ["node_modules/apexcharts/dist/apexcharts.min.js"]
@@ -83,6 +84,7 @@
             "styles": [
               "./node_modules/@forevolve/bootstrap-dark/dist/css/toggle-bootstrap.min.css",
               "./node_modules/@forevolve/bootstrap-dark/dist/css/toggle-bootstrap-dark.min.css",
+              "node_modules/ngx-spinner/animations/ball-scale-multiple.css",
               "src/styles.scss"
             ],
             "scripts": ["node_modules/apexcharts/dist/apexcharts.min.js"]
