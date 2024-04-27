@@ -8,12 +8,12 @@
             <tbody>
                 <tr>
                     <th>Type</th>
-                    <th>Open date</th>
+                    <th>Date</th>
                     <th>Token</th>
                     <th>Open price</th>
-                    <th>Position in $</th>
                     <th>Close price</th>
-                    <th>Close date</th>
+                    <th>Value</th>
+                    <th>PnL</th>
                 </tr>
                 <tr *ngFor="let position of positions">
                     <td>
@@ -27,22 +27,22 @@
                         </span>
                     </td>
                     <td>
-                        <span>{{position.openDate}}</span>
+                        <span>{{position.openDate}} - {{position.closeDate}}</span>
                     </td>
                     <td>
                         <span>{{position.token}}</span>
                     </td>
                     <td>
-                        <span>{{position.openPrice | number: '1.0-2'}}</span>
+                        <span>{{position.openPrice | number: '1.0-6'}}</span>
+                    </td>
+                    <td>
+                        <span>{{position.closePrice | number: '1.0-6'}}</span>
                     </td>
                     <td>
                         <span>{{position.positionSizeInUsd | number: '1.0-2'}} $</span>
                     </td>
                     <td>
-                        <span>{{position.closePrice | number: '1.0-2'}}</span>
-                    </td>
-                    <td>
-                        <span>{{position.closeDate}}</span>
+                        <span>{{position.pnl | number: '1.0-2'}} $</span>
                     </td>
                 </tr>
             </tbody>
