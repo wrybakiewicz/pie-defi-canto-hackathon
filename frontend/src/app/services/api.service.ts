@@ -16,7 +16,7 @@ export class ApiService {
   constructor(private http: HttpClient) { }
 
 
-  updateTradingData(address: string): void {
+  updateCadenceData(address: string): void {
     this.http.get<TradingData>(`${this.host}?address=${address}`)
     .subscribe((response) => this.tradingData.next(response));
   }
