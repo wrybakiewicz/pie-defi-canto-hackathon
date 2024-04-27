@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Observable, Subject, Subscription } from 'rxjs';
 import { ComponentsModule } from '../../components/components.module';
 import { HeaderComponent } from '../../components/header/header.component';
@@ -25,7 +25,7 @@ import { DashboardCadenceExampleComponent } from '../dashboard-cadence-example/d
   templateUrl: './dashboard-cadence.component.html',
   styleUrl: './dashboard-cadence.component.scss',
 })
-export class DashboardCadenceComponent implements OnInit {
+export class DashboardCadenceComponent implements OnInit, OnDestroy {
   private subscription: Subscription = new Subscription();
 
   data!: CadenceData;
