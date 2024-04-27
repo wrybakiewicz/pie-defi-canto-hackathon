@@ -5,10 +5,9 @@ import { Observable } from 'rxjs';
 @Component({
   selector: 'app-pnl-chart',
   templateUrl: './pnl-chart.component.html',
-  styleUrl: './pnl-chart.component.scss'
+  styleUrl: './pnl-chart.component.scss',
 })
 export class PnlChartComponent implements AfterViewInit, OnInit {
-
   @Input() data$!: Observable<PnlChart>;
   @Input() initialData!: PnlChart;
 
@@ -24,13 +23,13 @@ export class PnlChartComponent implements AfterViewInit, OnInit {
   ngOnInit(): void {
     this.data$.subscribe((data) => {
       this.chartOptions = this.getChartOptions(data);
-    })
+    });
   }
 
   ngAfterViewInit() {
     this.labelColor = this.getCssValue('--bs-gray-500');
     this.borderColor = this.getCssValue('--bs-gray-200');
-    this.baseColor = this.getCssValue('--bs-success');
+    this.baseColor = this.getCssValue('--bs-primary');
     this.baseLightColor = this.getCssValue('--bs-purple');
     this.secondaryColor = this.getCssValue('--bs-danger');
     this.chartOptions = this.getChartOptions(this.initialData);
@@ -45,30 +44,24 @@ export class PnlChartComponent implements AfterViewInit, OnInit {
     return {
       series: [
         {
-          "name": "Profit",
-          "type": "bar",
-          "data": pnlChart.profit
+          name: 'Volume',
+          type: 'bar',
+          data: pnlChart.profit,
         },
         {
-          "name": "Loss",
-          "type": "bar",
-          "data": pnlChart.loss
+          name: 'PnL',
+          type: 'area',
+          data: pnlChart.volume,
         },
-        {
-          "name": "Volume",
-          "type": "area",
-          "data": pnlChart.volume
-        }
       ],
       chart: {
-        stacked: true,
         height: 350,
         toolbar: {
           show: false,
         },
         zoom: {
-          enabled: true
-        }
+          enabled: true,
+        },
       },
       plotOptions: {
         bar: {
@@ -79,8 +72,8 @@ export class PnlChartComponent implements AfterViewInit, OnInit {
       },
       legend: {
         labels: {
-          colors: this.labelColor
-        }
+          colors: this.labelColor,
+        },
       },
       dataLabels: {
         enabled: false,
@@ -105,14 +98,39 @@ export class PnlChartComponent implements AfterViewInit, OnInit {
           },
         },
       },
-      yaxis: {
-        labels: {
-          style: {
-            colors: this.labelColor,
-            fontSize: '12px',
+      yaxis: [
+        {
+          opposite: true,
+          title: {
+            text: 'Volume',
+            style: {
+              color: this.labelColor,
+              fontSize: '12px',
+            }
+          },
+          labels: {
+            style: {
+              colors: this.labelColor,
+              fontSize: '12px',
+            },
           },
         },
-      },
+        {
+          title: {
+            text: 'PnL',
+            style: {
+              color: this.labelColor,
+              fontSize: '12px',
+            }
+          },
+          labels: {
+            style: {
+              colors: this.labelColor,
+              fontSize: '12px',
+            },
+          },
+        },
+      ],
       fill: {
         opacity: 1,
       },
@@ -129,7 +147,6 @@ export class PnlChartComponent implements AfterViewInit, OnInit {
         cssClass: 'chart-tooltip',
         style: {
           fontSize: '12px',
-
         },
         y: {
           formatter: function (val: number) {
@@ -137,7 +154,7 @@ export class PnlChartComponent implements AfterViewInit, OnInit {
           },
         },
       },
-      colors: [this.baseColor, this.secondaryColor, this.baseLightColor],
+      colors: [this.baseColor, this.baseLightColor],
       grid: {
         borderColor: this.borderColor,
         strokeDashArray: 4,
