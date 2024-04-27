@@ -46,12 +46,12 @@ export class PnlChartComponent implements AfterViewInit, OnInit {
         {
           name: 'Volume',
           type: 'bar',
-          data: pnlChart.profit,
+          data: pnlChart.volume,
         },
         {
           name: 'PnL',
           type: 'area',
-          data: pnlChart.volume,
+          data: pnlChart.pnl,
         },
       ],
       chart: {
@@ -100,6 +100,7 @@ export class PnlChartComponent implements AfterViewInit, OnInit {
       },
       yaxis: [
         {
+          decimalsInFloat: 2,
           opposite: true,
           title: {
             text: 'Volume',
@@ -116,6 +117,7 @@ export class PnlChartComponent implements AfterViewInit, OnInit {
           },
         },
         {
+          decimalsInFloat: 2,
           title: {
             text: 'PnL',
             style: {

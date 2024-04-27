@@ -13,8 +13,7 @@ export class MockDataService {
   constructor() {}
 
   getCadenceDashboardData(): void {
-    const profits = this.getRandomIntArray(0, 5000, 14);
-    const losses = this.getRandomIntArray(0, 3000, 14);
+    const pnl = this.getRandomIntArray(-500, 5000, 14);
     const volumes = this.getRandomIntArray(0, 15000, 14);
     const dates = [
       '01.04',
@@ -45,8 +44,7 @@ export class MockDataService {
       openedTrades: this.getRandomInt(1, 50),
       closedTrades: this.getRandomInt(1, 200),
       pnlChart: {
-        profit: profits,
-        loss: losses,
+        pnl: pnl,
         volume: volumes,
         labels: dates,
       },

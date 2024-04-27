@@ -8,7 +8,7 @@ import {
   CadenceData,
   PnlChart,
 } from '../../models/cadence.model';
-import { Position, TradingData } from '../../models/trades.model';
+import { DailyVolume, Position, TradingData } from '../../models/trades.model';
 import { ApiService } from '../../services/api.service';
 import { MockDataService } from '../../services/mock-data.service';
 import { DashboardCadenceExampleComponent } from '../dashboard-cadence-example/dashboard-cadence-example.component';
@@ -115,22 +115,39 @@ export class DashboardCadenceComponent implements OnInit {
   }
 
   generatePnlChart(data: TradingData): PnlChart {
-    const positions = this.sortClosedPositionsByDate(data);
+    const pnls = this.sortClosedPositionsByDate(data);
+    const volumes = this.sortVolumesByDate(data);
 
-  return {
-    labels: positions.map((a) => a.closeDate? a.closeDate : 'x'),
-    profit: positions.map((a) => a.positionSizeInUsd),
-    loss: [],
-    volume: positions.map((a) => a.pnl),
+    return {
+      labels: volumes.map((a) => (a.date ? a.date : 'x')),
+      volume: volumes.map((a) => a.dailyVolume),
+      pnl: pnls.map((a) => a.pnl),
+    };
   }
 
-  }
   private sortClosedPositionsByDate(data: TradingData): Position[] {
     return data.closedPositions.sort((a, b) => {
-        const dateA = a.closeDate ? new Date(a.closeDate) : new Date(8640000000000000);
-        const dateB = b.closeDate ? new Date(b.closeDate) : new Date(8640000000000000);
+      const dateA = a.closeDate
+        ? new Date(a.closeDate)
+        : new Date(8640000000000000);
+      const dateB = b.closeDate
+        ? new Date(b.closeDate)
+        : new Date(8640000000000000);
 
-        return dateA.getTime() - dateB.getTime();
+      return dateA.getTime() - dateB.getTime();
     });
-}
+  }
+
+  private sortVolumesByDate(data: TradingData): DailyVolume[] {
+    return data.dailyVolumes.sort((a, b) => {
+      const dateA = a.date
+        ? new Date(a.date)
+        : new Date(8640000000000000);
+      const dateB = b.date
+        ? new Date(b.date)
+        : new Date(8640000000000000);
+
+      return dateA.getTime() - dateB.getTime();
+    });
+  }
 }

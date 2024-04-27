@@ -16,8 +16,7 @@ export interface BestWorstTrade {
 }
 
 export interface PnlChart {
-    profit: number[];
-    loss: number[];
+    pnl: number[];
     volume: number[];
     labels: string[]; 
 }
