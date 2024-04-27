@@ -20,40 +20,48 @@ export async function indexLiquidatePosition(
       try {
         const event = contractInterface.parseLog(transaction.logs[i]);
         if (event.name === "LiquidatePosition") {
-          // console.log(event);
-          const pnl =
-            -1.0 *
-            (event.args.collateral.div(BigNumber.from(10).pow(25)).toNumber() /
-              100000.0);
-          const address = event.args.account.toLowerCase();
-          const addressToPnl = await getAddressToPnl(address);
-          const position: Position = {
-            account: address,
-            tradingToken: getTokenSymbol(event.args.indexToken),
-            positionSizeInUsd:
-              event.args.size.div(BigNumber.from(10).pow(25)).toNumber() /
-              100000.0,
-            tradingTokenPrice:
-              event.args.markPrice.div(BigNumber.from(10).pow(25)).toNumber() /
-              100000.0,
-            isLong: event.args.isLong,
-            timestampSeconds: await provider
-              .getBlock(transaction.blockNumber)
-              .then((block) => block.timestamp),
-            type: "LIQUIDATE",
-            pnl: pnl,
-          };
-          console.log(position);
-          const command = new PutCommand({
-            TableName: dynamodbPositionsFromTableName,
-            Item: position,
-          });
-          await docClient.send(command);
-          await saveAddressToPnl({
-            partition: "ALL",
-            address: address,
-            pnl: addressToPnl.pnl + pnl,
-          });
+          try {
+            const pnl =
+              -1.0 *
+              (event.args.collateral
+                .div(BigNumber.from(10).pow(25))
+                .toNumber() /
+                100000.0);
+            const address = event.args.account.toLowerCase();
+            const addressToPnl = await getAddressToPnl(address);
+            const position: Position = {
+              account: address,
+              tradingToken: getTokenSymbol(event.args.indexToken),
+              positionSizeInUsd:
+                event.args.size.div(BigNumber.from(10).pow(25)).toNumber() /
+                100000.0,
+              tradingTokenPrice:
+                event.args.markPrice
+                  .div(BigNumber.from(10).pow(25))
+                  .toNumber() / 100000.0,
+              isLong: event.args.isLong,
+              timestampSeconds: await provider
+                .getBlock(transaction.blockNumber)
+                .then((block) => block.timestamp),
+              type: "LIQUIDATE",
+              pnl: pnl,
+            };
+            const command = new PutCommand({
+              TableName: dynamodbPositionsFromTableName,
+              Item: position,
+            });
+            await docClient.send(command);
+            await saveAddressToPnl({
+              partition: "ALL",
+              address: address,
+              pnl: addressToPnl.pnl + pnl,
+            });
+          } catch (e) {
+            console.error("Error liquidating position:");
+            console.error(e);
+            console.error("Error liquidating event:");
+            console.error(event);
+          }
         }
       } catch (e) {}
     }

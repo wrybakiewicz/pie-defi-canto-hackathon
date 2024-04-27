@@ -20,28 +20,34 @@ export async function indexIncreasePosition(
       try {
         const event = contractInterface.parseLog(transaction.logs[i]);
         if (event.name === "ExecuteIncreasePosition") {
-          // console.log(event);
-          const token = getTokenSymbol(event.args.indexToken);
-          const position: Position = {
-            account: event.args.account.toLowerCase(),
-            tradingToken: token,
-            positionSizeInUsd:
-              event.args.sizeDelta.div(BigNumber.from(10).pow(25)).toNumber() /
-              100000.0,
-            tradingTokenPrice: prices.get(token),
-            isLong: event.args.isLong,
-            timestampSeconds: await provider
-              .getBlock(transaction.blockNumber)
-              .then((block) => block.timestamp),
-            type: "INCREASE",
-            pnl: 0,
-          };
-          console.log(position);
-          const command = new PutCommand({
-            TableName: dynamodbPositionsFromTableName,
-            Item: position,
-          });
-          await docClient.send(command);
+          try {
+            const token = getTokenSymbol(event.args.indexToken);
+            const position: Position = {
+              account: event.args.account.toLowerCase(),
+              tradingToken: token,
+              positionSizeInUsd:
+                event.args.sizeDelta
+                  .div(BigNumber.from(10).pow(25))
+                  .toNumber() / 100000.0,
+              tradingTokenPrice: prices.get(token),
+              isLong: event.args.isLong,
+              timestampSeconds: await provider
+                .getBlock(transaction.blockNumber)
+                .then((block) => block.timestamp),
+              type: "INCREASE",
+              pnl: 0,
+            };
+            const command = new PutCommand({
+              TableName: dynamodbPositionsFromTableName,
+              Item: position,
+            });
+            await docClient.send(command);
+          } catch (e) {
+            console.error("Error increasing position:");
+            console.error(e);
+            console.error("Error increasing event:");
+            console.error(event);
+          }
         }
       } catch (e) {}
     }

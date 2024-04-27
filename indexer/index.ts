@@ -18,7 +18,13 @@ const run = async () => {
       console.log(
         `Syncing new blocks from ${range[0]} to ${range[range.length - 1]}`
       );
-      await synchronizeBlocks(range);
+      try {
+        await synchronizeBlocks(range);
+      } catch (e) {
+        console.error("Error synchronizing blocks");
+        console.error(e);
+        await sleep(10000);
+      }
     } else {
       console.log("No new block");
       await sleep(1000);

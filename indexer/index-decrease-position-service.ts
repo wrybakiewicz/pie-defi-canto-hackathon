@@ -22,36 +22,42 @@ export async function indexDecreasePosition(
       try {
         const event = contractInterface.parseLog(transaction.logs[i]);
         if (event.name === "ExecuteDecreasePosition") {
-          // console.log(event);
-          const token = getTokenSymbol(event.args.indexToken);
-          const pnl = getPnl(transaction);
-          const address = event.args.account.toLowerCase();
-          const addressToPnl = await getAddressToPnl(address);
-          const position: Position = {
-            account: address,
-            tradingToken: token,
-            positionSizeInUsd:
-              event.args.sizeDelta.div(BigNumber.from(10).pow(25)).toNumber() /
-              100000.0,
-            tradingTokenPrice: prices.get(token),
-            isLong: event.args.isLong,
-            timestampSeconds: await provider
-              .getBlock(transaction.blockNumber)
-              .then((block) => block.timestamp),
-            type: "DECREASE",
-            pnl: pnl,
-          };
-          console.log(position);
-          const command = new PutCommand({
-            TableName: dynamodbPositionsFromTableName,
-            Item: position,
-          });
-          await docClient.send(command);
-          await saveAddressToPnl({
-            partition: "ALL",
-            address: address,
-            pnl: addressToPnl.pnl + pnl,
-          });
+          try {
+            const token = getTokenSymbol(event.args.indexToken);
+            const pnl = getPnl(transaction);
+            const address = event.args.account.toLowerCase();
+            const addressToPnl = await getAddressToPnl(address);
+            const position: Position = {
+              account: address,
+              tradingToken: token,
+              positionSizeInUsd:
+                event.args.sizeDelta
+                  .div(BigNumber.from(10).pow(25))
+                  .toNumber() / 100000.0,
+              tradingTokenPrice: prices.get(token),
+              isLong: event.args.isLong,
+              timestampSeconds: await provider
+                .getBlock(transaction.blockNumber)
+                .then((block) => block.timestamp),
+              type: "DECREASE",
+              pnl: pnl,
+            };
+            const command = new PutCommand({
+              TableName: dynamodbPositionsFromTableName,
+              Item: position,
+            });
+            await docClient.send(command);
+            await saveAddressToPnl({
+              partition: "ALL",
+              address: address,
+              pnl: addressToPnl.pnl + pnl,
+            });
+          } catch (e) {
+            console.error("Error decreasing position:");
+            console.error(e);
+            console.error("Error decreasing event:");
+            console.error(event);
+          }
         }
       } catch (e) {}
     }

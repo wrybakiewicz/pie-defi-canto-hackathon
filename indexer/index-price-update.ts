@@ -22,22 +22,28 @@ export async function indexPriceUpdate(
       try {
         const event = contractInterface.parseLog(transaction.logs[i]);
         if (event.name === "PriceUpdate") {
-          // console.log(event);
-          const price: Price = {
-            token: getTokenSymbol(event.args.token),
-            timestampSeconds: await provider
-              .getBlock(transaction.blockNumber)
-              .then((block) => block.timestamp),
-            price:
-              event.args.price.div(BigNumber.from(10).pow(25)).toNumber() /
-              100000.0,
-          };
-          const command = new PutCommand({
-            TableName: dynamodbPriceTableName,
-            Item: price,
-          });
-          await docClient.send(command);
-          tokenToPriceMap.set(price.token, price.price);
+          try {
+            const price: Price = {
+              token: getTokenSymbol(event.args.token),
+              timestampSeconds: await provider
+                .getBlock(transaction.blockNumber)
+                .then((block) => block.timestamp),
+              price:
+                event.args.price.div(BigNumber.from(10).pow(25)).toNumber() /
+                100000.0,
+            };
+            const command = new PutCommand({
+              TableName: dynamodbPriceTableName,
+              Item: price,
+            });
+            await docClient.send(command);
+            tokenToPriceMap.set(price.token, price.price);
+          } catch (e) {
+            console.error("Error updating prices:");
+            console.error(e);
+            console.error("Error updating prices event:");
+            console.error(event);
+          }
         }
       } catch (e) {}
     }
