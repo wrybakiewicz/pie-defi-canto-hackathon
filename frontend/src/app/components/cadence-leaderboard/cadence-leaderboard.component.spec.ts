@@ -8,10 +8,9 @@ describe('CadenceLeaderboardComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [CadenceLeaderboardComponent]
-    })
-    .compileComponents();
-    
+      imports: [CadenceLeaderboardComponent],
+    }).compileComponents();
+
     fixture = TestBed.createComponent(CadenceLeaderboardComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

@@ -140,12 +140,8 @@ export class DashboardCadenceComponent implements OnInit, OnDestroy {
 
   private sortVolumesByDate(data: TradingData): DailyVolume[] {
     return data.dailyVolumes.sort((a, b) => {
-      const dateA = a.date
-        ? new Date(a.date)
-        : new Date(8640000000000000);
-      const dateB = b.date
-        ? new Date(b.date)
-        : new Date(8640000000000000);
+      const dateA = a.date ? new Date(a.date) : new Date(8640000000000000);
+      const dateB = b.date ? new Date(b.date) : new Date(8640000000000000);
 
       return dateA.getTime() - dateB.getTime();
     });

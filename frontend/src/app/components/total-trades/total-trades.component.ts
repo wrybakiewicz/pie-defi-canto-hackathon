@@ -7,12 +7,17 @@ import { pulse } from 'ng-animate';
   templateUrl: './total-trades.component.html',
   styleUrl: './total-trades.component.scss',
   animations: [
-    trigger('pulse', [transition('* => *', useAnimation(pulse, {
-      params: { timing: 0.3, delay: 0 }
-    }))])
+    trigger('pulse', [
+      transition(
+        '* => *',
+        useAnimation(pulse, {
+          params: { timing: 0.3, delay: 0 },
+        })
+      ),
+    ]),
   ],
 })
-export class TotalTradesComponent implements OnChanges{
+export class TotalTradesComponent implements OnChanges {
   @Input() styleOverride: string = '';
   @Input() openedTrades!: number;
   @Input() closedTrades!: number;
@@ -20,6 +25,6 @@ export class TotalTradesComponent implements OnChanges{
   anim: any = false;
 
   ngOnChanges(changes: SimpleChanges): void {
-    this.anim = !this.anim
+    this.anim = !this.anim;
   }
 }

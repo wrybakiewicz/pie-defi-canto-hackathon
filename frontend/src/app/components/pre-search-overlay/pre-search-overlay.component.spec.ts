@@ -8,10 +8,9 @@ describe('PreSearchOverlayComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [PreSearchOverlayComponent]
-    })
-    .compileComponents();
-    
+      imports: [PreSearchOverlayComponent],
+    }).compileComponents();
+
     fixture = TestBed.createComponent(PreSearchOverlayComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

@@ -8,10 +8,9 @@ describe('DashboardCantoComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [DashboardCantoComponent]
-    })
-    .compileComponents();
-    
+      imports: [DashboardCantoComponent],
+    }).compileComponents();
+
     fixture = TestBed.createComponent(DashboardCantoComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

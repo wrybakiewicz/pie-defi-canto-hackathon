@@ -7,13 +7,12 @@ import { CadenceData } from '../../models/cadence.model';
   templateUrl: './winrate.component.html',
   styleUrl: './winrate.component.scss',
 })
-export class WinrateComponent implements AfterViewInit, OnInit{
+export class WinrateComponent implements AfterViewInit, OnInit {
   @Input() styleOverride: string = '';
   @Input() data$!: Observable<CadenceData>;
 
   @Input() wonTrades!: number;
   @Input() lostTrades!: number;
-
 
   chartOptions: any = {};
   labelColor: any = {};
@@ -28,7 +27,7 @@ export class WinrateComponent implements AfterViewInit, OnInit{
       this.wonTrades = data.wonTradesCount;
       this.lostTrades = data.lostTradesCount;
       this.chartOptions = this.getChartOptions(this.wonTrades, this.lostTrades);
-    })
+    });
   }
 
   ngAfterViewInit() {
@@ -80,7 +79,7 @@ export class WinrateComponent implements AfterViewInit, OnInit{
       tooltip: {
         style: {
           fontSize: '12px',
-        }
+        },
       },
       colors: [this.baseColor, this.secondaryColor, this.baseLightColor],
     };

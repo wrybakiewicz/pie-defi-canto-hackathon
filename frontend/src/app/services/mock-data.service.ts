@@ -7,14 +7,13 @@ import { Position } from '../models/trades.model';
   providedIn: 'root',
 })
 export class MockDataService {
-
   private dataSource = new Subject<CadenceData>();
   data$ = this.dataSource.asObservable();
 
   constructor() {}
 
-  getCadenceRandomPositions(): {closed: Position[], opened: Position[]}{
-    return this.generatePositions(this.getRandomNumber(2, 8))
+  getCadenceRandomPositions(): { closed: Position[]; opened: Position[] } {
+    return this.generatePositions(this.getRandomNumber(2, 8));
   }
 
   private getRandomToken(): string {
@@ -27,7 +26,9 @@ export class MockDataService {
   }
 
   private getRandomDate(start: Date, end: Date): string {
-    const date = new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()));
+    const date = new Date(
+      start.getTime() + Math.random() * (end.getTime() - start.getTime())
+    );
     return date.toISOString();
   }
 
@@ -41,10 +42,15 @@ export class MockDataService {
     let closeDate = undefined;
     let pnl = 0;
 
-    if (Math.random() > 0.5) { // Randomly decide if the position is closed
+    if (Math.random() > 0.5) {
+      // Randomly decide if the position is closed
       closePrice = this.getRandomNumber(10, 1000);
       closeDate = this.getRandomDate(new Date(openDate), new Date());
-      pnl = (closePrice - openPrice) * (type === 'LONG' ? 1 : -1) * positionSizeInUsd / openPrice;
+      pnl =
+        ((closePrice - openPrice) *
+          (type === 'LONG' ? 1 : -1) *
+          positionSizeInUsd) /
+        openPrice;
     }
 
     return {
@@ -59,11 +65,16 @@ export class MockDataService {
     };
   }
 
-  private generatePositions(numPositions: number): { opened: Position[], closed: Position[] } {
-    const positions: Position[] = Array.from({length: numPositions}, () => this.createRandomPosition());
+  private generatePositions(numPositions: number): {
+    opened: Position[];
+    closed: Position[];
+  } {
+    const positions: Position[] = Array.from({ length: numPositions }, () =>
+      this.createRandomPosition()
+    );
     return {
-      opened: positions.filter(p => p.closePrice === undefined),
-      closed: positions.filter(p => p.closePrice !== undefined)
+      opened: positions.filter((p) => p.closePrice === undefined),
+      closed: positions.filter((p) => p.closePrice !== undefined),
     };
   }
 
@@ -111,7 +122,7 @@ export class MockDataService {
     max = Math.floor(max);
     return Math.floor(Math.random() * (max - min + 1)) + min;
   }
-  
+
   getRandomIntArray(min: number, max: number, size: number): number[] {
     const randoms: number[] = [];
     for (let i = 0; i < size; i++) {
@@ -119,5 +130,4 @@ export class MockDataService {
     }
     return randoms;
   }
-  
 }

@@ -1,4 +1,10 @@
-import { AfterViewInit, Component, Input, OnDestroy, OnInit } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  Input,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
 import { Router } from '@angular/router';
 import { ApiService } from '../../services/api.service';
 import { Subscription } from 'rxjs';
@@ -18,9 +24,11 @@ export class TitleComponent implements OnInit, OnDestroy {
   constructor(private router: Router, private api: ApiService) {}
 
   ngOnInit(): void {
-    this.subscription.add(this.api.tradingData$.subscribe((data) => {
-      this.glow = false;
-    }));
+    this.subscription.add(
+      this.api.tradingData$.subscribe((data) => {
+        this.glow = false;
+      })
+    );
   }
 
   ngOnDestroy(): void {
@@ -32,7 +40,7 @@ export class TitleComponent implements OnInit, OnDestroy {
       paths: 'subset',
       matrixParams: 'ignored',
       queryParams: 'ignored',
-      fragment: 'ignored'
+      fragment: 'ignored',
     });
   }
 
@@ -41,7 +49,7 @@ export class TitleComponent implements OnInit, OnDestroy {
   }
 
   onSearch() {
-    if(this.address){
+    if (this.address) {
       this.api.updateCadenceData(this.address);
     } else {
       console.error('Address is empty');

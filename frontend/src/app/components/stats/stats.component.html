@@ -12,17 +12,12 @@
 
     <div class="card-body pt-0 pb-0">
         <div class="d-flex flex-column align-items-center text-center justify-content-center mt-3">
-            <div *ngIf="body"
-                class="fw-bold fs-6 text-white"
-                [@pulse]="anim">
+            <div *ngIf="body" class="fw-bold fs-6 text-white" [@pulse]="anim">
                 <span> {{ body }}</span>
             </div>
-            <div *ngIf="icons"
-                class="d-flex justify-content-center mb-2">
+            <div *ngIf="icons" class="d-flex justify-content-center mb-2">
                 <div [@pulse]="anim" class="d-flex flex-row-fluid">
-                    <ng-icon *ngFor="let ic of icons"
-                        class="fw-bold fs-6 text-white mb-2"
-                        name="{{ic}}"></ng-icon>
+                    <ng-icon *ngFor="let ic of icons" class="fw-bold fs-6 text-white mb-2" name="{{ic}}"></ng-icon>
                 </div>
             </div>
         </div>

@@ -12,7 +12,9 @@ import { Observable, Subject, Subscription } from 'rxjs';
   templateUrl: './dashboard-canto.component.html',
   styleUrl: './dashboard-canto.component.scss',
 })
-export class DashboardCantoComponent implements OnInit, AfterViewInit, OnDestroy {
+export class DashboardCantoComponent
+  implements OnInit, AfterViewInit, OnDestroy
+{
   private subscription: Subscription = new Subscription();
 
   data!: CadenceData;
@@ -21,18 +23,20 @@ export class DashboardCantoComponent implements OnInit, AfterViewInit, OnDestroy
   pnlData$ = this.pnlData.asObservable();
 
   constructor(private mockData: MockDataService) {
-    this.data$ = this.mockData.data$
+    this.data$ = this.mockData.data$;
   }
 
   ngOnInit(): void {
-    this.subscription.add(this.data$.subscribe((data) => {
-      this.data = data;
-      this.pnlData.next(data.pnlChart);
-    }));
+    this.subscription.add(
+      this.data$.subscribe((data) => {
+        this.data = data;
+        this.pnlData.next(data.pnlChart);
+      })
+    );
   }
 
   ngAfterViewInit(): void {
-    this.mockData.getCadenceDashboardData()
+    this.mockData.getCadenceDashboardData();
   }
 
   ngOnDestroy(): void {

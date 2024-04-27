@@ -8,10 +8,9 @@ describe('DashboardFortunafiComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [DashboardFortunafiComponent]
-    })
-    .compileComponents();
-    
+      imports: [DashboardFortunafiComponent],
+    }).compileComponents();
+
     fixture = TestBed.createComponent(DashboardFortunafiComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

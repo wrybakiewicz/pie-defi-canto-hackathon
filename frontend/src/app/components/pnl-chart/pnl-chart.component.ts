@@ -107,7 +107,7 @@ export class PnlChartComponent implements AfterViewInit, OnInit {
             style: {
               color: this.labelColor,
               fontSize: '12px',
-            }
+            },
           },
           labels: {
             style: {
@@ -123,7 +123,7 @@ export class PnlChartComponent implements AfterViewInit, OnInit {
             style: {
               color: this.labelColor,
               fontSize: '12px',
-            }
+            },
           },
           labels: {
             style: {
