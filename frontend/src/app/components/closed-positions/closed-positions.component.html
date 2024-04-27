@@ -27,7 +27,7 @@
                         </span>
                     </td>
                     <td>
-                        <span>{{position.openDate}} - {{position.closeDate}}</span>
+                        <span>{{position.openDate | date: 'dd.MM-yyyy'}} - {{position.closeDate | date: 'dd.MM-yyyy'}}</span>
                     </td>
                     <td>
                         <span>{{position.token}}</span>
