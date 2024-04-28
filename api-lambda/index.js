@@ -18,7 +18,7 @@ export async function handler(event, context) {
   console.log(event);
   if (event.rawPath.endsWith("pnl")) {
     const getPnls = new QueryCommand({
-      TableName: "piedefi-all-addresses-to-pnl-v3",
+      TableName: "piedefi-all-addresses-to-pnl-v4",
       KeyConditionExpression: "#key = :key",
       ExpressionAttributeNames: { "#key": "partition" },
       ExpressionAttributeValues: { ":key": "ALL" },
@@ -39,7 +39,7 @@ export async function handler(event, context) {
   console.log(address);
 
   const getPositionsQuery = new QueryCommand({
-    TableName: "piedefi-positions-from-v3",
+    TableName: "piedefi-positions-from-v4",
     KeyConditionExpression: "#key = :key",
     ExpressionAttributeNames: { "#key": "account" },
     ExpressionAttributeValues: { ":key": address },
@@ -203,7 +203,7 @@ async function getAllLatestTokenPrices() {
     const result = await Promise.all(
       tokens.map(async (token) => {
         const getLatestPrice = new QueryCommand({
-          TableName: "piedefi-price-v3",
+          TableName: "piedefi-price-v4",
           KeyConditionExpression: "#key = :key",
           ExpressionAttributeNames: { "#key": "token" },
           ExpressionAttributeValues: { ":key": token },
