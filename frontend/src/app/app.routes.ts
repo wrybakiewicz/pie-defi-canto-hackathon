@@ -1,7 +1,7 @@
 import { Routes } from '@angular/router';
 import { DashboardCadenceComponent } from './pages/dashboard-cadence/dashboard-cadence.component';
 import { HomeComponent } from './pages/home/home.component';
-import { DashboardCantoComponent } from './pages/dashboard-canto/dashboard-canto.component';
+import { DashboardSlingshotComponent } from './pages/dashboard-slingshot/dashboard-slingshot.component';
 import { DashboardFortunafiComponent } from './pages/dashboard-fortunafi/dashboard-fortunafi.component';
 
 export const routes: Routes = [
@@ -14,8 +14,8 @@ export const routes: Routes = [
     component: DashboardCadenceComponent,
   },
   {
-    path: 'dashboard-canto',
-    component: DashboardCantoComponent,
+    path: 'dashboard-slingshot',
+    component: DashboardSlingshotComponent,
   },
   {
     path: 'dashboard-fortunafi',
