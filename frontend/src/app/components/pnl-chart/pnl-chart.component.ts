@@ -63,8 +63,8 @@ export class PnlChartComponent implements AfterViewInit, OnInit {
           enabled: false,
         },
         selection: {
-          enabled: false
-        }
+          enabled: false,
+        },
       },
       plotOptions: {
         bar: {

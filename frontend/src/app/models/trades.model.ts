@@ -19,4 +19,5 @@ export interface Position {
   closePrice?: number;
   closeDate?: string;
   pnl: number;
+  isLiquidated: boolean;
 }

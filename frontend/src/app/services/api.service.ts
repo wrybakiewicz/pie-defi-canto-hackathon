@@ -7,7 +7,7 @@ import { TradingData } from '../models/trades.model';
   providedIn: 'root',
 })
 export class ApiService {
-  private readonly host = 'https://v2.piedefi.com/';
+  private readonly host = 'https://v3.piedefi.com/';
 
   private tradingData = new Subject<TradingData>();
   tradingData$ = this.tradingData.asObservable();

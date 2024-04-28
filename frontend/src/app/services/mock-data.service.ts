@@ -53,6 +53,8 @@ export class MockDataService {
         openPrice;
     }
 
+    const isLiquidated: boolean = Math.random() < 0.2;
+
     return {
       type,
       token,
@@ -62,6 +64,7 @@ export class MockDataService {
       closePrice,
       closeDate,
       pnl,
+      isLiquidated,
     };
   }
 

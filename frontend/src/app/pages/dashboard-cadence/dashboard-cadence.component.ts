@@ -115,14 +115,48 @@ export class DashboardCadenceComponent implements OnInit, OnDestroy {
   }
 
   generatePnlChart(data: TradingData): PnlChart {
-    const pnls = this.sortClosedPositionsByDate(data);
+    const pnlValues = this.sortClosedPositionsByDate(data);
     const volumes = this.sortVolumesByDate(data);
+    const accPnl: number[] = this.accumulatePnlByDay(pnlValues, volumes);
 
     return {
       labels: volumes.map((a) => (a.date ? a.date : 'x')),
       volume: volumes.map((a) => a.dailyVolume),
-      pnl: pnls.map((a) => a.pnl),
+      pnl: accPnl,
     };
+  }
+
+  private accumulatePnlByDay(pnlValues: Position[], volumes: DailyVolume[]) {
+    const accPnl: number[] = [];
+    const pnlMap = new Map<string, number>();
+    pnlValues.forEach((pnl) => {
+      if (!pnl.closeDate) {
+        return;
+      }
+      const dailyPnl = pnlMap.get(pnl.closeDate);
+      if (!dailyPnl) {
+        pnlMap.set(pnl.closeDate, pnl.pnl);
+        return;
+      }
+      pnlMap.set(pnl.closeDate, dailyPnl + pnl.pnl);
+    });
+    for (let i = 0; i < volumes.length; i++) {
+      const pnlOnDay = pnlMap.get(volumes[i].date);
+      if (pnlOnDay) {
+        if (accPnl.length > 0) {
+          accPnl.push(pnlOnDay + accPnl[accPnl.length - 1]);
+        } else {
+          accPnl.push(pnlOnDay);
+        }
+      } else {
+        if (accPnl.length > 0) {
+          accPnl.push(accPnl[accPnl.length - 1]);
+        } else {
+          accPnl.push(0);
+        }
+      }
+    }
+    return accPnl;
   }
 
   private sortClosedPositionsByDate(data: TradingData): Position[] {
