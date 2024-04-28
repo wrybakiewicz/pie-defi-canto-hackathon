@@ -24,8 +24,16 @@ export async function handler(event, context) {
       ExpressionAttributeValues: { ":key": "ALL" },
     });
     const pnls = (await docClient.send(getPnls)).Items;
-    console.log(pnls);
-    return pnls;
+    const sortedPnls = pnls.map((pnl) => {
+      return {
+        address: pnl.address,
+        pnl: pnl.pnl,
+      };
+    });
+
+    sortedPnls.sort((pnl1, pnl2) => pnl2.pnl - pnl1.pnl);
+    console.log(sortedPnls);
+    return sortedPnls;
   }
   const address = event.queryStringParameters.address.toLowerCase();
   console.log(address);
@@ -233,6 +241,6 @@ async function getAllLatestTokenPrices() {
 //   },
 // });
 
-handler({
-  rawPath: "pnl",
-});
+// handler({
+//   rawPath: "pnl",
+// });
