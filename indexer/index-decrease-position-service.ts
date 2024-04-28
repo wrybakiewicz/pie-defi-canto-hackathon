@@ -6,7 +6,9 @@ import { getTokenSymbol } from "./token-address-to-token-symbol";
 import {
   docClient,
   dynamodbPositionsFromTableName,
+  positionRouterAddress,
   provider,
+  vaultAddress,
 } from "./constants";
 import { PutCommand } from "@aws-sdk/lib-dynamodb";
 import { getAddressToPnl, saveAddressToPnl } from "./indexing-service";
@@ -20,8 +22,12 @@ export async function indexDecreasePosition(
     const contractInterface = new ethers.utils.Interface(PositionRouter);
     for (let i = 0; i < transaction.logs.length; i++) {
       try {
-        const event = contractInterface.parseLog(transaction.logs[i]);
-        if (event.name === "ExecuteDecreasePosition") {
+        const log = transaction.logs[i];
+        const event = contractInterface.parseLog(log);
+        if (
+          event.name === "ExecuteDecreasePosition" &&
+          log.address.toLowerCase() === positionRouterAddress
+        ) {
           try {
             const token = getTokenSymbol(event.args.indexToken);
             const pnl = getPnl(transaction);
@@ -77,7 +83,10 @@ export function isDecreasePosition(
   const receiptCheckResult = transaction.logs.map((log) => {
     try {
       const event = contractInterface.parseLog(log);
-      return event.name === "ExecuteDecreasePosition";
+      return (
+        event.name === "ExecuteDecreasePosition" &&
+        log.address.toLowerCase() === positionRouterAddress
+      );
     } catch (e) {
       return false;
     }
@@ -91,7 +100,10 @@ function getPnl(transaction: ethers.providers.TransactionReceipt): number {
     .map((log) => {
       try {
         const event = contractInterface.parseLog(log);
-        if (event.name === "UpdatePnl") {
+        if (
+          event.name === "UpdatePnl" &&
+          log.address.toLowerCase() === vaultAddress
+        ) {
           const hasProfitMultiplier = event.args.hasProfit ? 1 : -1;
           return (
             hasProfitMultiplier *

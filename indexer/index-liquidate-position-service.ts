@@ -6,6 +6,7 @@ import {
   docClient,
   dynamodbPositionsFromTableName,
   provider,
+  vaultAddress,
 } from "./constants";
 import { PutCommand } from "@aws-sdk/lib-dynamodb";
 import { getAddressToPnl, saveAddressToPnl } from "./indexing-service";
@@ -18,8 +19,12 @@ export async function indexLiquidatePosition(
     const contractInterface = new ethers.utils.Interface(Vault);
     for (let i = 0; i < transaction.logs.length; i++) {
       try {
-        const event = contractInterface.parseLog(transaction.logs[i]);
-        if (event.name === "LiquidatePosition") {
+        const log = transaction.logs[i];
+        const event = contractInterface.parseLog(log);
+        if (
+          event.name === "LiquidatePosition" &&
+          log.address.toLowerCase() === vaultAddress
+        ) {
           try {
             const pnl =
               -1.0 *
@@ -77,7 +82,10 @@ export function isLiquidatePosition(
   const receiptCheckResult = transaction.logs.map((log) => {
     try {
       const event = contractInterface.parseLog(log);
-      return event.name === "LiquidatePosition";
+      return (
+        event.name === "LiquidatePosition" &&
+        log.address.toLowerCase() === vaultAddress
+      );
     } catch (e) {
       return false;
     }

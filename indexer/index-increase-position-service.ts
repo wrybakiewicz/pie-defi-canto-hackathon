@@ -5,6 +5,7 @@ import { getTokenSymbol } from "./token-address-to-token-symbol";
 import {
   docClient,
   dynamodbPositionsFromTableName,
+  positionRouterAddress,
   provider,
 } from "./constants";
 import { PutCommand } from "@aws-sdk/lib-dynamodb";
@@ -18,8 +19,13 @@ export async function indexIncreasePosition(
     const contractInterface = new ethers.utils.Interface(PositionRouter);
     for (let i = 0; i < transaction.logs.length; i++) {
       try {
-        const event = contractInterface.parseLog(transaction.logs[i]);
-        if (event.name === "ExecuteIncreasePosition") {
+        const log = transaction.logs[i];
+        const event = contractInterface.parseLog(log);
+        if (
+          event.name === "ExecuteIncreasePosition" &&
+          log.address.toLowerCase() === positionRouterAddress
+        ) {
+          console.log(log.address);
           try {
             const token = getTokenSymbol(event.args.indexToken);
             const position: Position = {
@@ -67,7 +73,10 @@ export function isIncreasePosition(
   const receiptCheckResult = transaction.logs.map((log) => {
     try {
       const event = contractInterface.parseLog(log);
-      return event.name === "ExecuteIncreasePosition";
+      return (
+        event.name === "ExecuteIncreasePosition" &&
+        log.address.toLowerCase() === positionRouterAddress
+      );
     } catch (e) {
       return false;
     }

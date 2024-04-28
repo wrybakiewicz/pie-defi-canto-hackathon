@@ -32,3 +32,9 @@ export const dynamodbAllAddressesToPnlTableName =
   process.env.DYNAMODB_ALL_ADDRESSES_TO_PLN_TABLE_NAME;
 
 export const blockBatchSize = Number(process.env.BLOCK_BATCH_SIZE);
+
+export const positionRouterAddress =
+  "0xab4dc3df37cdaaf9bb87938af6089543c1832512".toLowerCase();
+
+export const vaultAddress =
+  "0xbb975222f04c1992a39a27b19261646fd6547919".toLowerCase();
