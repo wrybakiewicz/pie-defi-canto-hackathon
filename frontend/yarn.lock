@@ -1361,6 +1361,13 @@
   dependencies:
     tslib "^2.2.0"
 
+"@ng-icons/lucide@^27.3.1":
+  version "27.3.1"
+  resolved "https://registry.npmjs.org/@ng-icons/lucide/-/lucide-27.3.1.tgz"
+  integrity sha512-Hul72DQcuQZGnvJa+7gge7FdZ3JxVxCCJJVfQiZ4GruPqeFMaid4mQv0r1kLaZhLLdKQU/JFf4ks7V1F74gNJA==
+  dependencies:
+    tslib "^2.2.0"
+
 "@ng-icons/octicons@^27.3.1":
   version "27.3.1"
   resolved "https://registry.npmjs.org/@ng-icons/octicons/-/octicons-27.3.1.tgz"

@@ -51,6 +51,7 @@ import {
 } from '@ng-icons/tabler-icons';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgxSpinnerModule } from 'ngx-spinner';
+import { lucideSkull } from '@ng-icons/lucide';
 
 @NgModule({
   declarations: [
@@ -99,6 +100,7 @@ import { NgxSpinnerModule } from 'ngx-spinner';
       bootstrapArrowRightShort,
       tablerArrowWaveRightDown,
       tablerArrowWaveRightUp,
+      lucideSkull
     }),
   ],
   exports: [
