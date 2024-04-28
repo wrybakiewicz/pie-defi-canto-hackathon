@@ -77,14 +77,14 @@ export class DashboardCadenceComponent implements OnInit, OnDestroy {
 
   private countLostTrades(data: TradingData) {
     return data.closedPositions
-      .filter((a) => a.closePrice && a.openPrice <= a.closePrice)
+      .filter((a) => a.closePrice && a.pnl <= 0)
       .reduce((a) => a + 1, 0);
   }
 
   private countWonTrades(data: TradingData) {
     return data.closedPositions
-      .filter((a) => a.closePrice && a.openPrice > a.closePrice)
-      .reduce((a) => a + 1, 0);
+    .filter((a) => a.closePrice && a.pnl > 0)
+    .reduce((a) => a + 1, 0);
   }
 
   private calculateAvgTrade(data: TradingData) {

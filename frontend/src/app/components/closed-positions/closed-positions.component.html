@@ -43,8 +43,8 @@
                         <span>{{position.positionSizeInUsd | number: '1.0-2'}} $</span>
                     </td>
                     <td>
-                        <span *ngIf="position.pnl < 0" class="text-danger">{{position.pnl | number: '1.0-2'}} $</span>
-                        <span *ngIf="position.pnl >= 0" class="text-success">{{position.pnl | number: '1.0-2'}} $</span>
+                        <span *ngIf="position.pnl <= 0" class="text-danger">{{position.pnl | number: '1.0-2'}} $</span>
+                        <span *ngIf="position.pnl > 0" class="text-success">{{position.pnl | number: '1.0-2'}} $</span>
                     </td>
                 </tr>
             </tbody>
