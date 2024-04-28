@@ -17,12 +17,14 @@
                 </tr>
                 <tr *ngFor="let position of positions">
                     <td data-toggle="tooltip">
-                        <span *ngIf="position.type === 'SHORT'" ngbTooltip="Short position" class="d-flex">
-                            <ng-icon class="fs-3 overflow-visible" name="tablerArrowWaveRightDown"></ng-icon>
+                        <span *ngIf="position.type === 'SHORT'" class="d-flex">
+                            <!-- <span ngbTooltip="Short position">S</span> -->
+                            <ng-icon class="fs-3 overflow-visible" ngbTooltip="Short position" name="tablerArrowWaveRightDown"></ng-icon>
                             <ng-icon *ngIf="position.isLiquidated" ngbTooltip="Liquidated" class="text-danger fs-3 overflow-visible" name="lucideSkull"></ng-icon>
                         </span>
-                        <span *ngIf="position.type === 'LONG'" ngbTooltip="Long position" class="d-flex">
-                            <ng-icon class="fs-3 overflow-visible" name="tablerArrowWaveRightUp"></ng-icon>
+                        <span *ngIf="position.type === 'LONG'" class="d-flex">
+                            <!-- <span ngbTooltip="Long position">L</span> -->
+                            <ng-icon class="fs-3 overflow-visible" ngbTooltip="Long position" name="tablerArrowWaveRightUp"></ng-icon>
                             <ng-icon *ngIf="position.isLiquidated" ngbTooltip="Liquidated" class="text-danger fs-3 overflow-visible" name="lucideSkull"></ng-icon>
                         </span>
                     <!-- </td> -->
