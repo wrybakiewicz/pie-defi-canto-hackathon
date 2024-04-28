@@ -46,6 +46,7 @@ export async function indexDecreasePosition(
               type: "DECREASE",
               pnl: pnl,
               transactionHash: transaction.transactionHash,
+              blockNumber: transaction.blockNumber,
             };
             const command = new PutCommand({
               TableName: dynamodbPositionsFromTableName,

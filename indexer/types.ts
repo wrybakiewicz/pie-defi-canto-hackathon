@@ -8,6 +8,7 @@ export type Position = {
   type: string;
   pnl: number;
   transactionHash: string;
+  blockNumber: number;
 };
 
 export type Price = {
