@@ -41,9 +41,9 @@ export class MockDataService {
     let closePrice = undefined;
     let closeDate = undefined;
     let pnl = 0;
+    let isLiquidated = false;
 
     if (Math.random() > 0.5) {
-      // Randomly decide if the position is closed
       closePrice = this.getRandomNumber(10, 1000);
       closeDate = this.getRandomDate(new Date(openDate), new Date());
       pnl =
@@ -51,9 +51,9 @@ export class MockDataService {
           (type === 'LONG' ? 1 : -1) *
           positionSizeInUsd) /
         openPrice;
+        isLiquidated = pnl < 0 ? Math.random() < 0.2 : false;
     }
 
-    const isLiquidated: boolean = Math.random() < 0.2;
 
     return {
       type,
