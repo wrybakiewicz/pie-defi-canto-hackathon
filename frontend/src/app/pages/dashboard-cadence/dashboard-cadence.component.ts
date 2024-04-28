@@ -101,13 +101,11 @@ export class DashboardCadenceComponent implements OnInit, OnDestroy {
     let worst: number = 0;
     data.closedPositions.forEach((position) => {
       if (position.closePrice !== undefined) {
-        const pnl = position.closePrice - position.openPrice;
-
-        if (best === null || pnl > best) {
-          best = pnl;
+        if (best === null || position.pnl > best) {
+          best = position.pnl;
         }
-        if (worst === null || pnl < worst) {
-          worst = pnl;
+        if (worst === null || position.pnl < worst) {
+          worst = position.pnl;
         }
       }
     });
