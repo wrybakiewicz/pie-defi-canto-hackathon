@@ -242,12 +242,12 @@ async function getAllLatestTokenPrices() {
 //   },
 // });
 
-handler({
-  rawPath: "",
-  queryStringParameters: {
-    address: "0x1beceb3cb1ac11a3391cd8d92e79c373a5b54891",
-  },
-});
+// handler({
+//   rawPath: "",
+//   queryStringParameters: {
+//     address: "0x1beceb3cb1ac11a3391cd8d92e79c373a5b54891",
+//   },
+// });
 
 // handler({
 //   rawPath: "pnl",
