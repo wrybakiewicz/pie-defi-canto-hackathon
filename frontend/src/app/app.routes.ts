@@ -1,7 +1,7 @@
 import { Routes } from '@angular/router';
 import { DashboardCadenceComponent } from './pages/dashboard-cadence/dashboard-cadence.component';
 import { HomeComponent } from './pages/home/home.component';
-import { DashboardSlingshotComponent } from './pages/dashboard-slingshot/dashboard-slingshot.component';
+import { DashboardCantoLendingComponent } from './pages/dashboard-canto-lending/dashboard-canto-lending.component';
 import { DashboardCantoDexComponent } from './pages/dashboard-canto-dex/dashboard-canto-dex.component';
 
 export const routes: Routes = [
@@ -14,8 +14,8 @@ export const routes: Routes = [
     component: DashboardCadenceComponent,
   },
   {
-    path: 'dashboard-slingshot',
-    component: DashboardSlingshotComponent,
+    path: 'dashboard-canto-lending',
+    component: DashboardCantoLendingComponent,
   },
   {
     path: 'dashboard-canto-dex',

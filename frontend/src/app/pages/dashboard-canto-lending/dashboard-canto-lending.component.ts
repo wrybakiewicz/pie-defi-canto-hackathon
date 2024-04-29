@@ -6,13 +6,13 @@ import { CadenceData, PnlChart } from '../../models/cadence.model';
 import { Observable, Subject, Subscription } from 'rxjs';
 
 @Component({
-  selector: 'app-dashboard-slingshot',
+  selector: 'app-dashboard-canto-lending',
   standalone: true,
   imports: [HeaderComponent, ComponentsModule],
-  templateUrl: './dashboard-slingshot.component.html',
-  styleUrl: './dashboard-slingshot.component.scss',
+  templateUrl: './dashboard-canto-lending.component.html',
+  styleUrl: './dashboard-canto-lending.component.scss',
 })
-export class DashboardSlingshotComponent
+export class DashboardCantoLendingComponent
   implements OnInit, AfterViewInit, OnDestroy
 {
   private subscription: Subscription = new Subscription();

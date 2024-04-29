@@ -1,22 +1,16 @@
 <div class="overlay-container">
   <div class="row gy-5 mt-2 mb-2 mb-xl-3">
     <div class="col-xl-3 col-md-6 mt-2 mt-xl-5">
-      <app-stats title="TVL" icon="tdesignLockOn" body="893729$"></app-stats>
+      <app-stats title="Net worth" icon="tdesignLockOn" body="5649$"></app-stats>
+    </div>
+    <div class="col-xl-3 col-md-6 mt-2 mt-xl-5">
+      <app-stats title="Supplying" icon="bootstrapCoin" [icons]="['cryptoEth', 'cryptoTusd']"></app-stats>
+    </div>
+    <div class="col-xl-3 col-md-6 mt-2 mt-xl-5">
+      <app-stats title="Borrowing" icon="bootstrapCoin" [icons]="['cryptoUsdc','cryptoXrp','cryptoAtom']"></app-stats>
     </div>
     <div class="col-xl-3 col-md-6 mt-2 mt-xl-5">
       <app-stats title="Leaderboard" icon="tdesignLeaderboard" body="28"></app-stats>
-    </div>
-    <div class="col-xl-3 col-md-6 mt-2 mt-xl-5">
-      <app-stats title="Impermanent loss" icon="tdesignDespise" body="129$"></app-stats>
-    </div>
-    <div class="col-xl-3 col-md-6 mt-2 mt-xl-5">
-      <app-stats title="Coins" icon="bootstrapCoin" [icons]="[
-      'cryptoEth',
-      'cryptoTusd',
-      'cryptoUsdc',
-      'cryptoXrp',
-      'cryptoSushi'
-    ]"></app-stats>
     </div>
   </div>
 
