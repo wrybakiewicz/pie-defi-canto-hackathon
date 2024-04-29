@@ -58,6 +58,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { lucideSkull } from '@ng-icons/lucide';
 import { SwapsTableComponent } from './swaps-table/swaps-table.component';
+import { AssetBorrowTableComponent } from './asset-borrow-table/asset-borrow-table.component';
+import { AssetSupplyTableComponent } from './asset-supply-table/asset-supply-table.component';
 
 @NgModule({
   declarations: [
@@ -71,7 +73,9 @@ import { SwapsTableComponent } from './swaps-table/swaps-table.component';
     TotalTradesComponent,
     CadenceLeaderboardComponent,
     PreSearchOverlayComponent,
-    SwapsTableComponent
+    SwapsTableComponent,
+    AssetBorrowTableComponent,
+    AssetSupplyTableComponent
   ],
   imports: [
     CommonModule,
@@ -127,6 +131,8 @@ import { SwapsTableComponent } from './swaps-table/swaps-table.component';
     CadenceLeaderboardComponent,
     PreSearchOverlayComponent,
     SwapsTableComponent,
+    AssetBorrowTableComponent,
+    AssetSupplyTableComponent
   ],
 })
 export class ComponentsModule {}
