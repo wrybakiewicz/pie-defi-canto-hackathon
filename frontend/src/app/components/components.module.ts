@@ -60,6 +60,7 @@ import { lucideSkull } from '@ng-icons/lucide';
 import { SwapsTableComponent } from './swaps-table/swaps-table.component';
 import { AssetBorrowTableComponent } from './asset-borrow-table/asset-borrow-table.component';
 import { AssetSupplyTableComponent } from './asset-supply-table/asset-supply-table.component';
+import { ApyChartComponent } from './apy-chart/apy-chart.component';
 
 @NgModule({
   declarations: [
@@ -75,7 +76,8 @@ import { AssetSupplyTableComponent } from './asset-supply-table/asset-supply-tab
     PreSearchOverlayComponent,
     SwapsTableComponent,
     AssetBorrowTableComponent,
-    AssetSupplyTableComponent
+    AssetSupplyTableComponent,
+    ApyChartComponent
   ],
   imports: [
     CommonModule,
@@ -132,7 +134,8 @@ import { AssetSupplyTableComponent } from './asset-supply-table/asset-supply-tab
     PreSearchOverlayComponent,
     SwapsTableComponent,
     AssetBorrowTableComponent,
-    AssetSupplyTableComponent
+    AssetSupplyTableComponent,
+    ApyChartComponent
   ],
 })
 export class ComponentsModule {}

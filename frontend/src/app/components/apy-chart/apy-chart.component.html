@@ -1,0 +1,21 @@
+<div class="card-header border-0 pb-0">
+    <div class="d-flex flex-column align-items-center">
+        <div class="d-flex flex-row justify-content-center">
+            <ng-icon class="fs-5 text-white fw-bold mr-3" name="bootstrapOption"></ng-icon>
+            <span class="fs-5 fw-bold text-white text-nowrap me-2 lh-1 ls-n2 align-baseline">
+                PnL
+            </span>
+        </div>
+        <span class="text-muted fw-bold fs-7">Profit and losses</span>
+    </div>
+</div>
+
+<div class="card-body">
+    <div [style.height]="'350px'">
+        <apx-chart [series]="chartOptions.series" [chart]="chartOptions.chart" [xaxis]="chartOptions.xaxis"
+            [yaxis]="chartOptions.yaxis" [dataLabels]="chartOptions.dataLabels" [stroke]="chartOptions.stroke"
+            [legend]="chartOptions.legend" [fill]="chartOptions.fill" [states]="chartOptions.states"
+            [tooltip]="chartOptions.tooltip" [colors]="chartOptions.colors" [markers]="chartOptions.markers"
+            [plotOptions]="chartOptions.plotOptions"></apx-chart>
+    </div>
+</div>
