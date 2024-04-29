@@ -58,9 +58,11 @@ export class DashboardCadenceComponent implements OnInit, OnDestroy {
   }
 
   private convert(data: TradingData): CadenceData {
+    const avg = this.calculateAvgTrade(data);
+    debugger
     return {
       pnl: this.calculateTotalPnl(data),
-      avgTrade: this.calculateAvgTrade(data),
+      avgTrade: avg,
       bwTrade: this.findBestAndWorstTradeValues(data),
       totalVolume: data.totalVolume,
       wonTradesCount: this.countWonTrades(data),
@@ -88,12 +90,11 @@ export class DashboardCadenceComponent implements OnInit, OnDestroy {
   }
 
   private calculateAvgTrade(data: TradingData) {
-    return (
-      data.closedPositions.reduce((a, b) => a + b.positionSizeInUsd, 0) /
-        data.closedPositions.length +
-      data.openedPositions.reduce((a, b) => a + b.positionSizeInUsd, 0) /
-        data.openedPositions.length
-    );
+    const closedSize = data.closedPositions.reduce((a, b) => a + b.positionSizeInUsd, 0);
+    const openedSize = data.openedPositions.reduce((a, b) => a + b.positionSizeInUsd, 0);
+    const allTrades = data.closedPositions.length + data.openedPositions.length;
+
+    return allTrades === 0 ? 0 : (closedSize + openedSize) / allTrades;
   }
 
   private findBestAndWorstTradeValues(data: TradingData): BestWorstTrade {
