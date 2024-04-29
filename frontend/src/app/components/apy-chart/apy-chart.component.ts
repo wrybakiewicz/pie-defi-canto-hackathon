@@ -54,7 +54,7 @@ export class ApyChartComponent implements AfterViewInit, OnInit {
           data: [-1.8, -4.2, -6.3, -6.3, -3.9, -3.9],
         },
         {
-          name: 'APY',
+          name: 'Cumulated APY',
           type: 'line',
           data: [-1.8, -4.2, -6.3, -4.5, -0.3, 2.8],
         },
