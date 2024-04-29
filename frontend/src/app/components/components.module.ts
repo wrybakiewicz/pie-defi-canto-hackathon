@@ -1,5 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import {
   bootstrapArrowDownRightCircleFill,
   bootstrapArrowRepeat,
@@ -9,7 +11,6 @@ import {
   bootstrapCashCoin,
   bootstrapCheckCircle,
   bootstrapClock,
-  bootstrapCoin,
   bootstrapFiles,
   bootstrapGraphUp,
   bootstrapHourglassSplit,
@@ -19,7 +20,7 @@ import {
   bootstrapSoundwave,
   bootstrapSpeedometer,
   bootstrapStars,
-  bootstrapSymmetryVertical,
+  bootstrapSymmetryVertical
 } from '@ng-icons/bootstrap-icons';
 import { NgIconsModule } from '@ng-icons/core';
 import {
@@ -32,35 +33,32 @@ import {
   cryptoXrp,
 } from '@ng-icons/cryptocurrency-icons';
 import { jamCrown } from '@ng-icons/jam-icons';
+import { lucideHandCoins, lucideLandmark, lucideSkull } from '@ng-icons/lucide';
+import {
+  tablerArrowWaveRightDown,
+  tablerArrowWaveRightUp,
+} from '@ng-icons/tabler-icons';
 import {
   tdesignDespise,
   tdesignLeaderboard,
   tdesignLockOn,
 } from '@ng-icons/tdesign-icons';
 import { NgApexchartsModule } from 'ng-apexcharts';
+import { NgxSpinnerModule } from 'ngx-spinner';
+import { ApyChartComponent } from './apy-chart/apy-chart.component';
+import { AssetBorrowTableComponent } from './asset-borrow-table/asset-borrow-table.component';
+import { AssetSupplyTableComponent } from './asset-supply-table/asset-supply-table.component';
 import { CadenceLeaderboardComponent } from './cadence-leaderboard/cadence-leaderboard.component';
 import { ClosedPositionsComponent } from './closed-positions/closed-positions.component';
 import { OpenedPositionsComponent } from './opened-positions/opened-positions.component';
 import { PnlChartComponent } from './pnl-chart/pnl-chart.component';
 import { PreSearchOverlayComponent } from './pre-search-overlay/pre-search-overlay.component';
 import { StatsComponent } from './stats/stats.component';
+import { SwapsTableComponent } from './swaps-table/swaps-table.component';
 import { TimelineComponent } from './timeline/timeline.component';
 import { TitleComponent } from './title/title.component';
 import { TotalTradesComponent } from './total-trades/total-trades.component';
 import { WinrateComponent } from './winrate/winrate.component';
-import { FormsModule } from '@angular/forms';
-import { octArrowUpRight, octArrowDownRight } from '@ng-icons/octicons';
-import {
-  tablerArrowWaveRightDown,
-  tablerArrowWaveRightUp,
-} from '@ng-icons/tabler-icons';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { NgxSpinnerModule } from 'ngx-spinner';
-import { lucideSkull } from '@ng-icons/lucide';
-import { SwapsTableComponent } from './swaps-table/swaps-table.component';
-import { AssetBorrowTableComponent } from './asset-borrow-table/asset-borrow-table.component';
-import { AssetSupplyTableComponent } from './asset-supply-table/asset-supply-table.component';
-import { ApyChartComponent } from './apy-chart/apy-chart.component';
 
 @NgModule({
   declarations: [
@@ -98,7 +96,7 @@ import { ApyChartComponent } from './apy-chart/apy-chart.component';
       tdesignLockOn,
       tdesignLeaderboard,
       tdesignDespise,
-      bootstrapCoin,
+      lucideHandCoins,
       cryptoEth,
       cryptoTusd,
       cryptoUsdc,
@@ -118,7 +116,8 @@ import { ApyChartComponent } from './apy-chart/apy-chart.component';
       cryptoAtom,
       cryptoUsdt,
       bootstrapArrowRepeat,
-      bootstrapCashCoin
+      bootstrapCashCoin,
+      lucideLandmark
     }),
   ],
   exports: [
