@@ -6,7 +6,7 @@ import { MockDataService } from '../../services/mock-data.service';
 import { Observable, Subject, timer, mergeMap, Subscription } from 'rxjs';
 
 @Component({
-  selector: 'app-dashboard-fortunafi',
+  selector: 'app-dashboard-canto-dex',
   standalone: true,
   imports: [HeaderComponent, ComponentsModule],
   templateUrl: './dashboard-canto-dex.component.html',

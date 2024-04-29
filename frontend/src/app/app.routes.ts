@@ -18,7 +18,7 @@ export const routes: Routes = [
     component: DashboardSlingshotComponent,
   },
   {
-    path: 'dashboard-fortunafi',
+    path: 'dashboard-canto-dex',
     component: DashboardCantoDexComponent,
   },
   {
