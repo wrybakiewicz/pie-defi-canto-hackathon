@@ -18,11 +18,15 @@ export class ApiService {
   updateCadenceData(address: string): void {
     this.http
       .get<TradingData>(`${this.host}?address=${address}`)
-      .subscribe((response) => this.tradingData.next(response));
+      .subscribe((response) =>
+        this.tradingData.next({
+          ...response,
+          address: address,
+        })
+      );
   }
 
   getFeaturedTrades(): Observable<FeaturedTrade[]> {
-    return this.http
-      .get<FeaturedTrade[]>(`${this.host}pnl`);
+    return this.http.get<FeaturedTrade[]>(`${this.host}pnl`);
   }
 }

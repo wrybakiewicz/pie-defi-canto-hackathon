@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../../services/api.service';
 import { FeaturedTrade } from '../../models/featured-trades.mode';
 import { Router } from '@angular/router';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-cadence-leaderboard',
@@ -13,7 +14,7 @@ export class CadenceLeaderboardComponent implements OnInit {
   worstTrades: FeaturedTrade[] = [];
   allTradesCount: number = 0;
 
-  constructor(private router: Router, private api: ApiService) {}
+  constructor(private router: Router, private api: ApiService, private spinner: NgxSpinnerService) {}
 
   ngOnInit(): void {
     this.api.getFeaturedTrades().subscribe((trades) => {
@@ -29,10 +30,8 @@ export class CadenceLeaderboardComponent implements OnInit {
   }
 
   onTradeSelected(address: string) {
+    this.spinner.show();
     this.router
-      .navigateByUrl(`/dashboard-cadence?address=${address}`)
-      .then(() => {
-        window.location.reload();
-      });
+      .navigateByUrl(`/dashboard-cadence?address=${address}`);
   }
 }

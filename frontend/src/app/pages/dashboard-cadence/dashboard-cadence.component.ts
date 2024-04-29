@@ -12,6 +12,7 @@ import { DailyVolume, Position, TradingData } from '../../models/trades.model';
 import { ApiService } from '../../services/api.service';
 import { MockDataService } from '../../services/mock-data.service';
 import { DashboardCadenceExampleComponent } from '../dashboard-cadence-example/dashboard-cadence-example.component';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-dashboard-cadence',
@@ -38,7 +39,11 @@ export class DashboardCadenceComponent implements OnInit, OnDestroy {
   private pnlData = new Subject<PnlChart>();
   pnlData$ = this.pnlData.asObservable();
 
-  constructor(private mockData: MockDataService, api: ApiService) {
+  constructor(
+    private mockData: MockDataService,
+    private api: ApiService,
+    private route: ActivatedRoute
+  ) {
     this.tradingData$ = api.tradingData$;
   }
 
@@ -51,6 +56,12 @@ export class DashboardCadenceComponent implements OnInit, OnDestroy {
         this.pnlData.next(this.data.pnlChart);
       })
     );
+    this.route.queryParams.subscribe((params) => {
+      if (params['address']) {
+        const address = params['address'];
+        this.api.updateCadenceData(address);
+      }
+    });
   }
 
   ngOnDestroy(): void {
@@ -59,7 +70,6 @@ export class DashboardCadenceComponent implements OnInit, OnDestroy {
 
   private convert(data: TradingData): CadenceData {
     const avg = this.calculateAvgTrade(data);
-    debugger
     return {
       pnl: this.calculateTotalPnl(data),
       avgTrade: avg,
@@ -85,13 +95,19 @@ export class DashboardCadenceComponent implements OnInit, OnDestroy {
 
   private countWonTrades(data: TradingData) {
     return data.closedPositions
-    .filter((a) => a.closePrice && a.pnl > 0)
-    .reduce((a) => a + 1, 0);
+      .filter((a) => a.closePrice && a.pnl > 0)
+      .reduce((a) => a + 1, 0);
   }
 
   private calculateAvgTrade(data: TradingData) {
-    const closedSize = data.closedPositions.reduce((a, b) => a + b.positionSizeInUsd, 0);
-    const openedSize = data.openedPositions.reduce((a, b) => a + b.positionSizeInUsd, 0);
+    const closedSize = data.closedPositions.reduce(
+      (a, b) => a + b.positionSizeInUsd,
+      0
+    );
+    const openedSize = data.openedPositions.reduce(
+      (a, b) => a + b.positionSizeInUsd,
+      0
+    );
     const allTrades = data.closedPositions.length + data.openedPositions.length;
 
     return allTrades === 0 ? 0 : (closedSize + openedSize) / allTrades;
