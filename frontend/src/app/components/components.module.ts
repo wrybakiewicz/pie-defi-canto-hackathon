@@ -2,9 +2,11 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import {
   bootstrapArrowDownRightCircleFill,
+  bootstrapArrowRepeat,
   bootstrapArrowRightShort,
   bootstrapArrowUpRightCircleFill,
   bootstrapBackspace,
+  bootstrapCashCoin,
   bootstrapCheckCircle,
   bootstrapClock,
   bootstrapCoin,
@@ -21,10 +23,12 @@ import {
 } from '@ng-icons/bootstrap-icons';
 import { NgIconsModule } from '@ng-icons/core';
 import {
+  cryptoAtom,
   cryptoEth,
   cryptoSushi,
   cryptoTusd,
   cryptoUsdc,
+  cryptoUsdt,
   cryptoXrp,
 } from '@ng-icons/cryptocurrency-icons';
 import { jamCrown } from '@ng-icons/jam-icons';
@@ -53,6 +57,7 @@ import {
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { lucideSkull } from '@ng-icons/lucide';
+import { SwapsTableComponent } from './swaps-table/swaps-table.component';
 
 @NgModule({
   declarations: [
@@ -66,6 +71,7 @@ import { lucideSkull } from '@ng-icons/lucide';
     TotalTradesComponent,
     CadenceLeaderboardComponent,
     PreSearchOverlayComponent,
+    SwapsTableComponent
   ],
   imports: [
     CommonModule,
@@ -102,7 +108,11 @@ import { lucideSkull } from '@ng-icons/lucide';
       bootstrapArrowRightShort,
       tablerArrowWaveRightDown,
       tablerArrowWaveRightUp,
-      lucideSkull
+      lucideSkull,
+      cryptoAtom,
+      cryptoUsdt,
+      bootstrapArrowRepeat,
+      bootstrapCashCoin
     }),
   ],
   exports: [
@@ -116,6 +126,7 @@ import { lucideSkull } from '@ng-icons/lucide';
     TotalTradesComponent,
     CadenceLeaderboardComponent,
     PreSearchOverlayComponent,
+    SwapsTableComponent,
   ],
 })
 export class ComponentsModule {}
