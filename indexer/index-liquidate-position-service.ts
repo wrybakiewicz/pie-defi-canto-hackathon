@@ -11,15 +11,16 @@ import {
 import { PutCommand } from "@aws-sdk/lib-dynamodb";
 import { getAddressToPnl, saveAddressToPnl } from "./indexing-service";
 
-export async function indexLiquidatePosition(
-  transaction: ethers.providers.TransactionReceipt
-): Promise<void> {
-  if (isLiquidatePosition(transaction)) {
+export async function indexLiquidatePosition(result: {
+  receipt: ethers.providers.TransactionReceipt;
+  block: ethers.providers.Block;
+}): Promise<void> {
+  if (isLiquidatePosition(result.receipt)) {
     console.log(`Handling liquidating position`);
     const contractInterface = new ethers.utils.Interface(Vault);
-    for (let i = 0; i < transaction.logs.length; i++) {
+    for (let i = 0; i < result.receipt.logs.length; i++) {
       try {
-        const log = transaction.logs[i];
+        const log = result.receipt.logs[i];
         const event = contractInterface.parseLog(log);
         if (
           event.name === "LiquidatePosition" &&
@@ -46,12 +47,12 @@ export async function indexLiquidatePosition(
                   .toNumber() / 100000.0,
               isLong: event.args.isLong,
               timestampSeconds: await provider
-                .getBlock(transaction.blockNumber)
+                .getBlock(result.receipt.blockNumber)
                 .then((block) => block.timestamp),
               type: "LIQUIDATE",
               pnl: pnl,
-              transactionHash: transaction.transactionHash,
-              blockNumber: transaction.blockNumber,
+              transactionHash: result.receipt.transactionHash,
+              blockNumber: result.receipt.blockNumber,
             };
             const command = new PutCommand({
               TableName: dynamodbPositionsFromTableName,

@@ -11,15 +11,18 @@ import {
 import { PutCommand } from "@aws-sdk/lib-dynamodb";
 
 export async function indexIncreasePosition(
-  transaction: ethers.providers.TransactionReceipt,
+  result: {
+    receipt: ethers.providers.TransactionReceipt;
+    block: ethers.providers.Block;
+  },
   prices: Map<string, number>
 ): Promise<void> {
-  if (isIncreasePosition(transaction)) {
+  if (isIncreasePosition(result.receipt)) {
     console.log(`Handling increasing position`);
     const contractInterface = new ethers.utils.Interface(PositionRouter);
-    for (let i = 0; i < transaction.logs.length; i++) {
+    for (let i = 0; i < result.receipt.logs.length; i++) {
       try {
-        const log = transaction.logs[i];
+        const log = result.receipt.logs[i];
         const event = contractInterface.parseLog(log);
         if (
           event.name === "ExecuteIncreasePosition" &&
@@ -42,12 +45,12 @@ export async function indexIncreasePosition(
                   .toNumber() / 100000.0,
               isLong: event.args.isLong,
               timestampSeconds: await provider
-                .getBlock(transaction.blockNumber)
+                .getBlock(result.receipt.blockNumber)
                 .then((block) => block.timestamp),
               type: "INCREASE",
               pnl: 0,
-              transactionHash: transaction.transactionHash,
-              blockNumber: transaction.blockNumber,
+              transactionHash: result.receipt.transactionHash,
+              blockNumber: result.receipt.blockNumber,
             };
             const command = new PutCommand({
               TableName: dynamodbPositionsFromTableName,

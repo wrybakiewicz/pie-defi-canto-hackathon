@@ -40,7 +40,7 @@ export async function getNextBlockNumberToIndex(
 }
 
 export async function synchronizeBlocks(blockNumbers: number[]): Promise<void> {
-  const indexableTransactions = (
+  const results = (
     await Promise.all(
       blockNumbers.map(async (blockNumber) => {
         const block = await provider.getBlock(blockNumber);
@@ -57,23 +57,23 @@ export async function synchronizeBlocks(blockNumbers: number[]): Promise<void> {
                   isPriceUpdated(receipt) ||
                   isLiquidatePosition(receipt))
               ) {
-                return receipt;
+                return { receipt: receipt, block: block };
               }
             })
           )
-        ).filter((receipt) => receipt !== undefined);
+        ).filter((result) => result !== undefined);
       })
     )
   ).flat();
 
-  if (indexableTransactions.length > 0) {
+  if (results.length > 0) {
     console.log("Indexable transactions");
 
-    for (let i = 0; i < indexableTransactions.length; i++) {
-      const prices = await indexPriceUpdate(indexableTransactions[i]);
-      await indexIncreasePosition(indexableTransactions[i], prices);
-      await indexDecreasePosition(indexableTransactions[i], prices);
-      await indexLiquidatePosition(indexableTransactions[i]);
+    for (let i = 0; i < results.length; i++) {
+      const prices = await indexPriceUpdate(results[i]);
+      await indexIncreasePosition(results[i], prices);
+      await indexDecreasePosition(results[i], prices);
+      await indexLiquidatePosition(results[i]);
     }
   }
 

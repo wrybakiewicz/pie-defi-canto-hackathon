@@ -10,23 +10,25 @@ import {
   provider,
 } from "./constants";
 import { PutCommand } from "@aws-sdk/lib-dynamodb";
+import { Block } from "typescript";
 
-export async function indexPriceUpdate(
-  transaction: ethers.providers.TransactionReceipt
-): Promise<Map<string, number>> {
+export async function indexPriceUpdate(result: {
+  receipt: ethers.providers.TransactionReceipt;
+  block: ethers.providers.Block;
+}): Promise<Map<string, number>> {
   const tokenToPriceMap = new Map();
-  if (isPriceUpdated(transaction)) {
+  if (isPriceUpdated(result.receipt)) {
     console.log(`Handling price update`);
     const contractInterface = new ethers.utils.Interface(FastPriceEvents);
-    for (let i = 0; i < transaction.logs.length; i++) {
+    for (let i = 0; i < result.receipt.logs.length; i++) {
       try {
-        const event = contractInterface.parseLog(transaction.logs[i]);
+        const event = contractInterface.parseLog(result.receipt.logs[i]);
         if (event.name === "PriceUpdate") {
           try {
             const price: Price = {
               token: getTokenSymbol(event.args.token),
               timestampSeconds: await provider
-                .getBlock(transaction.blockNumber)
+                .getBlock(result.receipt.blockNumber)
                 .then((block) => block.timestamp),
               price:
                 event.args.price.div(BigNumber.from(10).pow(25)).toNumber() /
