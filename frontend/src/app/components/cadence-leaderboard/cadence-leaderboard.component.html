@@ -12,9 +12,9 @@
             <tbody>
                 <tr>
                     <th>Position</th>
-                    <th>Address</th>
                     <th>Realized PNL</th>
                     <th></th>
+                    <th>Address</th>
                 </tr>
                 <tr *ngFor="let trade of topTrades; index as i">
                     <td class="short">
@@ -33,11 +33,6 @@
                     </td>
                     <td>
                         <span>
-                            {{trade.address}}
-                        </span>
-                    </td>
-                    <td>
-                        <span>
                             {{trade.pnl | number: '1.0-2'}} $
                         </span>
                     </td>
@@ -45,6 +40,11 @@
                         <button class="button btn-light" (click)="onTradeSelected(trade.address)">
                             <ng-icon class="text-w fs-5 overflow-visible" name="bootstrapArrowRightShort"></ng-icon>
                         </button>
+                    </td>
+                    <td>
+                        <span>
+                            {{trade.address}}
+                        </span>
                     </td>
                 </tr>
 
@@ -80,11 +80,6 @@
                     </td>
                     <td>
                         <span>
-                            {{trade.address}}
-                        </span>
-                    </td>
-                    <td>
-                        <span>
                             {{trade.pnl | number: '1.0-2'}} $
                         </span>
                     </td>
@@ -92,6 +87,11 @@
                         <button class="button btn-light" (click)="onTradeSelected(trade.address)">
                             <ng-icon class="text-w fs-5 overflow-visible" name="bootstrapArrowRightShort"></ng-icon>
                         </button>
+                    </td>
+                    <td>
+                        <span>
+                            {{trade.address}}
+                        </span>
                     </td>
                 </tr>
             </tbody>
