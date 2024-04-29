@@ -73,7 +73,7 @@ export async function handler(event, context) {
             existingPosition.positionSizeInUsd,
           openPrice: positionEvent.tradingTokenPrice,
           openDate: dayMonthYear,
-          pnl: 0,
+          pnl: existingPosition.pnl,
           isLiquidated: false,
         });
       } else {
@@ -120,14 +120,15 @@ export async function handler(event, context) {
           openDate: existingPosition.openDate,
           closePrice: positionEvent.closePrice,
           closeDate: dayMonthYear,
-          pnl: positionEvent.pnl,
+          pnl: existingPosition.pnl + positionEvent.pnl,
           isLiquidated: false,
         });
       }
     } else {
-      if (
-        positionEvent.positionSizeInUsd === existingPosition.positionSizeInUsd
-      ) {
+      if (!existingPosition) {
+        console.log("There is no position to liquidate");
+        openedPositions.delete(getPositionKey(positionEvent));
+      } else {
         console.log("Liquidating position");
         closedPositions.push({
           type: existingPosition.isLong ? "LONG" : "SHORT",
@@ -141,8 +142,6 @@ export async function handler(event, context) {
           isLiquidated: true,
         });
         openedPositions.delete(getPositionKey(positionEvent));
-      } else {
-        throw new Error("There is no position to liquidate");
       }
     }
     dailyVolume.set(
@@ -236,8 +235,16 @@ async function getAllLatestTokenPrices() {
 // });
 
 // handler({
+//   rawPath: "",
 //   queryStringParameters: {
-//     address: "0x1b58d50afd08dce062fb14d4e1f9665eb1eabeaf",
+//     address: "0x8e07ab8fc9e5f2613b17a5e5069673d522d0207a",
+//   },
+// });
+
+// handler({
+//   rawPath: "",
+//   queryStringParameters: {
+//     address: "0x9e26e1b35164afb1332592af393edf5f2a2c7f51",
 //   },
 // });
 
