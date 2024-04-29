@@ -36,7 +36,7 @@
                         </span>
                     </td>
                     <td>
-                        <button class="button btn-light">
+                        <button class="button btn-light" (click)="onTradeSelected(trade.address)">
                             <ng-icon class="text-w fs-5 overflow-visible" name="bootstrapArrowRightShort"></ng-icon>
                         </button>
                     </td>
@@ -70,7 +70,6 @@
                                 style="color: #FFDB83 !important; margin-top: 0.1em;">
                                 <ng-icon class="fs-5 overflow-visible ml-3" name="lucideSkull"></ng-icon>
                             </span>
-
                         </span>
                     </td>
                     <td>
@@ -84,7 +83,7 @@
                         </span>
                     </td>
                     <td>
-                        <button class="button btn-light">
+                        <button class="button btn-light" (click)="onTradeSelected(trade.address)">
                             <ng-icon class="text-w fs-5 overflow-visible" name="bootstrapArrowRightShort"></ng-icon>
                         </button>
                     </td>
