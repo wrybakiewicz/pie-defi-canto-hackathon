@@ -1,14 +1,8 @@
-import {
-  AfterViewInit,
-  Component,
-  Input,
-  OnDestroy,
-  OnInit,
-} from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { ApiService } from '../../services/api.service';
-import { Subscription } from 'rxjs';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { Subscription } from 'rxjs';
+import { ApiService } from '../../services/api.service';
 
 @Component({
   selector: 'app-title',
@@ -21,8 +15,13 @@ export class TitleComponent implements OnInit, OnDestroy {
   @Input() glow: boolean = false;
 
   address!: string | undefined;
+  isAddressInvalid: boolean = false;
 
-  constructor(private router: Router, private api: ApiService, private spinner: NgxSpinnerService) {}
+  constructor(
+    private router: Router,
+    private api: ApiService,
+    private spinner: NgxSpinnerService
+  ) {}
 
   ngOnInit(): void {
     this.subscription.add(
@@ -52,11 +51,15 @@ export class TitleComponent implements OnInit, OnDestroy {
   }
 
   onSearch() {
-    if (this.address) {
+    if (this.address && this.address.length === 42) {
       this.api.updateCadenceData(this.address);
       this.spinner.show();
     } else {
-      console.error('Address is empty');
+      this.isAddressInvalid = true;
     }
+  }
+
+  resetValidationMessage() {
+    this.isAddressInvalid = false;
   }
 }
