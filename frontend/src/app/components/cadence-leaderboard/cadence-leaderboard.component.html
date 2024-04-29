@@ -10,18 +10,65 @@
     <div class="card-body pt-0 pb-0">
         <table class="table table-dark mb-0">
             <tbody>
-                <tr *ngFor="let trade of trades; index as i">
+                <tr *ngFor="let trade of topTrades; index as i">
                     <td class="short">
                         <span class="d-flex">{{i + 1}}
-                            <span *ngIf="i === 0"  style="color: #FFDB83 !important; margin-top: 0.1em;">
-                                <ng-icon class="fs-5 overflow-visible ml-3"
-                                name="jamCrown"></ng-icon>    
+                            <span *ngIf="i === 0" style="color: #FFDB83 !important; margin-top: 0.1em;">
+                                <ng-icon class="fs-5 overflow-visible ml-3" name="jamCrown"></ng-icon>
                             </span>
                             <span *ngIf="i === 1" style="color: #A0AFA0 !important; margin-top: 0.1em;">
                                 <ng-icon class="fs-5 overflow-visible ml-3" name="jamCrown"></ng-icon>
                             </span>
                             <span *ngIf="i === 2" style="color: #A74528 !important; margin-top: 0.1em;">
                                 <ng-icon class="fs-5 overflow-visible ml-3" name="jamCrown"></ng-icon>
+                            </span>
+
+                        </span>
+                    </td>
+                    <td>
+                        <span class="text-break">
+                            {{trade.address}}
+                        </span>
+                    </td>
+                    <td>
+                        <span>
+                            {{trade.pnl | number: '1.0-2'}} $
+                        </span>
+                    </td>
+                    <td>
+                        <button class="button btn-light">
+                            <ng-icon class="text-w fs-5 overflow-visible" name="bootstrapArrowRightShort"></ng-icon>
+                        </button>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <span>...</span>
+                    </td>
+                    <td>
+                        <span>...</span>
+                    </td>
+                    <td>
+                        <span>...</span>
+                    </td>
+                    <td>
+                        <span>...</span>
+                    </td>
+                </tr>
+
+                <tr *ngFor="let trade of worstTrades; index as i">
+                    <td class="short">
+                        <span class="d-flex">{{allTradesCount -worstTrades.length + i + 1}}
+                            <span *ngIf="allTradesCount -worstTrades.length + i === allTradesCount - 3" style="color: #A74528 !important; margin-top: 0.1em;">
+                                <ng-icon class="fs-5 overflow-visible ml-3" name="lucideSkull"></ng-icon>
+                            </span>
+                            <span *ngIf="allTradesCount -worstTrades.length + i === allTradesCount - 2" style="color: #A0AFA0 !important; margin-top: 0.1em;">
+                                <ng-icon class="fs-5 overflow-visible ml-3" name="lucideSkull"></ng-icon>
+                            </span>
+                            <span *ngIf="allTradesCount -worstTrades.length + i === allTradesCount - 1"
+                                style="color: #FFDB83 !important; margin-top: 0.1em;">
+                                <ng-icon class="fs-5 overflow-visible ml-3" name="lucideSkull"></ng-icon>
                             </span>
 
                         </span>

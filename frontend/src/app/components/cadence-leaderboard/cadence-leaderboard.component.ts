@@ -9,13 +9,22 @@ import { FeaturedTrade } from '../../models/featured-trades.mode';
 })
 export class CadenceLeaderboardComponent implements OnInit{
 
-  trades: FeaturedTrade[] = [];
+  topTrades: FeaturedTrade[] = [];
+  worstTrades: FeaturedTrade[] = [];
+  allTradesCount: number = 0;
 
   constructor(private api: ApiService) { }
-  
+
   ngOnInit(): void {
     this.api.getFeaturedTrades().subscribe((trades) => {
-      this.trades = trades;
+      if(trades.length < 5){
+        this.topTrades = trades;
+        this.allTradesCount = trades.length;
+        return;
+      }
+      this.topTrades = trades.slice(0,5);
+      this.worstTrades = trades.slice(-5);
+      this.allTradesCount = trades.length
     });
   }
 }
