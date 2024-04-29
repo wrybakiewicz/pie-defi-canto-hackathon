@@ -12,8 +12,8 @@
             <tbody>
                 <tr>
                     <th>Position</th>
-                    <th>Realized PNL</th>
                     <th></th>
+                    <th>Realized PNL</th>
                     <th>Address</th>
                 </tr>
                 <tr *ngFor="let trade of topTrades; index as i">
@@ -32,14 +32,14 @@
                         </span>
                     </td>
                     <td>
-                        <span>
-                            {{trade.pnl | number: '1.0-2'}} $
-                        </span>
-                    </td>
-                    <td>
                         <button class="button btn-light" (click)="onTradeSelected(trade.address)">
                             <ng-icon class="text-w fs-5 overflow-visible" name="bootstrapArrowRightShort"></ng-icon>
                         </button>
+                    </td>
+                    <td>
+                        <span>
+                            {{trade.pnl | number: '1.0-2'}} $
+                        </span>
                     </td>
                     <td>
                         <span>
@@ -53,23 +53,25 @@
                         <span>...</span>
                     </td>
                     <td>
-                        <span>...</span>
-                    </td>
-                    <td>
-                        <span>...</span>
-                    </td>
-                    <td>
                         <span></span>
+                    </td>
+                    <td>
+                        <span>...</span>
+                    </td>
+                    <td>
+                        <span>...</span>
                     </td>
                 </tr>
 
                 <tr *ngFor="let trade of worstTrades; index as i">
                     <td class="short">
                         <span class="d-flex">{{allTradesCount -worstTrades.length + i + 1}}
-                            <span *ngIf="allTradesCount -worstTrades.length + i === allTradesCount - 3" style="color: #A74528 !important; margin-top: 0.1em;">
+                            <span *ngIf="allTradesCount -worstTrades.length + i === allTradesCount - 3"
+                                style="color: #A74528 !important; margin-top: 0.1em;">
                                 <ng-icon class="fs-5 overflow-visible ml-3" name="lucideSkull"></ng-icon>
                             </span>
-                            <span *ngIf="allTradesCount -worstTrades.length + i === allTradesCount - 2" style="color: #A0AFA0 !important; margin-top: 0.1em;">
+                            <span *ngIf="allTradesCount -worstTrades.length + i === allTradesCount - 2"
+                                style="color: #A0AFA0 !important; margin-top: 0.1em;">
                                 <ng-icon class="fs-5 overflow-visible ml-3" name="lucideSkull"></ng-icon>
                             </span>
                             <span *ngIf="allTradesCount -worstTrades.length + i === allTradesCount - 1"
@@ -79,14 +81,14 @@
                         </span>
                     </td>
                     <td>
-                        <span>
-                            {{trade.pnl | number: '1.0-2'}} $
-                        </span>
-                    </td>
-                    <td>
                         <button class="button btn-light" (click)="onTradeSelected(trade.address)">
                             <ng-icon class="text-w fs-5 overflow-visible" name="bootstrapArrowRightShort"></ng-icon>
                         </button>
+                    </td>
+                    <td>
+                        <span>
+                            {{trade.pnl | number: '1.0-2'}} $
+                        </span>
                     </td>
                     <td>
                         <span>
