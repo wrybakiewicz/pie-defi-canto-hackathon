@@ -1,4 +1,5 @@
 export interface TradingData {
+  address: string;
   totalVolume: number;
   dailyVolumes: DailyVolume[];
   closedPositions: Position[];
