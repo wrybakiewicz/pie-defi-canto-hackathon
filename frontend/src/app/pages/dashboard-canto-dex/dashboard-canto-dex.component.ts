@@ -9,10 +9,10 @@ import { Observable, Subject, timer, mergeMap, Subscription } from 'rxjs';
   selector: 'app-dashboard-fortunafi',
   standalone: true,
   imports: [HeaderComponent, ComponentsModule],
-  templateUrl: './dashboard-fortunafi.component.html',
-  styleUrl: './dashboard-fortunafi.component.scss',
+  templateUrl: './dashboard-canto-dex.component.html',
+  styleUrl: './dashboard-canto-dex.component.scss',
 })
-export class DashboardFortunafiComponent
+export class DashboardCantoDexComponent
   implements OnInit, AfterViewInit, OnDestroy
 {
   private subscription: Subscription = new Subscription();

@@ -1,17 +1,17 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { DashboardFortunafiComponent } from './dashboard-fortunafi.component';
+import { DashboardCantoDexComponent } from './dashboard-canto-dex.component';
 
 describe('DashboardFortunafiComponent', () => {
-  let component: DashboardFortunafiComponent;
-  let fixture: ComponentFixture<DashboardFortunafiComponent>;
+  let component: DashboardCantoDexComponent;
+  let fixture: ComponentFixture<DashboardCantoDexComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [DashboardFortunafiComponent],
+      imports: [DashboardCantoDexComponent],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(DashboardFortunafiComponent);
+    fixture = TestBed.createComponent(DashboardCantoDexComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
