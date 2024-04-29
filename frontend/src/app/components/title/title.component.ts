@@ -28,7 +28,7 @@ export class TitleComponent implements OnInit, OnDestroy {
     this.subscription.add(
       this.api.tradingData$.subscribe((data) => {
         this.glow = false;
-        this.address = data.address
+        this.address = data.address;
         this.spinner.hide();
       })
     );
