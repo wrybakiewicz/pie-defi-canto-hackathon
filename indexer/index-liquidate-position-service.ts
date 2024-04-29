@@ -55,13 +55,23 @@ export async function indexLiquidatePosition(result: {
               TableName: dynamodbPositionsFromTableName,
               Item: position,
             });
-            await docClient.send(command);
-            const addressToPnl = await getAddressToPnl(address);
-            await saveAddressToPnl({
-              partition: "ALL",
-              address: address,
-              pnl: addressToPnl.pnl + pnl,
-            });
+            try {
+              await docClient.send(command);
+              const addressToPnl = await getAddressToPnl(address);
+              await saveAddressToPnl({
+                partition: "ALL",
+                address: address,
+                pnl: addressToPnl.pnl + pnl,
+              });
+            } catch {
+              await docClient.send(command);
+              const addressToPnl = await getAddressToPnl(address);
+              await saveAddressToPnl({
+                partition: "ALL",
+                address: address,
+                pnl: addressToPnl.pnl + pnl,
+              });
+            }
           } catch (e) {
             console.error("Error liquidating position:");
             console.error(e);

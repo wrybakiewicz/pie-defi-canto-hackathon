@@ -36,7 +36,11 @@ export async function indexPriceUpdate(result: {
               TableName: dynamodbPriceTableName,
               Item: price,
             });
-            await docClient.send(command);
+            try {
+              await docClient.send(command);
+            } catch {
+              await docClient.send(command);
+            }
             tokenToPriceMap.set(price.token, price.price);
           } catch (e) {
             console.error("Error updating prices:");

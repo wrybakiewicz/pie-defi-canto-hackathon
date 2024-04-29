@@ -54,7 +54,11 @@ export async function indexIncreasePosition(
               TableName: dynamodbPositionsFromTableName,
               Item: position,
             });
-            await docClient.send(command);
+            try {
+              await docClient.send(command);
+            } catch {
+              await docClient.send(command);
+            }
           } catch (e) {
             console.error("Error increasing position:");
             console.error(e);
