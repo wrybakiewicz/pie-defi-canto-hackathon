@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import { TradingData } from '../models/trades.model';
+import { FeaturedTrade } from '../models/featured-trades.mode';
 
 @Injectable({
   providedIn: 'root',
@@ -18,5 +19,10 @@ export class ApiService {
     this.http
       .get<TradingData>(`${this.host}?address=${address}`)
       .subscribe((response) => this.tradingData.next(response));
+  }
+
+  getFeaturedTrades(): Observable<FeaturedTrade[]> {
+    return this.http
+      .get<FeaturedTrade[]>(`${this.host}pnl`);
   }
 }
