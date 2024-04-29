@@ -164,8 +164,9 @@ export async function handler(event, context) {
       openPrice: position.openPrice,
       openDate: position.openDate,
       pnl:
+        position.pnl +
         getPositionTokenVolume(position) *
-        (allLatestTokenPrices.get(position.token).price - position.openPrice),
+          (allLatestTokenPrices.get(position.token).price - position.openPrice),
       isLiquidated: position.isLiquidated,
     };
   });
@@ -241,12 +242,12 @@ async function getAllLatestTokenPrices() {
 //   },
 // });
 
-// handler({
-//   rawPath: "",
-//   queryStringParameters: {
-//     address: "0x9e26e1b35164afb1332592af393edf5f2a2c7f51",
-//   },
-// });
+handler({
+  rawPath: "",
+  queryStringParameters: {
+    address: "0x1beceb3cb1ac11a3391cd8d92e79c373a5b54891",
+  },
+});
 
 // handler({
 //   rawPath: "pnl",
