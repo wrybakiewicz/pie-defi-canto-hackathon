@@ -27,9 +27,7 @@ export async function indexPriceUpdate(result: {
           try {
             const price: Price = {
               token: getTokenSymbol(event.args.token),
-              timestampSeconds: await provider
-                .getBlock(result.receipt.blockNumber)
-                .then((block) => block.timestamp),
+              timestampSeconds: result.block.timestamp,
               price:
                 event.args.price.div(BigNumber.from(10).pow(25)).toNumber() /
                 100000.0,

@@ -44,9 +44,7 @@ export async function indexIncreasePosition(
                   .div(BigNumber.from(10).pow(25))
                   .toNumber() / 100000.0,
               isLong: event.args.isLong,
-              timestampSeconds: await provider
-                .getBlock(result.receipt.blockNumber)
-                .then((block) => block.timestamp),
+              timestampSeconds: result.block.timestamp,
               type: "INCREASE",
               pnl: 0,
               transactionHash: result.receipt.transactionHash,

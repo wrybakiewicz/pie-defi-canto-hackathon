@@ -34,7 +34,6 @@ export async function indexLiquidatePosition(result: {
                 .toNumber() /
                 100000.0);
             const address = event.args.account.toLowerCase();
-            const addressToPnl = await getAddressToPnl(address);
             const position: Position = {
               account: address,
               tradingToken: getTokenSymbol(event.args.indexToken),
@@ -46,9 +45,7 @@ export async function indexLiquidatePosition(result: {
                   .div(BigNumber.from(10).pow(25))
                   .toNumber() / 100000.0,
               isLong: event.args.isLong,
-              timestampSeconds: await provider
-                .getBlock(result.receipt.blockNumber)
-                .then((block) => block.timestamp),
+              timestampSeconds: result.block.timestamp,
               type: "LIQUIDATE",
               pnl: pnl,
               transactionHash: result.receipt.transactionHash,
@@ -59,6 +56,7 @@ export async function indexLiquidatePosition(result: {
               Item: position,
             });
             await docClient.send(command);
+            const addressToPnl = await getAddressToPnl(address);
             await saveAddressToPnl({
               partition: "ALL",
               address: address,

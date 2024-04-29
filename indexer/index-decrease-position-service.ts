@@ -36,7 +36,6 @@ export async function indexDecreasePosition(
             const token = getTokenSymbol(event.args.indexToken);
             const pnl = getPnl(result.receipt);
             const address = event.args.account.toLowerCase();
-            const addressToPnl = await getAddressToPnl(address);
             const position: Position = {
               account: address,
               tradingToken: token,
@@ -50,9 +49,7 @@ export async function indexDecreasePosition(
                   .div(BigNumber.from(10).pow(25))
                   .toNumber() / 100000.0,
               isLong: event.args.isLong,
-              timestampSeconds: await provider
-                .getBlock(result.receipt.blockNumber)
-                .then((block) => block.timestamp),
+              timestampSeconds: result.block.timestamp,
               type: "DECREASE",
               pnl: pnl,
               transactionHash: result.receipt.transactionHash,
@@ -63,6 +60,7 @@ export async function indexDecreasePosition(
               Item: position,
             });
             await docClient.send(command);
+            const addressToPnl = await getAddressToPnl(address);
             await saveAddressToPnl({
               partition: "ALL",
               address: address,
