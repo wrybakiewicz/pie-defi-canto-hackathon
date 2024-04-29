@@ -56,7 +56,7 @@ export class ApyChartComponent implements AfterViewInit, OnInit {
         {
           name: 'APY',
           type: 'line',
-          data: [-1.8, -4.2, -6.3, -4.5, -0.3, -2.8],
+          data: [-1.8, -4.2, -6.3, -4.5, -0.3, 2.8],
         },
       ],
       chart: {
@@ -83,7 +83,6 @@ export class ApyChartComponent implements AfterViewInit, OnInit {
       stroke: {
         curve: 'smooth',
         show: true,
-        colors: ['transparent'],
       },
       xaxis: {
         categories: [
