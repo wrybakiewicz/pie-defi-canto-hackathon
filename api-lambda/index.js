@@ -60,11 +60,8 @@ export async function handler(event, context) {
       (positionEventDate.getMonth() + 1)
     ).slice(-2)}-${positionEventDate.getDate()}`;
     const existingPosition = openedPositions.get(positionEvent.tradingToken);
-    // increase long OR decrease short
-    if (
-      (positionEvent.type === "INCREASE" && positionEvent.isLong) ||
-      (positionEvent.type === "DECREASE" && !positionEvent.isLong)
-    ) {
+    //TODO: handle is increase/decrease + long/short
+    if (positionEvent.type === "INCREASE") {
       if (existingPosition) {
         console.log("Increasing position that already exist");
         openedPositions.set(positionEvent.tradingToken, {
@@ -90,11 +87,7 @@ export async function handler(event, context) {
           isLiquidated: false,
         });
       }
-    } else if (
-      // decrease long OR increase short
-      (positionEvent.type === "DECREASE" && positionEvent.isLong) ||
-      (positionEvent.type === "INCREASE" && !positionEvent.isLong)
-    ) {
+    } else if (positionEvent.type === "DECREASE") {
       if (!existingPosition) {
         console.error("There is no position to close");
         openedPositions.delete(positionEvent.tradingToken);
@@ -131,7 +124,6 @@ export async function handler(event, context) {
         });
       }
     } else {
-      // liquidate
       if (!existingPosition) {
         console.log("There is no position to liquidate");
         openedPositions.delete(positionEvent.tradingToken);
