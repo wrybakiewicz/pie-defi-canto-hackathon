@@ -21,7 +21,38 @@ export async function handler(event, context) {
   });
   const allAddresses = (await docClient.send(allAddressesQuery)).Items;
   const addresses = allAddresses.map((addr) => addr.address);
-  console.log(addresses);
+  console.log(addresses.length);
+  for (let i = 0; i < addresses.length; i++) {
+    const pnl = await fetchPnlForAddress(addresses[i]);
+    await saveAddressToPnl(addresses[i], pnl);
+  }
+}
+
+async function fetchPnlForAddress(address) {
+  const stats = await fetch(`https://v5.piedefi.com?address=${address}`).then(
+    (res) => res.json()
+  );
+  console.log(stats);
+  let pnl = 0;
+  for (let i = 0; i < stats.closedPositions.length; i++) {
+    pnl += stats.closedPositions[i].pnl;
+  }
+  for (let j = 0; j < stats.openedPositions.length; j++) {
+    pnl += stats.openedPositions[j].pnl;
+  }
+  return pnl;
+}
+
+async function saveAddressToPnl(address, pnl) {
+  const command = new PutCommand({
+    TableName: "piedefi-all-addresses-to-pnls-v5",
+    Item: {
+      partition: "ALL",
+      address: address,
+      pnl: pnl,
+    },
+  });
+  await docClient.send(command);
 }
 
 handler({});
