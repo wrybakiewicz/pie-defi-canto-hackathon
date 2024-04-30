@@ -32,11 +32,9 @@ export async function handler(event, context) {
     });
 
     sortedPnls.sort((pnl1, pnl2) => pnl2.pnl - pnl1.pnl);
-    console.log(sortedPnls);
     return sortedPnls;
   }
   const address = event.queryStringParameters.address.toLowerCase();
-  console.log(address);
 
   const getPositionsQuery = new QueryCommand({
     TableName: "piedefi-positions-from-v5",
@@ -61,11 +59,12 @@ export async function handler(event, context) {
       "0" +
       (positionEventDate.getMonth() + 1)
     ).slice(-2)}-${positionEventDate.getDate()}`;
-    const existingPosition = openedPositions.get(getPositionKey(positionEvent));
+    const existingPosition = openedPositions.get(positionEvent.tradingToken);
+    //TODO: handle is increase/decrease + long/short
     if (positionEvent.type === "INCREASE") {
       if (existingPosition) {
         console.log("Increasing position that already exist");
-        openedPositions.set(getPositionKey(positionEvent), {
+        openedPositions.set(positionEvent.tradingToken, {
           type: positionEvent.isLong ? "LONG" : "SHORT",
           token: positionEvent.tradingToken,
           positionSizeInUsd:
@@ -78,7 +77,7 @@ export async function handler(event, context) {
         });
       } else {
         console.log("Increasing position that does not exist");
-        openedPositions.set(getPositionKey(positionEvent), {
+        openedPositions.set(positionEvent.tradingToken, {
           type: positionEvent.isLong ? "LONG" : "SHORT",
           token: positionEvent.tradingToken,
           positionSizeInUsd: positionEvent.positionSizeInUsd,
@@ -91,7 +90,7 @@ export async function handler(event, context) {
     } else if (positionEvent.type === "DECREASE") {
       if (!existingPosition) {
         console.error("There is no position to close");
-        openedPositions.delete(getPositionKey(positionEvent));
+        openedPositions.delete(positionEvent.tradingToken);
       } else if (
         positionEvent.positionSizeInUsd === existingPosition.positionSizeInUsd
       ) {
@@ -107,10 +106,10 @@ export async function handler(event, context) {
           pnl: positionEvent.pnl + existingPosition.pnl,
           isLiquidated: false,
         });
-        openedPositions.delete(getPositionKey(positionEvent));
+        openedPositions.delete(positionEvent.tradingToken);
       } else {
         console.log("Closing partially the position");
-        openedPositions.set(getPositionKey(positionEvent), {
+        openedPositions.set(positionEvent.tradingToken, {
           type: existingPosition.isLong ? "LONG" : "SHORT",
           token: existingPosition.token,
           positionSizeInUsd:
@@ -127,7 +126,7 @@ export async function handler(event, context) {
     } else {
       if (!existingPosition) {
         console.log("There is no position to liquidate");
-        openedPositions.delete(getPositionKey(positionEvent));
+        openedPositions.delete(positionEvent.tradingToken);
       } else {
         console.log("Liquidating position");
         closedPositions.push({
@@ -141,7 +140,7 @@ export async function handler(event, context) {
           pnl: positionEvent.pnl + existingPosition.pnl,
           isLiquidated: true,
         });
-        openedPositions.delete(getPositionKey(positionEvent));
+        openedPositions.delete(positionEvent.tradingToken);
       }
     }
     dailyVolume.set(
@@ -184,11 +183,6 @@ export async function handler(event, context) {
     closedPositions: closedPositions,
     openedPositions: openedPositionsArray,
   };
-}
-
-function getPositionKey(positionEvent) {
-  const type = positionEvent.isLong ? "LONG" : "SHORT";
-  return `${type}-${positionEvent.tradingToken}`;
 }
 
 function getPositionTokenVolume(position) {
@@ -245,7 +239,7 @@ async function getAllLatestTokenPrices() {
 // handler({
 //   rawPath: "",
 //   queryStringParameters: {
-//     address: "0x1beceb3cb1ac11a3391cd8d92e79c373a5b54891",
+//     address: "0x2e8ca788b95413f0e8a6d9eb1f507a6d14f778c6",
 //   },
 // });
 
