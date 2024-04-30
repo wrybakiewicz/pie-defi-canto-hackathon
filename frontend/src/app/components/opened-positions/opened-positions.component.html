@@ -12,6 +12,7 @@
                     <th>Token</th>
                     <th>Open price</th>
                     <th>Value</th>
+                    <th>PnL</th>
                 </tr>
                 <tr *ngFor="let position of positions">
                     <td>
@@ -33,6 +34,10 @@
                     </td>
                     <td>
                         <span>{{position.positionSizeInUsd | number: '1.0-2'}} $</span>
+                    </td>
+                    <td>
+                        <span *ngIf="position.pnl <= 0" class="text-danger">{{position.pnl | number: '1.0-2'}} $</span>
+                        <span *ngIf="position.pnl > 0" class="text-success">{{position.pnl | number: '1.0-2'}} $</span>
                     </td>
                 </tr>
             </tbody>
