@@ -1,5 +1,5 @@
 {
-  "name": "api-lambda",
+  "name": "pnl-lambda",
   "type": "module",
   "version": "1.0.0",
   "main": "index.js",
@@ -7,7 +7,7 @@
   "scripts": {
     "clean": "rm -rf ./build.zip",
     "zip": "zip -r build.zip .",
-    "push": "aws s3api put-object --bucket pie-defi-lambdas --key v5.1.zip --body ./build.zip"
+    "push": "aws s3api put-object --bucket pie-defi-lambdas --key v1.0-pnl.zip --body ./build.zip"
   },
   "dependencies": {
     "@aws-sdk/client-dynamodb": "^3.556.0",
