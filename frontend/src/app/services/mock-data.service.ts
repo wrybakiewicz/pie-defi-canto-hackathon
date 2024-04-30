@@ -102,6 +102,8 @@ export class MockDataService {
     ];
     this.dataSource.next({
       pnl: this.getRandomInt(100, 55555),
+      realizedPnl: this.getRandomInt(100, 35555),
+      unrealizedPnl: this.getRandomInt(100, 25555),
       avgTrade: this.getRandomInt(100, 55555),
       bwTrade: {
         best: this.getRandomInt(100, 55555),

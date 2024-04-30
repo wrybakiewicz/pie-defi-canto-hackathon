@@ -1,5 +1,7 @@
 export interface CadenceData {
   pnl: number;
+  realizedPnl: number;
+  unrealizedPnl: number;
   avgTrade: number;
   bwTrade: BestWorstTrade;
   totalVolume: number;

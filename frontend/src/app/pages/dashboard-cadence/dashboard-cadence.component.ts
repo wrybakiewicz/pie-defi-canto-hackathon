@@ -72,6 +72,8 @@ export class DashboardCadenceComponent implements OnInit, OnDestroy {
     const avg = this.calculateAvgTrade(data);
     return {
       pnl: this.calculateTotalPnl(data),
+      realizedPnl: this.calculateRealizedPnl(data),
+      unrealizedPnl: this.calculateUnrealizedPnl(data),
       avgTrade: avg,
       bwTrade: this.findBestAndWorstTradeValues(data),
       totalVolume: data.totalVolume,
@@ -84,7 +86,16 @@ export class DashboardCadenceComponent implements OnInit, OnDestroy {
   }
 
   private calculateTotalPnl(data: TradingData) {
+    return data.closedPositions.reduce((a, b) => a + b.pnl, 0) +
+    data.openedPositions.reduce((a, b) => a + b.pnl, 0);
+  }
+
+  private calculateRealizedPnl(data: TradingData) {
     return data.closedPositions.reduce((a, b) => a + b.pnl, 0);
+  }
+  
+  private calculateUnrealizedPnl(data: TradingData) {
+    return data.openedPositions.reduce((a, b) => a + b.pnl, 0);
   }
 
   private countLostTrades(data: TradingData) {
