@@ -55,4 +55,4 @@ async function saveAddressToPnl(address, pnl) {
   await docClient.send(command);
 }
 
-handler({});
+// handler({});
