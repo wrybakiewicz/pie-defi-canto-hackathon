@@ -8,7 +8,7 @@ import { FeaturedTrade } from '../models/featured-trades.mode';
   providedIn: 'root',
 })
 export class ApiService {
-  private readonly host = 'https://v4.piedefi.com/';
+  private readonly host = 'https://v5.piedefi.com/';
 
   private tradingData = new Subject<TradingData>();
   tradingData$ = this.tradingData.asObservable();
