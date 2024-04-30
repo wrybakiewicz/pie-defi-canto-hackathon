@@ -18,7 +18,7 @@ export async function handler(event, context) {
   console.log(event);
   if (event.rawPath.endsWith("pnl")) {
     const getPnls = new QueryCommand({
-      TableName: "piedefi-all-addresses-to-pnl-v5",
+      TableName: "piedefi-all-addresses-to-pnls-v5",
       KeyConditionExpression: "#key = :key",
       ExpressionAttributeNames: { "#key": "partition" },
       ExpressionAttributeValues: { ":key": "ALL" },

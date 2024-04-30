@@ -1,0 +1,16 @@
+{
+  "name": "api-lambda",
+  "type": "module",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "clean": "rm -rf ./build.zip",
+    "zip": "zip -r build.zip .",
+    "push": "aws s3api put-object --bucket pie-defi-lambdas --key v5.1.zip --body ./build.zip"
+  },
+  "dependencies": {
+    "@aws-sdk/client-dynamodb": "^3.556.0",
+    "@aws-sdk/lib-dynamodb": "^3.556.0"
+  }
+}
