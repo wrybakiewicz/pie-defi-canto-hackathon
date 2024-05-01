@@ -8,7 +8,7 @@
     </div>
 
     <div class="card-body pt-0 pb-0 scroll-x text-nowrap">
-        <table class="table table-dark mb-0">
+        <table class="table table-responsive table-dark mb-0">
             <tbody>
                 <tr>
                     <th>Position</th>
@@ -40,7 +40,7 @@
 
                         </span>
                     </td>
-                    <td>
+                    <td class="pr-0 pl-0">
                         <button class="button btn-light" (click)="onTradeSelected(trade.address)">
                             <ng-icon class="text-w fs-5 overflow-visible" name="bootstrapArrowRightShort"></ng-icon>
                         </button>
@@ -50,7 +50,7 @@
                             {{trade.pnl | number: '1.0-2'}} $
                         </span>
                     </td>
-                    <td>
+                    <td class="w-100">
                         <span>
                             {{trade.address}}
                         </span>
@@ -89,7 +89,7 @@
                             </span>
                         </span>
                     </td>
-                    <td>
+                    <td class="pr-0 pl-0">
                         <button class="button btn-light" (click)="onTradeSelected(trade.address)">
                             <ng-icon class="text-w fs-5 overflow-visible" name="bootstrapArrowRightShort"></ng-icon>
                         </button>
@@ -99,7 +99,7 @@
                             {{trade.pnl | number: '1.0-2'}} $
                         </span>
                     </td>
-                    <td>
+                    <td class="w-100">
                         <span>
                             {{trade.address}}
                         </span>
