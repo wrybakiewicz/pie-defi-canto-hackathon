@@ -54,6 +54,9 @@ export class MockDataService {
         isLiquidated = pnl < 0 ? Math.random() < 0.2 : false;
     }
 
+    if(pnl === 0){
+      pnl = this.getRandomNumber(-1000, 1000);
+    }
 
     return {
       type,
