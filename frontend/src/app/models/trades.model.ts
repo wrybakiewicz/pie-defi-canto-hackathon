@@ -18,6 +18,7 @@ export interface Position {
   openPrice: number;
   openDate: string;
   closePrice?: number;
+  currentPrice?: number;
   closeDate?: string;
   pnl: number;
   isLiquidated: boolean;
