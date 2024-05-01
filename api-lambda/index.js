@@ -114,7 +114,7 @@ export function calculateStats(positionEvents) {
               existingPosition.positionSizeInUsd,
             openPrice: positionEvent.tradingTokenPrice,
             openDate: dayMonthYear,
-            pnl: existingPosition.pnl,
+            pnl: positionEvent.pnl + existingPosition.pnl,
             isLiquidated: false,
           });
         } else {
@@ -124,7 +124,38 @@ export function calculateStats(positionEvents) {
             positionEvent.positionSizeInUsd;
           const isPositionDirectionChanged = positionSizeInUsd < 0;
           if (isPositionDirectionChanged) {
+            closedPositions.push({
+              type: existingPosition.isLong ? "LONG" : "SHORT",
+              token: existingPosition.token,
+              positionSizeInUsd: existingPosition.positionSizeInUsd,
+              openPrice: existingPosition.openPrice,
+              openDate: existingPosition.openDate,
+              closePrice: positionEvent.tradingTokenPrice,
+              closeDate: dayMonthYear,
+              pnl: positionEvent.pnl + existingPosition.pnl,
+              isLiquidated: false,
+            });
+            openedPositions.set(positionEvent.tradingToken, {
+              type: positionEvent.isLong ? "LONG" : "SHORT",
+              token: positionEvent.tradingToken,
+              positionSizeInUsd: -1.0 * positionSizeInUsd,
+              openPrice: positionEvent.tradingTokenPrice,
+              openDate: dayMonthYear,
+              pnl: 0,
+              isLiquidated: false,
+            });
           } else {
+            openedPositions.set(positionEvent.tradingToken, {
+              type: positionEvent.isLong ? "LONG" : "SHORT",
+              token: positionEvent.tradingToken,
+              positionSizeInUsd:
+                existingPosition.positionSizeInUsd -
+                positionEvent.positionSizeInUsd,
+              openPrice: existingPosition.openPrice,
+              openDate: existingPosition.openDate,
+              pnl: existingPosition.pnl - positionEvent.pnl,
+              isLiquidated: false,
+            });
           }
         }
       } else {
@@ -135,7 +166,7 @@ export function calculateStats(positionEvents) {
           positionSizeInUsd: positionEvent.positionSizeInUsd,
           openPrice: positionEvent.tradingTokenPrice,
           openDate: dayMonthYear,
-          pnl: 0,
+          pnl: positionEvent.pnl,
           isLiquidated: false,
         });
       }
