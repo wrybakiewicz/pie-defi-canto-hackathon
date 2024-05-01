@@ -72,13 +72,13 @@ export async function handler(event, context) {
     };
   });
 
-  // console.log(`Total volume: ${totalVolume}`);
-  // console.log(`Daily volume:`);
-  // console.log(dailyVolumeArray);
-  // console.log(`Closed positions:`);
-  // console.log(closedPositions);
-  // console.log(`Opened positions:`);
-  // console.log(openedPositionsArray);
+  console.log(`Total volume: ${totalVolume}`);
+  console.log(`Daily volume:`);
+  console.log(dailyVolumeArray);
+  console.log(`Closed positions:`);
+  console.log(closedPositions);
+  console.log(`Opened positions:`);
+  console.log(openedPositionsArray);
   return {
     totalVolume: totalVolume,
     dailyVolumes: dailyVolumeArray,
@@ -105,12 +105,6 @@ export function calculateStats(positionEvents) {
         // increase with the same direction as existing position
         if ((existingPosition.type === "LONG") === positionEvent.isLong) {
           console.log("Increasing position that already exist");
-          console.log(
-            `v1: ${
-              positionEvent.positionSizeInUsd +
-              existingPosition.positionSizeInUsd
-            }`
-          );
           openedPositions.set(positionEvent.tradingToken, {
             type: positionEvent.isLong ? "LONG" : "SHORT",
             token: positionEvent.tradingToken,
@@ -129,8 +123,6 @@ export function calculateStats(positionEvents) {
             positionEvent.positionSizeInUsd;
           const isPositionDirectionChanged = positionSizeInUsd < 0;
           if (isPositionDirectionChanged) {
-            console.log(`v2: ${existingPosition.positionSizeInUsd}`);
-            console.log(`v3: ${-1.0 * positionSizeInUsd}`);
             closedPositions.push({
               type: existingPosition.isLong ? "LONG" : "SHORT",
               token: existingPosition.token,
@@ -152,12 +144,6 @@ export function calculateStats(positionEvents) {
               isLiquidated: false,
             });
           } else {
-            console.log(
-              `v4: ${
-                existingPosition.positionSizeInUsd -
-                positionEvent.positionSizeInUsd
-              }`
-            );
             openedPositions.set(positionEvent.tradingToken, {
               type: positionEvent.isLong ? "LONG" : "SHORT",
               token: positionEvent.tradingToken,
@@ -173,7 +159,6 @@ export function calculateStats(positionEvents) {
         }
       } else {
         console.log("Increasing position that does not exist");
-        console.log(`v5: ${positionEvent.positionSizeInUsd}`);
         openedPositions.set(positionEvent.tradingToken, {
           type: positionEvent.isLong ? "LONG" : "SHORT",
           token: positionEvent.tradingToken,
@@ -192,7 +177,6 @@ export function calculateStats(positionEvents) {
         positionEvent.positionSizeInUsd >= existingPosition.positionSizeInUsd
       ) {
         console.log("Closing entirely the position");
-        console.log(`v6: ${existingPosition.positionSizeInUsd}`);
         closedPositions.push({
           type: existingPosition.isLong ? "LONG" : "SHORT",
           token: existingPosition.token,
@@ -206,11 +190,6 @@ export function calculateStats(positionEvents) {
         });
         openedPositions.delete(positionEvent.tradingToken);
       } else {
-        console.log(
-          `v7: ${
-            existingPosition.positionSizeInUsd - positionEvent.positionSizeInUsd
-          }`
-        );
         console.log("Closing partially the position");
         openedPositions.set(positionEvent.tradingToken, {
           type: existingPosition.isLong ? "LONG" : "SHORT",
@@ -231,7 +210,6 @@ export function calculateStats(positionEvents) {
         console.log("There is no position to liquidate");
         openedPositions.delete(positionEvent.tradingToken);
       } else {
-        console.log(`v8: ${existingPosition.positionSizeInUsd}`);
         console.log("Liquidating position");
         closedPositions.push({
           type: existingPosition.isLong ? "LONG" : "SHORT",
