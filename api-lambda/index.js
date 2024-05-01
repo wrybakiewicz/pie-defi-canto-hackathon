@@ -61,11 +61,11 @@ export async function handler(event, context) {
       "0" +
       (positionEventDate.getMonth() + 1)
     ).slice(-2)}-${positionEventDate.getDate()}`;
-    const existingPosition = openedPositions.get(getPositionKey(positionEvent));
+    const existingPosition = openedPositions.get(positionEvent.tradingToken);
     if (positionEvent.type === "INCREASE") {
       if (existingPosition) {
         console.log("Increasing position that already exist");
-        openedPositions.set(getPositionKey(positionEvent), {
+        openedPositions.set(positionEvent.tradingToken, {
           type: positionEvent.isLong ? "LONG" : "SHORT",
           token: positionEvent.tradingToken,
           positionSizeInUsd:
@@ -78,7 +78,7 @@ export async function handler(event, context) {
         });
       } else {
         console.log("Increasing position that does not exist");
-        openedPositions.set(getPositionKey(positionEvent), {
+        openedPositions.set(positionEvent.tradingToken, {
           type: positionEvent.isLong ? "LONG" : "SHORT",
           token: positionEvent.tradingToken,
           positionSizeInUsd: positionEvent.positionSizeInUsd,
@@ -91,7 +91,7 @@ export async function handler(event, context) {
     } else if (positionEvent.type === "DECREASE") {
       if (!existingPosition) {
         console.error("There is no position to close");
-        openedPositions.delete(getPositionKey(positionEvent));
+        openedPositions.delete(positionEvent.tradingToken);
       } else if (
         positionEvent.positionSizeInUsd === existingPosition.positionSizeInUsd
       ) {
@@ -107,10 +107,10 @@ export async function handler(event, context) {
           pnl: positionEvent.pnl + existingPosition.pnl,
           isLiquidated: false,
         });
-        openedPositions.delete(getPositionKey(positionEvent));
+        openedPositions.delete(positionEvent.tradingToken);
       } else {
         console.log("Closing partially the position");
-        openedPositions.set(getPositionKey(positionEvent), {
+        openedPositions.set(positionEvent.tradingToken, {
           type: existingPosition.isLong ? "LONG" : "SHORT",
           token: existingPosition.token,
           positionSizeInUsd:
@@ -127,7 +127,7 @@ export async function handler(event, context) {
     } else {
       if (!existingPosition) {
         console.log("There is no position to liquidate");
-        openedPositions.delete(getPositionKey(positionEvent));
+        openedPositions.delete(positionEvent.tradingToken);
       } else {
         console.log("Liquidating position");
         closedPositions.push({
@@ -141,7 +141,7 @@ export async function handler(event, context) {
           pnl: positionEvent.pnl + existingPosition.pnl,
           isLiquidated: true,
         });
-        openedPositions.delete(getPositionKey(positionEvent));
+        openedPositions.delete(positionEvent.tradingToken);
       }
     }
     dailyVolume.set(
@@ -184,11 +184,6 @@ export async function handler(event, context) {
     closedPositions: closedPositions,
     openedPositions: openedPositionsArray,
   };
-}
-
-function getPositionKey(positionEvent) {
-  const type = positionEvent.isLong ? "LONG" : "SHORT";
-  return `${type}-${positionEvent.tradingToken}`;
 }
 
 function getPositionTokenVolume(position) {
@@ -235,12 +230,12 @@ async function getAllLatestTokenPrices() {
 //   },
 // });
 
-// handler({
-//   rawPath: "",
-//   queryStringParameters: {
-//     address: "0x8e07ab8fc9e5f2613b17a5e5069673d522d0207a",
-//   },
-// });
+handler({
+  rawPath: "",
+  queryStringParameters: {
+    address: "0x8e07ab8fc9e5f2613b17a5e5069673d522d0207a",
+  },
+});
 
 // handler({
 //   rawPath: "",
