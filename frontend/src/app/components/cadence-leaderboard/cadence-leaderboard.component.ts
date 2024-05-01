@@ -19,7 +19,6 @@ export class CadenceLeaderboardComponent implements OnInit {
   ngOnInit(): void {
     this.spinner.show('leaderboard');
     this.api.getFeaturedTrades().subscribe((trades) => {
-      debugger
       this.spinner.hide('leaderboard');
       if (trades.length < 5) {
         this.topTrades = trades;
