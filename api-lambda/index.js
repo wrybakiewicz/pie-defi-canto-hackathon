@@ -64,6 +64,7 @@ export async function handler(event, context) {
       positionSizeInUsd: position.positionSizeInUsd,
       openPrice: position.openPrice,
       openDate: position.openDate,
+      currentPrice: allLatestTokenPrices.get(position.token).price,
       pnl:
         position.pnl +
         getPositionTokenVolume(position) *
@@ -271,6 +272,7 @@ async function getAllLatestTokenPrices() {
 
 //me
 // handler({
+//   rawPath: "",
 //   queryStringParameters: {
 //     address: "0x861532bb628e3e9896bd2e43b99693508a98e921",
 //   },
