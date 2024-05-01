@@ -153,7 +153,7 @@ export function calculateStats(positionEvents) {
                 positionEvent.positionSizeInUsd,
               openPrice: existingPosition.openPrice,
               openDate: existingPosition.openDate,
-              pnl: existingPosition.pnl - positionEvent.pnl,
+              pnl: existingPosition.pnl + positionEvent.pnl,
               isLiquidated: false,
             });
           }
