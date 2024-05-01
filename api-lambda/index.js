@@ -50,6 +50,45 @@ export async function handler(event, context) {
   const allLatestTokenPrices = await allLatestTokenPricesPromise;
   const positionEvents = (await positionEventsPromise).Items;
 
+  const { totalVolume, dailyVolume, openedPositions, closedPositions } =
+    calculateStats(positionEvents);
+  // console.log(positionEvents);
+
+  const dailyVolumeArray = Array.from(dailyVolume, ([key, value]) => {
+    return { date: key, dailyVolume: value };
+  });
+
+  const openedPositionsArray = Array.from(openedPositions, ([_, position]) => {
+    return {
+      type: position.type,
+      token: position.token,
+      positionSizeInUsd: position.positionSizeInUsd,
+      openPrice: position.openPrice,
+      openDate: position.openDate,
+      pnl:
+        position.pnl +
+        getPositionTokenVolume(position) *
+          (allLatestTokenPrices.get(position.token).price - position.openPrice),
+      isLiquidated: position.isLiquidated,
+    };
+  });
+
+  console.log(`Total volume: ${totalVolume}`);
+  console.log(`Daily volume:`);
+  console.log(dailyVolumeArray);
+  console.log(`Closed positions:`);
+  console.log(closedPositions);
+  console.log(`Opened positions:`);
+  console.log(openedPositionsArray);
+  return {
+    totalVolume: totalVolume,
+    dailyVolumes: dailyVolumeArray,
+    closedPositions: closedPositions,
+    openedPositions: openedPositionsArray,
+  };
+}
+
+export function calculateStats(positionEvents) {
   let totalVolume = 0.0;
   const dailyVolume = new Map(); // day is a key, volume number is a value
   const openedPositions = new Map(); // type-token is a key, position is a value
@@ -64,18 +103,30 @@ export async function handler(event, context) {
     const existingPosition = openedPositions.get(positionEvent.tradingToken);
     if (positionEvent.type === "INCREASE") {
       if (existingPosition) {
-        console.log("Increasing position that already exist");
-        openedPositions.set(positionEvent.tradingToken, {
-          type: positionEvent.isLong ? "LONG" : "SHORT",
-          token: positionEvent.tradingToken,
-          positionSizeInUsd:
-            positionEvent.positionSizeInUsd +
-            existingPosition.positionSizeInUsd,
-          openPrice: positionEvent.tradingTokenPrice,
-          openDate: dayMonthYear,
-          pnl: existingPosition.pnl,
-          isLiquidated: false,
-        });
+        // increase with the same direction as existing position
+        if ((existingPosition.type === "LONG") === positionEvent.isLong) {
+          console.log("Increasing position that already exist");
+          openedPositions.set(positionEvent.tradingToken, {
+            type: positionEvent.isLong ? "LONG" : "SHORT",
+            token: positionEvent.tradingToken,
+            positionSizeInUsd:
+              positionEvent.positionSizeInUsd +
+              existingPosition.positionSizeInUsd,
+            openPrice: positionEvent.tradingTokenPrice,
+            openDate: dayMonthYear,
+            pnl: existingPosition.pnl,
+            isLiquidated: false,
+          });
+        } else {
+          // decreasing existing position (or even changing direction)
+          const positionSizeInUsd =
+            existingPosition.positionSizeInUsd -
+            positionEvent.positionSizeInUsd;
+          const isPositionDirectionChanged = positionSizeInUsd < 0;
+          if (isPositionDirectionChanged) {
+          } else {
+          }
+        }
       } else {
         console.log("Increasing position that does not exist");
         openedPositions.set(positionEvent.tradingToken, {
@@ -150,39 +201,11 @@ export async function handler(event, context) {
     );
     totalVolume += positionEvent.positionSizeInUsd;
   }
-  console.log(positionEvents);
-
-  const dailyVolumeArray = Array.from(dailyVolume, ([key, value]) => {
-    return { date: key, dailyVolume: value };
-  });
-
-  const openedPositionsArray = Array.from(openedPositions, ([_, position]) => {
-    return {
-      type: position.type,
-      token: position.token,
-      positionSizeInUsd: position.positionSizeInUsd,
-      openPrice: position.openPrice,
-      openDate: position.openDate,
-      pnl:
-        position.pnl +
-        getPositionTokenVolume(position) *
-          (allLatestTokenPrices.get(position.token).price - position.openPrice),
-      isLiquidated: position.isLiquidated,
-    };
-  });
-
-  console.log(`Total volume: ${totalVolume}`);
-  console.log(`Daily volume:`);
-  console.log(dailyVolumeArray);
-  console.log(`Closed positions:`);
-  console.log(closedPositions);
-  console.log(`Opened positions:`);
-  console.log(openedPositionsArray);
   return {
     totalVolume: totalVolume,
-    dailyVolumes: dailyVolumeArray,
+    dailyVolume: dailyVolume,
+    openedPositions: openedPositions,
     closedPositions: closedPositions,
-    openedPositions: openedPositionsArray,
   };
 }
 
@@ -230,12 +253,12 @@ async function getAllLatestTokenPrices() {
 //   },
 // });
 
-handler({
-  rawPath: "",
-  queryStringParameters: {
-    address: "0x8e07ab8fc9e5f2613b17a5e5069673d522d0207a",
-  },
-});
+// handler({
+//   rawPath: "",
+//   queryStringParameters: {
+//     address: "0x8e07ab8fc9e5f2613b17a5e5069673d522d0207a",
+//   },
+// });
 
 // handler({
 //   rawPath: "",
