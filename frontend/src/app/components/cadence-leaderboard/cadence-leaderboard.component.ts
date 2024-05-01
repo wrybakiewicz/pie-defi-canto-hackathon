@@ -17,7 +17,10 @@ export class CadenceLeaderboardComponent implements OnInit {
   constructor(private router: Router, private api: ApiService, private spinner: NgxSpinnerService) {}
 
   ngOnInit(): void {
+    this.spinner.show('leaderboard');
     this.api.getFeaturedTrades().subscribe((trades) => {
+      debugger
+      this.spinner.hide('leaderboard');
       if (trades.length < 5) {
         this.topTrades = trades;
         this.allTradesCount = trades.length;

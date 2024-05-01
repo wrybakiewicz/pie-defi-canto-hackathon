@@ -16,6 +16,15 @@
                     <th>Realized PNL</th>
                     <th>Address</th>
                 </tr>
+                <ngx-spinner *ngIf="topTrades.length === 0" bdColor="rgba(51,51,51,0.8)" size="medium" color="#fff" type="ball-scale-multiple" [fullScreen]="false" name="leaderboard">
+                    <p style="font-size: 20px; color: white">Loading...</p>
+                </ngx-spinner>
+                <tr *ngFor="let i of topTrades.length === 0 ? [].constructor(11) : [].constructor(0)">
+                    <td><span>...</span></td>
+                    <td><span></span></td>
+                    <td><span>...</span></td>
+                    <td><span>...</span></td>
+                </tr>
                 <tr *ngFor="let trade of topTrades; index as i">
                     <td class="short">
                         <span class="d-flex">{{i + 1}}
