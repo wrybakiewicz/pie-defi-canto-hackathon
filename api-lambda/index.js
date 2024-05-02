@@ -102,10 +102,10 @@ export function calculateStats(positionEvents) {
     ).slice(-2)}-${positionEventDate.getDate()}`;
     const existingPosition = openedPositions.get(positionEvent.tradingToken);
     if (positionEvent.type === "INCREASE") {
+      console.log(`Increasing position: ${positionEvent.tradingToken}`);
       if (existingPosition) {
         // increase with the same direction as existing position
         if ((existingPosition.type === "LONG") === positionEvent.isLong) {
-          console.log("Increasing position that already exist");
           openedPositions.set(positionEvent.tradingToken, {
             type: positionEvent.isLong ? "LONG" : "SHORT",
             token: positionEvent.tradingToken,
@@ -125,7 +125,7 @@ export function calculateStats(positionEvents) {
           const isPositionDirectionChanged = positionSizeInUsd < 0;
           if (isPositionDirectionChanged) {
             closedPositions.push({
-              type: existingPosition.isLong ? "LONG" : "SHORT",
+              type: existingPosition.type,
               token: existingPosition.token,
               positionSizeInUsd: existingPosition.positionSizeInUsd,
               openPrice: existingPosition.openPrice,
@@ -171,6 +171,7 @@ export function calculateStats(positionEvents) {
         });
       }
     } else if (positionEvent.type === "DECREASE") {
+      console.log(`Decreasing position: ${positionEvent.tradingToken}`);
       if (!existingPosition) {
         console.error("There is no position to close");
         openedPositions.delete(positionEvent.tradingToken);
@@ -179,7 +180,7 @@ export function calculateStats(positionEvents) {
       ) {
         console.log("Closing entirely the position");
         closedPositions.push({
-          type: existingPosition.isLong ? "LONG" : "SHORT",
+          type: existingPosition.type,
           token: existingPosition.token,
           positionSizeInUsd: existingPosition.positionSizeInUsd,
           openPrice: existingPosition.openPrice,
@@ -193,7 +194,7 @@ export function calculateStats(positionEvents) {
       } else {
         console.log("Closing partially the position");
         openedPositions.set(positionEvent.tradingToken, {
-          type: existingPosition.isLong ? "LONG" : "SHORT",
+          type: existingPosition.type,
           token: existingPosition.token,
           positionSizeInUsd:
             existingPosition.positionSizeInUsd -
@@ -207,13 +208,14 @@ export function calculateStats(positionEvents) {
         });
       }
     } else {
+      console.log(`Liquidating position: ${positionEvent.tradingToken}`);
       if (!existingPosition) {
         console.log("There is no position to liquidate");
         openedPositions.delete(positionEvent.tradingToken);
       } else {
         console.log("Liquidating position");
         closedPositions.push({
-          type: existingPosition.isLong ? "LONG" : "SHORT",
+          type: existingPosition.type,
           token: existingPosition.token,
           positionSizeInUsd: existingPosition.positionSizeInUsd,
           openPrice: existingPosition.openPrice,
@@ -232,6 +234,7 @@ export function calculateStats(positionEvents) {
     );
     totalVolume += positionEvent.positionSizeInUsd;
   }
+  // console.log(positionEvents);
   return {
     totalVolume: totalVolume,
     dailyVolume: dailyVolume,
@@ -271,12 +274,12 @@ async function getAllLatestTokenPrices() {
 }
 
 //me
-// handler({
-//   rawPath: "",
-//   queryStringParameters: {
-//     address: "0x861532bb628e3e9896bd2e43b99693508a98e921",
-//   },
-// });
+handler({
+  rawPath: "",
+  queryStringParameters: {
+    address: "0x861532bb628e3e9896bd2e43b99693508a98e921",
+  },
+});
 
 //early address - works
 // handler({
