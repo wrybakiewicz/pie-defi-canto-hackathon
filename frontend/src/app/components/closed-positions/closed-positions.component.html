@@ -19,18 +19,15 @@
                 <tr *ngFor="let position of positions">
                     <td data-toggle="tooltip">
                         <span *ngIf="position.type === 'SHORT'" class="d-flex">
-                            <!-- <span ngbTooltip="Short position">S</span> -->
                             <span class="mr-1">Short</span>
                             <ng-icon class="fs-3 overflow-visible" ngbTooltip="Short position" name="tablerArrowWaveRightDown"></ng-icon>
                             <ng-icon *ngIf="position.isLiquidated" ngbTooltip="Liquidated" class="text-danger fs-3 overflow-visible" name="lucideSkull"></ng-icon>
                         </span>
                         <span *ngIf="position.type === 'LONG'" class="d-flex">
-                            <!-- <span ngbTooltip="Long position">L</span> -->
                             <span class="mr-1">Long</span>
                             <ng-icon class="fs-3 overflow-visible" ngbTooltip="Long position" name="tablerArrowWaveRightUp"></ng-icon>
                             <ng-icon *ngIf="position.isLiquidated" ngbTooltip="Liquidated" class="text-danger fs-3 overflow-visible" name="lucideSkull"></ng-icon>
                         </span>
-                    <!-- </td> -->
                     <td>
                         <span>{{position.openDate | date: 'dd.MM-yyyy'}}</span>
                     </td>

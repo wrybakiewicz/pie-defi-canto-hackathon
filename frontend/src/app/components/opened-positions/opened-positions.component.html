@@ -17,19 +17,19 @@
         </tr>
         <tr *ngFor="let position of positions">
           <td>
-            <span *ngIf="position.type === 'SHORT'" ngbTooltip="Short position">
+            <span *ngIf="position.type === 'SHORT'" ngbTooltip="Short position" class="d-flex">
+              <span class="mr-1">Short</span>
               <ng-icon
                 class="fs-3 overflow-visible"
                 name="tablerArrowWaveRightDown"
               ></ng-icon>
-              <span class="mr-1">Short</span>
             </span>
-            <span *ngIf="position.type === 'LONG'" ngbTooltip="Long position">
+            <span *ngIf="position.type === 'LONG'" ngbTooltip="Long position" class="d-flex">
+              <span class="mr-1">Long</span>
               <ng-icon
                 class="fs-3 overflow-visible"
                 name="tablerArrowWaveRightUp"
               ></ng-icon>
-              <span class="mr-1">Long</span>
             </span>
           </td>
           <td>
