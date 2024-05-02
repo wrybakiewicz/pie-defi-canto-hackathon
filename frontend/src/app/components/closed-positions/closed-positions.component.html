@@ -8,7 +8,8 @@
             <tbody>
                 <tr>
                     <th>Type</th>
-                    <th>Date</th>
+                    <th>Open date</th>
+                    <th>Close date</th>
                     <th>Token</th>
                     <th>Open price</th>
                     <th>Close price</th>
@@ -29,8 +30,10 @@
                         </span>
                     <!-- </td> -->
                     <td>
-                        <span>{{position.openDate | date: 'dd.MM-yyyy'}} - {{position.closeDate | date:
-                            'dd.MM-yyyy'}}</span>
+                        <span>{{position.openDate | date: 'dd.MM-yyyy'}}</span>
+                    </td>
+                    <td>
+                        <span>{{position.closeDate | date: 'dd.MM-yyyy'}}</span>
                     </td>
                     <td>
                         <span>{{position.token}}</span>
