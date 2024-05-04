@@ -155,7 +155,7 @@ export class PnlChartComponent implements AfterViewInit, OnInit {
         },
         y: {
           formatter: function (val: number) {
-            return '$' + val;
+            return '$' + val?.toFixed(2);
           },
         },
       },
